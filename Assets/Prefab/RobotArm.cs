@@ -11,6 +11,8 @@ public class RobotArm : MonoBehaviour
 
     Vector2 curPosInPuzzle; // 로봇 팔의 현재 위치 (퍼즐판 기준)
     Vector2 targetPosInPuzzle; // 로봇팔의 목표 위치 (퍼즐판 기준)
+    Vector3 offset1 = Vector3.zero; // 보정 값 1
+    Vector3 offset2 = Vector3.zero; // 보정 값 2
 
     [SerializeField]
     float unitLength; // 한칸의 단위 길이
@@ -20,7 +22,8 @@ public class RobotArm : MonoBehaviour
 
     float movePercentage; // 움직인 비율
 
-    bool isAttachedContainer = false;
+    bool isMoveReset = false; // 이동 초기화 여부
+    GameObject selectedContainer = null; // 선택된 컨테이너
 
     // Start is called before the first frame update
     void Start()
@@ -38,9 +41,12 @@ public class RobotArm : MonoBehaviour
             CheckMoveInput();
         }
 
+        Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (curPosInPuzzle.y - 2.5f)) + offset1;
+        Vector3 newPos = new Vector3(unitLength * (targetPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (targetPosInPuzzle.y - 2.5f)) + offset2;
+
         // 현재 위치와 목표 위치가 다르면 새롭게 위치 설정
-        if(curPosInPuzzle != targetPosInPuzzle) {
-            SetPosition(); // 로봇팔의 위치 설정
+        if(curPos != newPos) {
+            Move(curPos, newPos, isMoveReset); // 로봇팔의 위치 설정
         }
         else { // 같으면 컨테이너 부착 관련 입력 확인
             CheckAttachInput();
@@ -53,50 +59,67 @@ public class RobotArm : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W)) {
             targetPosInPuzzle.y += 1;
-            if (targetPosInPuzzle.y >= 6) targetPosInPuzzle.y -= 1;
         }
         if (Input.GetKeyDown(KeyCode.A)) {
             targetPosInPuzzle.x -= 1;
-            if (targetPosInPuzzle.x < 0) targetPosInPuzzle.x += 1;
         }
         if (Input.GetKeyDown(KeyCode.S)) {
             targetPosInPuzzle.y -= 1;
-            if (targetPosInPuzzle.y < 0) targetPosInPuzzle.y += 1;
         }
         if (Input.GetKeyDown(KeyCode.D)) {
             targetPosInPuzzle.x += 1;
-            if (targetPosInPuzzle.x >= 6) targetPosInPuzzle.x -= 1;
         }
     }
 
     // 현재 위치와 목표 위치에 따라 새로운 위치 계산 후 그 위치로 설정
-    void SetPosition() {
-        Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (curPosInPuzzle.y - 2.5f));
-        Vector3 newPos = new Vector3(unitLength * (targetPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (targetPosInPuzzle.y - 2.5f));
+    void Move(Vector3 curPos, Vector3 newPos, bool isBackWard) {
+        // 다음 movePercentage 계산
+        movePercentage += Time.deltaTime/moveTime * (isBackWard ? -1 : 1);
+        movePercentage = Mathf.Min(1, movePercentage);
+        movePercentage = Mathf.Max(0, movePercentage);
         
-        movePercentage += Time.deltaTime/moveTime;
-        if(movePercentage > 1) { movePercentage = 1; }
-        
+        // 새로운 위치 반영
         transform.position = Vector3.Lerp(curPos, newPos, movePercentage);
 
-        if(movePercentage == 1) {
-            curPosInPuzzle = targetPosInPuzzle;
+        // 이동이 종료되면 수행하는 동작
+        if(movePercentage == 0 || movePercentage == 1) {
+            if(movePercentage == 1) { // 이동이 제대로 종료되면
+                curPosInPuzzle = targetPosInPuzzle;
+                offset1 = offset2;
+                
+                if(selectedContainer) {
+                    AttachContainer(selectedContainer);
+                }
+            }
+            else { // 이동 초기화가 완료되면
+                targetPosInPuzzle = curPosInPuzzle;
+            }
+
             movePercentage = 0;
+            isMoveReset = false;
         }
     }
 
     // 컨테이너 부착 관련 입력 확인
     void CheckAttachInput() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            if(isAttachedContainer) {
+            if(selectedContainer) {
                 DetachContainer();
-                isAttachedContainer = false;
+                offset2 = Vector3.zero;
+                selectedContainer = null;
             }
             else {
                 if(Physics.Raycast(transform.position, -1 * transform.up, out RaycastHit hit)) {
                     if(hit.collider.CompareTag("Container")) {
-                        AttachContainer(hit.collider.gameObject);
-                        isAttachedContainer = true;
+                        selectedContainer = hit.collider.gameObject;
+
+                        Transform attachPoint = transform.GetChild(1);
+                        offset2 = hit.collider.transform.position - attachPoint.position;
+                        offset2.y = 0;
+
+                        if(offset2 == Vector3.zero) {
+                            AttachContainer(selectedContainer);
+                        }
                     }
                 }
             }
@@ -118,5 +141,10 @@ public class RobotArm : MonoBehaviour
         
         attachPoint.DetachChildren();
         container.GetComponent<Rigidbody>().useGravity = true;
+    }
+
+    // 이동 초기화
+    public void ResetMove() {
+        isMoveReset = true;
     }
 }
