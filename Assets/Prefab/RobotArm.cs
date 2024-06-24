@@ -25,6 +25,15 @@ public class RobotArm : MonoBehaviour
     bool isMoveReset = false; // 이동 초기화 여부
     GameObject selectedContainer = null; // 선택된 컨테이너
 
+    [SerializeField]
+    Transform attachPoint; // 부착 위치
+
+    [SerializeField]
+    Transform cursorPoint; // 커서 기준점
+
+    [SerializeField]
+    GameObject cursor; // 커서
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,6 +45,19 @@ public class RobotArm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Physics.Raycast(cursorPoint.position, -1 * transform.up, out RaycastHit hit)) {
+            if(hit.collider.CompareTag("Container")) {
+                cursor.SetActive(true);
+                cursor.transform.position = new Vector3(hit.point.x, hit.point.y - 0.15f, hit.point.z);
+            }
+            else {
+                cursor.SetActive(false);
+            }
+        }
+        else {
+            cursor.SetActive(false);
+        }
+
         // 현재 이동중인 상태가 아니라면 이동 관련 입력을 확인
         if(movePercentage == 0) {
             CheckMoveInput();
@@ -109,7 +131,7 @@ public class RobotArm : MonoBehaviour
                 selectedContainer = null;
             }
             else {
-                if(Physics.Raycast(transform.position, -1 * transform.up, out RaycastHit hit)) {
+                if(Physics.Raycast(cursorPoint.position, -1 * transform.up, out RaycastHit hit)) {
                     if(hit.collider.CompareTag("Container")) {
                         selectedContainer = hit.collider.gameObject;
 
@@ -128,7 +150,6 @@ public class RobotArm : MonoBehaviour
 
     // 로봇 팔에 컨테이너 부착
     void AttachContainer(GameObject container) {
-        Transform attachPoint = transform.GetChild(1);
         container.transform.SetParent(attachPoint);
         container.transform.localPosition = Vector3.zero;
         container.GetComponent<Rigidbody>().useGravity = false;
@@ -136,7 +157,6 @@ public class RobotArm : MonoBehaviour
 
     // 로봇 팔에서 컨테이너 제거 
     void DetachContainer() {
-        Transform attachPoint = transform.GetChild(1);
         GameObject container = attachPoint.GetChild(0).gameObject;
         
         attachPoint.DetachChildren();
@@ -146,5 +166,11 @@ public class RobotArm : MonoBehaviour
     // 이동 초기화
     public void ResetMove() {
         isMoveReset = true;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Wall")) {
+            ResetMove();
+        }
     }
 }
