@@ -31,6 +31,9 @@ public class RobotArm : MonoBehaviour
     [SerializeField]
     Transform lightPoint; // 빛 기준점
 
+    [SerializeField]
+    Transform lightObject; // 빛 오브젝트
+
     // Start is called before the first frame update
     void Start()
     {
