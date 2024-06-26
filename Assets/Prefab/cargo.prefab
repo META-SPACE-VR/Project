@@ -11029,6 +11029,7 @@ MonoBehaviour:
   moveTime: 0.5
   attachPoint: {fileID: 8120320241924873474}
   lightPoint: {fileID: 3498843069986004850}
+  containerPuzzle: {fileID: 6982466223158841172}
 --- !u!54 &1324353939524914188
 Rigidbody:
   m_ObjectHideFlags: 0
