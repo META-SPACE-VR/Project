@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     // 앉았을때, 얼마나 앉을지 결정하는 변수
     [SerializeField]
-    private float sitPosY = 0.5f;
+    private float sitPosY;
     private float originPosY;
     private float applySitPosY;
 
@@ -38,11 +38,11 @@ public class PlayerController : MonoBehaviour
 
     // 민감도
     [SerializeField]
-    private float lookSensitivity = 0.2f; // 회전 속도 더 낮춤
+    private float lookSensitivity; // 회전 속도 더 낮춤
 
     // 카메라 
     [SerializeField]
-    private float cameraRotationLimit = 85.0f;
+    private float cameraRotationLimit;
     private float currentCameraRotationX = 0f;
 
     // 필요한 컴포넌트
