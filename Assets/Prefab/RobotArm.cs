@@ -29,10 +29,7 @@ public class RobotArm : MonoBehaviour
     Transform attachPoint; // 부착 위치
 
     [SerializeField]
-    Transform cursorPoint; // 커서 기준점
-
-    [SerializeField]
-    GameObject cursor; // 커서
+    Transform lightPoint; // 빛 기준점
 
     // Start is called before the first frame update
     void Start()
@@ -45,19 +42,6 @@ public class RobotArm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Physics.Raycast(cursorPoint.position, -1 * transform.up, out RaycastHit hit)) {
-            if(hit.collider.CompareTag("Container")) {
-                cursor.SetActive(true);
-                cursor.transform.position = new Vector3(hit.point.x, hit.point.y - 0.15f, hit.point.z);
-            }
-            else {
-                cursor.SetActive(false);
-            }
-        }
-        else {
-            cursor.SetActive(false);
-        }
-
         // 현재 이동중인 상태가 아니라면 이동 관련 입력을 확인
         if(movePercentage == 0) {
             CheckMoveInput();
@@ -131,7 +115,7 @@ public class RobotArm : MonoBehaviour
                 selectedContainer = null;
             }
             else {
-                if(Physics.Raycast(cursorPoint.position, -1 * transform.up, out RaycastHit hit)) {
+                if(Physics.Raycast(lightPoint.position, -1 * transform.up, out RaycastHit hit)) {
                     if(hit.collider.CompareTag("Container")) {
                         selectedContainer = hit.collider.gameObject;
 
