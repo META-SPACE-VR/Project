@@ -25,6 +25,15 @@ public class RobotArm : MonoBehaviour
     bool isMoveReset = false; // 이동 초기화 여부
     GameObject selectedContainer = null; // 선택된 컨테이너
 
+    [SerializeField]
+    Transform attachPoint; // 부착 위치
+
+    [SerializeField]
+    Transform lightPoint; // 빛 기준점
+
+    [SerializeField]
+    Transform containerPuzzle; // 컨테이너 퍼즐
+
     // Start is called before the first frame update
     void Start()
     {
@@ -109,7 +118,7 @@ public class RobotArm : MonoBehaviour
                 selectedContainer = null;
             }
             else {
-                if(Physics.Raycast(transform.position, -1 * transform.up, out RaycastHit hit)) {
+                if(Physics.Raycast(lightPoint.position, -1 * transform.up, out RaycastHit hit)) {
                     if(hit.collider.CompareTag("Container")) {
                         selectedContainer = hit.collider.gameObject;
 
@@ -128,7 +137,6 @@ public class RobotArm : MonoBehaviour
 
     // 로봇 팔에 컨테이너 부착
     void AttachContainer(GameObject container) {
-        Transform attachPoint = transform.GetChild(1);
         container.transform.SetParent(attachPoint);
         container.transform.localPosition = Vector3.zero;
         container.GetComponent<Rigidbody>().useGravity = false;
@@ -136,15 +144,21 @@ public class RobotArm : MonoBehaviour
 
     // 로봇 팔에서 컨테이너 제거 
     void DetachContainer() {
-        Transform attachPoint = transform.GetChild(1);
         GameObject container = attachPoint.GetChild(0).gameObject;
         
         attachPoint.DetachChildren();
+        container.transform.parent = containerPuzzle;
         container.GetComponent<Rigidbody>().useGravity = true;
     }
 
     // 이동 초기화
     public void ResetMove() {
         isMoveReset = true;
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Wall")) {
+            ResetMove();
+        }
     }
 }
