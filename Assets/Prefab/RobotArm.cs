@@ -32,7 +32,7 @@ public class RobotArm : MonoBehaviour
     Transform lightPoint; // 빛 기준점
 
     [SerializeField]
-    Transform lightObject; // 빛 오브젝트
+    Transform containerPuzzle; // 컨테이너 퍼즐
 
     // Start is called before the first frame update
     void Start()
@@ -147,6 +147,7 @@ public class RobotArm : MonoBehaviour
         GameObject container = attachPoint.GetChild(0).gameObject;
         
         attachPoint.DetachChildren();
+        container.transform.parent = containerPuzzle;
         container.GetComponent<Rigidbody>().useGravity = true;
     }
 
