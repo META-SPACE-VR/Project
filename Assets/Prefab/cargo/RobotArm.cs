@@ -49,7 +49,7 @@ public class RobotArm : MonoBehaviour
     {
         // 로봇 팔을 초기 위치에 둔다.
         curPosInPuzzle = targetPosInPuzzle = initPosInPuzzle;
-        transform.position = new Vector3(unitLength * (initPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (initPosInPuzzle.y - 2.5f));
+        transform.localPosition = new Vector3(unitLength * (initPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (initPosInPuzzle.y - 2.5f));
     }
 
     // Update is called once per frame
@@ -57,8 +57,8 @@ public class RobotArm : MonoBehaviour
     {
         // isMoving이 true면 로봇팔 이동 시도
         if(isMoving) {
-            Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (curPosInPuzzle.y - 2.5f)) + offset1;
-            Vector3 newPos = new Vector3(unitLength * (targetPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (targetPosInPuzzle.y - 2.5f)) + offset2;
+            Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (curPosInPuzzle.y - 2.5f)) + offset1;
+            Vector3 newPos = new Vector3(unitLength * (targetPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (targetPosInPuzzle.y - 2.5f)) + offset2;
             UpdatePosition(curPos, newPos, isMoveReset); // 로봇팔의 위치 설정
         }
     }
@@ -71,7 +71,7 @@ public class RobotArm : MonoBehaviour
         movePercentage = Mathf.Max(0, movePercentage);
         
         // 새로운 위치 반영
-        transform.position = Vector3.Lerp(curPos, newPos, movePercentage);
+        transform.localPosition = Vector3.Lerp(curPos, newPos, movePercentage);
 
         // 이동이 종료되면 수행하는 동작
         if(movePercentage == 0 || movePercentage == 1) {
@@ -137,8 +137,8 @@ public class RobotArm : MonoBehaviour
                 break;
         }
 
-        Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (curPosInPuzzle.y - 2.5f)) + offset1;
-        Vector3 newPos = new Vector3(unitLength * (targetPosInPuzzle.x - 2.5f), transform.position.y, unitLength * (targetPosInPuzzle.y - 2.5f)) + offset2;
+        Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (curPosInPuzzle.y - 2.5f)) + offset1;
+        Vector3 newPos = new Vector3(unitLength * (targetPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (targetPosInPuzzle.y - 2.5f)) + offset2;
         if(curPos != newPos) {
             isMoving = true;
             moveStarted.Invoke(moveType);
