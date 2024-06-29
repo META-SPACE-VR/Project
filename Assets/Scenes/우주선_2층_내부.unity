@@ -1513,7 +1513,7 @@ Transform:
   m_LocalScale: {x: 78.31, y: 65.08896, z: 99.48947}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 594449753}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &414556600
 MeshRenderer:
@@ -2027,6 +2027,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1488876598315895032, guid: f2205a9f225613245be1128ed076bba9, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 247
+      objectReference: {fileID: 0}
     - target: {fileID: 4188734182209190678, guid: f2205a9f225613245be1128ed076bba9, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -2201,6 +2205,14 @@ PrefabInstance:
     - target: {fileID: 991660648426421632, guid: b1288d00f9fe84a4d900079cc3a1996b, type: 3}
       propertyPath: m_Name
       value: animation_rigged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8042838171062437219, guid: b1288d00f9fe84a4d900079cc3a1996b, type: 3}
+      propertyPath: m_Weight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8493168101483282077, guid: b1288d00f9fe84a4d900079cc3a1996b, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4461106223428999217, guid: b1288d00f9fe84a4d900079cc3a1996b, type: 3}
@@ -3081,7 +3093,7 @@ Transform:
   m_LocalScale: {x: 78.31, y: 65.08896, z: 99.48947}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 594449753}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &940856461
 MeshRenderer:
@@ -3756,7 +3768,7 @@ Transform:
   m_LocalScale: {x: 78.31, y: 65.08896, z: 99.48947}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 594449753}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1183219225
 MeshRenderer:
@@ -4160,7 +4172,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 594449753}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1327905121
 MeshRenderer:
@@ -4819,7 +4831,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 594449753}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1536190052
 MeshRenderer:
@@ -5199,7 +5211,7 @@ Transform:
   m_LocalScale: {x: 78.31, y: 65.08896, z: 99.48947}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 594449753}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1617927572
 MeshRenderer:
@@ -5551,6 +5563,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 416390, guid: c76d2d3504ddb4847940a815cad04644, type: 3}
   m_PrefabInstance: {fileID: 1805496512}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1816517910 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8806810947255220132, guid: b1288d00f9fe84a4d900079cc3a1996b, type: 3}
+  m_PrefabInstance: {fileID: 575839202}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1886768185
 PrefabInstance:
@@ -6436,6 +6453,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: "\uD658\uAE30\uC2E4"
       objectReference: {fileID: 0}
+    - target: {fileID: 7841496219190113513, guid: c7e56a0bfecede04fa329def1a6d097d, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1816517910}
     - target: {fileID: 7947735172032473763, guid: c7e56a0bfecede04fa329def1a6d097d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -16.852898
@@ -6490,3 +6511,10 @@ SceneRoots:
   - {fileID: 4110674184465347601}
   - {fileID: 2670311344323525454}
   - {fileID: 1500927365}
+<<<<<<<<< Temporary merge branch 1
+  - {fileID: 587949359}
+  - {fileID: 594449752}
+=========
+  - {fileID: 575839202}
+  - {fileID: 533460552}
+>>>>>>>>> Temporary merge branch 2
