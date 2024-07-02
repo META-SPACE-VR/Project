@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2052,6 +2052,10 @@ PrefabInstance:
       propertyPath: m_RightHandMoveAction.m_UseReference
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3295291678601867797, guid: f2205a9f225613245be1128ed076bba9, type: 3}
+      propertyPath: m_PositionInput.m_UseReference
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4188734182209190678, guid: f2205a9f225613245be1128ed076bba9, type: 3}
       propertyPath: m_Name
       value: XR Origin (XR Rig)
@@ -2539,6 +2543,10 @@ PrefabInstance:
       propertyPath: theCamera
       value: 
       objectReference: {fileID: 2146900530}
+    - target: {fileID: 8493168101483282077, guid: b1288d00f9fe84a4d900079cc3a1996b, type: 3}
+      propertyPath: headTransform
+      value: 
+      objectReference: {fileID: 1771046727}
     - target: {fileID: 8510594520726093902, guid: b1288d00f9fe84a4d900079cc3a1996b, type: 3}
       propertyPath: m_Layer
       value: 7
