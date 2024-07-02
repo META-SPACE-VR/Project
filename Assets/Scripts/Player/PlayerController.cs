@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PlayerController : MonoBehaviour
 {
     // 스피드 조정 변수
     [SerializeField]
-    private float walkSpeed; // 걷기 속도
+    private float walkSpeed;
     [SerializeField]
-    private float runSpeed; // 뛰기 속도
+    private float runSpeed;
     [SerializeField]
-    private float sitSpeed; // 앉기 속도
+    private float sitSpeed;
 
     private float applySpeed;
 
@@ -38,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     // 민감도
     [SerializeField]
-    private float lookSensitivity; // 회전 속도 더 낮춤
+    private float lookSensitivity;
 
     // 카메라 
     [SerializeField]
@@ -48,23 +49,31 @@ public class PlayerController : MonoBehaviour
     // 필요한 컴포넌트
     [SerializeField]
     private Camera theCamera;
+    [SerializeField] private ActionBasedController leftController;
+    [SerializeField] private ActionBasedController rightController;
     private Rigidbody myRigid;
 
     // 애니메이터 컴포넌트
     private Animator animator;
 
-    // Start is called before the first frame update
+    // RiggingManager 참조 추가
+    private RiggingManager riggingManager;
+
+    // 머리 회전을 동기화할 트랜스폼 추가
+    [SerializeField]
+    private Transform headTransform;
+
     void Start()
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
         myRigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         applySpeed = walkSpeed;
+        riggingManager = GetComponent<RiggingManager>();
         originPosY = theCamera.transform.localPosition.y;
         applySitPosY = originPosY;
     }
 
-    // Update is called once per frame
     void Update()
     {
         IsGround();
@@ -75,6 +84,24 @@ public class PlayerController : MonoBehaviour
         CharacterRotation();
         CameraRotation();
         UpdateAnimator();
+
+        // RiggingManager 업데이트
+        if (riggingManager != null)
+        {
+            riggingManager.UpdateRigging();
+        }
+
+        // 머리 회전 동기화
+        SyncHeadRotation();
+    }
+
+    private void SyncHeadRotation()
+    {
+        if (headTransform != null && theCamera != null)
+        {
+            headTransform.position = theCamera.transform.position; // 머리 위치 동기화
+            headTransform.rotation = theCamera.transform.rotation; // 머리 회전 동기화
+        }
     }
 
     private void TrySit()
@@ -106,7 +133,7 @@ public class PlayerController : MonoBehaviour
     {
         float startY = theCamera.transform.localPosition.y;
         float elapsedTime = 0f;
-        float duration = 0.3f; // 보간에 사용할 시간
+        float duration = 0.3f;
 
         while (elapsedTime < duration)
         {
@@ -173,7 +200,7 @@ public class PlayerController : MonoBehaviour
         // 앞 방향 이동 우선
         if (moveDirZ > 0)
         {
-            moveDirX *= 0.5f; // 좌우 이동의 비율을 낮춰서 앞으로 가는 게 더 우선하도록 함
+            moveDirX *= 0.5f;
         }
 
         Vector3 moveHorizontal = transform.right * moveDirX;
@@ -184,7 +211,6 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = moveDir * applySpeed;
         myRigid.MovePosition(transform.position + velocity * Time.deltaTime);
 
-        // 이동 중인지 확인
         isWalk = (moveDirX != 0 || moveDirZ > 0);
         isWalkBackwards = (moveDirZ < 0);
 
@@ -195,19 +221,16 @@ public class PlayerController : MonoBehaviour
 
         if (isWalk || isRun)
         {
-            // 캐릭터 회전
             Quaternion targetRotation = Quaternion.LookRotation(moveDir);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.01f); // 회전 속도를 조정
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.01f);
         }
     }
-
-
 
     private void UpdateAnimator()
     {
         animator.SetBool("Walk", isWalk);
         animator.SetBool("Run", isRun);
-        animator.SetBool("isWalkBackwards", isWalkBackwards); // 뒤로 걷기 애니메이션 업데이트
+        animator.SetBool("isWalkBackwards", isWalkBackwards);
     }
 
     private void CharacterRotation()
