@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     private bool isGround = true;
     private bool isWalkBackwards = false;
 
+    // 상호작용 모드 상태 변수
+    private bool isInteracting = false;
+
     // 움직임 체크 변수
     private Vector3 lastPos;
 
@@ -76,14 +79,17 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        IsGround();
-        TryJump();
-        TryRun();
-        TrySit();
-        Move();
-        CharacterRotation();
-        CameraRotation();
-        UpdateAnimator();
+        if (!isInteracting)
+        {
+            IsGround();
+            TryJump();
+            TryRun();
+            TrySit();
+            Move();
+            CharacterRotation();
+            CameraRotation();
+            UpdateAnimator();
+        }
 
         // RiggingManager 업데이트
         if (riggingManager != null)
@@ -248,5 +254,16 @@ public class PlayerController : MonoBehaviour
         currentCameraRotationX = Mathf.Clamp(currentCameraRotationX, -cameraRotationLimit, cameraRotationLimit);
 
         theCamera.transform.localEulerAngles = new Vector3(currentCameraRotationX, 0f, 0f);
+    }
+
+    // 상호작용 모드 진입/종료 함수 추가
+    public void EnterInteractionMode()
+    {
+        isInteracting = true;
+    }
+
+    public void ExitInteractionMode()
+    {
+        isInteracting = false;
     }
 }
