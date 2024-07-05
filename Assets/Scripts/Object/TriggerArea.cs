@@ -37,31 +37,11 @@ public class TriggerArea : MonoBehaviour
         {
             if (isInteracting)
             {
-                // 원래 위치로 돌아가기
-                mainCamera.transform.position = originalViewTransform.position;
-                mainCamera.transform.rotation = originalViewTransform.rotation;
-                UnlockCameraControl();
-                playerController.ExitInteractionMode();
-                screenUIManager.HideScreenUI(); // UI 비활성화
-                interactionPrompt.SetActive(false); // 텍스트 비활성화
-                isInteracting = false;
-                Debug.Log("상호작용 종료");
+                ExitInteraction();
             }
             else
             {
-                // 상호작용 위치로 이동
-                mainCamera.transform.position = screenViewTransform.position;
-                mainCamera.transform.rotation = screenViewTransform.rotation;
-
-                // 카메라가 모니터를 바라보게 함
-                mainCamera.transform.LookAt(screenViewTransform);
-
-                LockCameraControl();
-                playerController.EnterInteractionMode();
-                screenUIManager.ShowScreenUI(); // UI 활성화
-                interactionPrompt.SetActive(false); // 텍스트 비활성화
-                isInteracting = true;
-                Debug.Log("상호작용 시작");
+                EnterInteraction();
             }
         }
     }
@@ -84,6 +64,36 @@ public class TriggerArea : MonoBehaviour
         }
     }
 
+    public void EnterInteraction()
+    {
+        // 상호작용 위치로 이동
+        mainCamera.transform.position = screenViewTransform.position;
+        mainCamera.transform.rotation = screenViewTransform.rotation;
+
+        // 카메라가 모니터를 바라보게 함
+        mainCamera.transform.LookAt(screenViewTransform);
+
+        LockCameraControl();
+        playerController.EnterInteractionMode();
+        screenUIManager.ShowScreenUI(); // UI 활성화
+        interactionPrompt.SetActive(false); // 텍스트 비활성화
+        isInteracting = true;
+        Debug.Log("상호작용 시작");
+    }
+
+    public void ExitInteraction()
+    {
+        // 원래 위치로 돌아가기
+        mainCamera.transform.position = originalViewTransform.position;
+        mainCamera.transform.rotation = originalViewTransform.rotation;
+        UnlockCameraControl();
+        playerController.ExitInteractionMode();
+        screenUIManager.HideScreenUI(); // UI 비활성화
+        interactionPrompt.SetActive(false); // 텍스트 비활성화
+        isInteracting = false;
+        Debug.Log("상호작용 종료");
+    }
+
     void LockCameraControl()
     {
         // 카메라 제어 비활성화
@@ -92,7 +102,6 @@ public class TriggerArea : MonoBehaviour
             cameraControlScript.enabled = false;
         }
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     void UnlockCameraControl()
@@ -102,7 +111,7 @@ public class TriggerArea : MonoBehaviour
         {
             cameraControlScript.enabled = true;
         }
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // 커서 잠금 상태 설정 부분을 제거합니다.
+        // Cursor.lockState = CursorLockMode.Locked;
     }
 }
