@@ -102,7 +102,6 @@ public class TriggerArea : MonoBehaviour
             cameraControlScript.enabled = false;
         }
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 
     void UnlockCameraControl()
@@ -112,7 +111,7 @@ public class TriggerArea : MonoBehaviour
         {
             cameraControlScript.enabled = true;
         }
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // 커서 잠금 상태 설정 부분을 제거합니다.
+        // Cursor.lockState = CursorLockMode.Locked;
     }
 }

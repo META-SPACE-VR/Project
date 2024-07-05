@@ -7,7 +7,7 @@ using System.Collections.Generic;
 public class PasswordEntry : MonoBehaviour
 {
     public TMP_Text textInput; // 텍스트 입력 표시를 위한 TMP_Text
-    public string correctPassword = "A12345B"; // 올바른 비밀번호 설정
+    public string correctPassword; // 올바른 비밀번호 설정
     public GameObject newScreen; // 올바른 비밀번호일 때 표시할 UI 요소
     public GameObject wrongPanel; // 비밀번호가 틀릴 때 표시할 패널
     public List<Button> buttons; // 버튼 목록
@@ -15,6 +15,7 @@ public class PasswordEntry : MonoBehaviour
     public Button backspaceButton; // 백스페이스 버튼
     public TriggerArea triggerArea; // TriggerArea 스크립트 참조
     public GameObject examinationPanel; // 새로운 검사 패널 참조
+    public Animator doorAnimator; // 도어 애니메이터 참조
 
     private string currentInput = "";
 
@@ -85,6 +86,10 @@ public class PasswordEntry : MonoBehaviour
         {
             Debug.Log("비밀번호 일치!");
             SwitchToNewScreen();
+            if (doorAnimator != null)
+            {
+                doorAnimator.SetTrigger("OpenDoor"); // 정답을 맞추면 애니메이션 트리거 호출
+            }
         }
         else
         {
