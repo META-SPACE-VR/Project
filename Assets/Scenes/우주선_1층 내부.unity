@@ -44258,34 +44258,34 @@ MonoBehaviour:
   - {fileID: 655161305598325253}
   - {fileID: 3827146114028550072}
   answer:
-  - displayIndex: 0
+  - displayIndex: 3
     cableHole1: {fileID: 4841424841431994407}
     cableHole2: {fileID: 1748621415775092289}
-  - displayIndex: 0
+  - displayIndex: 3
     cableHole1: {fileID: 6572733732431731470}
     cableHole2: {fileID: 8628751654963126467}
-  - displayIndex: 0
+  - displayIndex: 3
     cableHole1: {fileID: 4777987555494687029}
     cableHole2: {fileID: 6536228567966057174}
-  - displayIndex: 0
+  - displayIndex: 3
     cableHole1: {fileID: 178160542470295167}
     cableHole2: {fileID: 7112384696890384083}
-  - displayIndex: 0
+  - displayIndex: 3
     cableHole1: {fileID: 3435157180983507524}
     cableHole2: {fileID: 883569422971039461}
-  - displayIndex: 0
+  - displayIndex: 2
     cableHole1: {fileID: 4220140020517662064}
     cableHole2: {fileID: 4521302478087402579}
-  - displayIndex: 0
+  - displayIndex: 2
     cableHole1: {fileID: 885124335547095135}
     cableHole2: {fileID: 4336043571974482232}
-  - displayIndex: 0
+  - displayIndex: 1
     cableHole1: {fileID: 2502966198294927879}
     cableHole2: {fileID: 8743536721394952341}
-  - displayIndex: 0
+  - displayIndex: 1
     cableHole1: {fileID: 4005797474159450179}
     cableHole2: {fileID: 8386750664370049946}
-  - displayIndex: 0
+  - displayIndex: 1
     cableHole1: {fileID: 3640931461319160554}
     cableHole2: {fileID: 6579622842624326281}
   - displayIndex: 0
