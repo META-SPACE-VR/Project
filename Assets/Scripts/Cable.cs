@@ -36,6 +36,54 @@ public class Cable : MonoBehaviour
 
         rigidBody.useGravity = true;
         rigidBody.isKinematic = false;
+
+        //---------------------------------------------------- Test ------------------------------------------------------------
+        // Attach Point 주위에 구멍이 있는지 확인
+        Collider[] hitCollider1 = Physics.OverlapSphere(attachPoint1.position, attachRadius, 1 << LayerMask.NameToLayer("Wire Hole"));
+        foreach (Collider collider in hitCollider1) {
+            Debug.Log("Collision!");
+            CableHole cableHole = collider.GetComponent<CableHole>();
+            if(!cableHole.isConnected) {
+                connectedHole1 = collider.gameObject;
+                cableHole.isConnected = true;
+                break;
+            }
+        }
+
+        Collider[] hitCollider2 = Physics.OverlapSphere(attachPoint2.position, attachRadius, 1 << LayerMask.NameToLayer("Wire Hole"));
+        foreach (Collider collider in hitCollider2) {
+            CableHole cableHole = collider.GetComponent<CableHole>();
+            if(!cableHole.isConnected) {
+                connectedHole2 = collider.gameObject;
+                cableHole.isConnected = true;
+                break;
+            }
+        }
+
+        // 구멍에 하나라도 연결 시
+        if(connectedHole1 || connectedHole2) {
+            rigidBody.useGravity = false;
+            rigidBody.isKinematic = true;
+
+            if(connectedHole1) {
+                transform.localRotation = Quaternion.identity;
+
+                Vector3 moveVector = connectedHole1.transform.position - attachPoint1.position;
+                transform.position += moveVector;
+            }
+            if(connectedHole2) {
+                transform.localRotation = Quaternion.identity;
+
+                Vector3 moveVector = connectedHole2.transform.position - attachPoint2.position;
+                transform.position += moveVector;
+            }
+        }
+
+        // 둘 다 연결 시
+        if(connectedHole1 && connectedHole2) {
+            panelManager.ConnectPair(connectedHole1, connectedHole2);
+        }
+        //---------------------------------------------------- Test ------------------------------------------------------------
         
         grabInteractable.selectEntered.AddListener(OnGrab);
         grabInteractable.selectExited.AddListener(OnRelease);
