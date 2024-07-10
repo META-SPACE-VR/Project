@@ -123,6 +123,8 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
+=======
 --- !u!1001 &9944372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -267,6 +269,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2185669933871761271, guid: 37628aba0a6334041b6acb49f486836f, type: 3}
   m_PrefabInstance: {fileID: 11945213}
   m_PrefabAsset: {fileID: 0}
+=========
+>>>>>>>>> Temporary merge branch 2
 --- !u!1 &14028476
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,6 +4416,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 246867713}
+<<<<<<<<< Temporary merge branch 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &234761642
 PrefabInstance:
@@ -4481,6 +4486,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3892831402022788124, guid: 717f01340c418d24f91e87173f65f182, type: 3}
   m_PrefabInstance: {fileID: 234761642}
   m_PrefabAsset: {fileID: 0}
+=========
+  m_LocalEulerAnglesHint: {x: 16.2, y: 180, z: 0}
+>>>>>>>>> Temporary merge branch 2
 --- !u!1 &234884193
 GameObject:
   m_ObjectHideFlags: 0
@@ -32198,17 +32206,61 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1516833838}
   m_Mesh: {fileID: -4831018753004186084, guid: 8d1e9436052ed409db7d5dcb0801453c, type: 3}
+<<<<<<<<< Temporary merge branch 1
 --- !u!1 &1521197125 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7169078398916105812, guid: fa1ec0238b2d83f4880737e861bb7218, type: 3}
   m_PrefabInstance: {fileID: 1201910618}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1521197126
+=========
+--- !u!1 &1519807461
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1519807462}
+  - component: {fileID: 1519807465}
+  - component: {fileID: 1519807464}
+  - component: {fileID: 1519807463}
+  m_Layer: 5
+  m_Name: Button (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1519807462
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1519807461}
+  m_LocalRotation: {x: 0.14176512, y: 0, z: 0, w: 0.9899004}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 657244937}
+  m_Father: {fileID: 331840085}
+  m_LocalEulerAnglesHint: {x: 16.3, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.64, y: -0.113}
+  m_SizeDelta: {x: 0.1, y: 0.1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1519807463
+>>>>>>>>> Temporary merge branch 2
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<<< Temporary merge branch 1
   m_GameObject: {fileID: 1521197125}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -32221,10 +32273,65 @@ MonoBehaviour:
   Icon: {fileID: 21300000, guid: 78d93967ea3bb3e4b81abad953d49156, type: 3}
 --- !u!65 &1521197127
 BoxCollider:
+=========
+  m_GameObject: {fileID: 1519807461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1519807464}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 147385212}
+        m_TargetAssemblyTypeName: UIPopupController, Assembly-CSharp
+        m_MethodName: TogglePopup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1519807464
+MonoBehaviour:
+>>>>>>>>> Temporary merge branch 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<<< Temporary merge branch 1
   m_GameObject: {fileID: 1521197125}
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -32242,10 +32349,39 @@ BoxCollider:
   m_Center: {x: 0.91394544, y: 1.3056374, z: 6.5717316}
 --- !u!54 &1521197128
 Rigidbody:
+=========
+  m_GameObject: {fileID: 1519807461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 38257edf4b1d34825a4a1107068e2e5a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1519807465
+CanvasRenderer:
+>>>>>>>>> Temporary merge branch 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<<< Temporary merge branch 1
   m_GameObject: {fileID: 1521197125}
   serializedVersion: 4
   m_Mass: 1
@@ -32267,6 +32403,10 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+=========
+  m_GameObject: {fileID: 1519807461}
+  m_CullTransparentMesh: 1
+>>>>>>>>> Temporary merge branch 2
 --- !u!1 &1522330473
 GameObject:
   m_ObjectHideFlags: 0
