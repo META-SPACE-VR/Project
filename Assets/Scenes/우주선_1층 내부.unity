@@ -25803,6 +25803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 884217635}
+  interactionText: {fileID: 809441316}
   range: 10
   interactiveObject: {fileID: 0}
   inventoryPanel: {fileID: 1562111766}

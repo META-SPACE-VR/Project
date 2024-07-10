@@ -6,7 +6,7 @@ using UnityEngine;
 public class Interaction : MonoBehaviour
 {
     [SerializeField] private Camera mainCamera;
-    private TextMeshProUGUI interactionText;
+    [SerializeField] private TextMeshProUGUI interactionText;
     private GameObject inventory;
     private InventoryManager inventoryManager;
     
@@ -20,7 +20,6 @@ public class Interaction : MonoBehaviour
     private void Start()
     {
         mainCamera = Camera.main;
-        interactionText = GameObject.Find("ShowText").GetComponent<TextMeshProUGUI>();
         inventory = GameObject.Find("Inventory");
         inventoryManager = inventory.GetComponent<InventoryManager>();
         range = 10.0f;
