@@ -1,14 +1,19 @@
 fileFormatVersion: 2
-guid: b62ca6029db6e4b0ab9e840e626d7e36
+guid: b52cd2432978b44bfae8f3e835a56e82
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MagnetCard
+    second: {fileID: 2100000, guid: 180bda74755d04528869c0e1d5633043, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
     materialSearch: 1
-    materialLocation: 0
+    materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
