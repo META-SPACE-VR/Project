@@ -5,30 +5,33 @@ using UnityEngine;
 
 public class Interaction : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera;
-    [SerializeField] private TextMeshProUGUI interactionText;
-    private GameObject inventory;
-    private InventoryManager inventoryManager;
-    
-    public float range = 10.0f;
-    public InteractiveObject interactiveObject = null;
-    
-    public GameObject inventoryPanel;
-    private bool isInventoryOpen = false;
-    private int selectedItemIndex = 0;
+    [SerializeField] private TextMeshProUGUI interactionText; // 상호작용 텍스트 표시
+    [SerializeField] private Camera mainCamera; // 카메라 참조
+    private GameObject inventory;  // 인벤토리 참조
+    private InventoryManager inventoryManager; // 인벤토리 매니저 참조
+    [SerializeField] private PlayerController playerController; // 플레이어 컨트롤러 참조
+
+    public float range = 10.0f; // 상호작용 범위
+
+    private InteractiveObject interactiveObject = null; // 현재 주을 수 있는 물체
+    private bool isInventoryOpen = false; // 인벤토리 On/Off 상태
+    private bool isItemPicked = false; // 선택된 아이템 여부
+    private int selectedItemIndex = 0; // 현재 선택중인 아이템의 인벤토리 내 인덱스
+
 
     private void Start()
     {
         mainCamera = Camera.main;
         inventory = GameObject.Find("Inventory");
         inventoryManager = inventory.GetComponent<InventoryManager>();
+        playerController = gameObject.GetComponent<PlayerController>();
         range = 10.0f;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Inventory"))
+        if (Input.GetButtonDown("Button2"))
         {
             ToggleInventory();
         }
@@ -36,6 +39,10 @@ public class Interaction : MonoBehaviour
         if (isInventoryOpen)
         {
             HandleInventoryInput();
+        }
+        else if (isItemPicked)
+        {
+            HandleItemPickedInput();
         }
         else
         {
@@ -66,7 +73,7 @@ public class Interaction : MonoBehaviour
             OnMouseExit();
         }
 
-        if (Input.GetButtonDown("Fire1") && interactiveObject)
+        if (Input.GetButtonDown("Click") && interactiveObject)
         {
             if (interactiveObject.Type == ObjectType.Collectable)
             {
@@ -77,6 +84,37 @@ public class Interaction : MonoBehaviour
                 FocusOnObject();
             }
         }
+    }
+
+    private void HandleInventoryInput()
+    {
+        if (Input.GetButtonDown("Horizontal"))
+        {
+            float horizontalInput = Input.GetAxis("Horizontal");
+            if (horizontalInput < 0)
+            {
+                SelectPreviousItem();
+            }
+            else if (horizontalInput > 0)
+            {
+                SelectNextItem();
+            }
+        }
+
+        if (Input.GetButtonDown("Click"))
+        {
+            // PickSelectedItem();
+        }
+
+        if (Input.GetButtonDown("Button4"))
+        {
+            CloseInventory();
+        }
+    }
+
+    private void HandleItemPickedInput()
+    {
+        
     }
 
     private void OnMouseEnter()
@@ -98,16 +136,6 @@ public class Interaction : MonoBehaviour
         interactionText.gameObject.SetActive(false);
     }
 
-    private void CollectObject()
-    {
-        inventoryManager.AddItem(interactiveObject, interactiveObject.gameObject);
-    }
-
-    private void FocusOnObject()
-    {
-        mainCamera.transform.LookAt(interactiveObject.transform.position);
-    }
-
     private void ToggleInventory()
     {
         isInventoryOpen = !isInventoryOpen;
@@ -121,6 +149,7 @@ public class Interaction : MonoBehaviour
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            playerController.EnterInteractionMode();
             SelectItem(0);
         }
         else
@@ -129,32 +158,14 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void HandleInventoryInput()
+    private void CollectObject()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            SelectPreviousItem();
-        }
-        else if (Input.GetKeyDown(KeyCode.D))
-        {
-            SelectNextItem();
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            DropSelectedItem();
-        }
-
-        if (Input.GetButtonDown("Cancel"))
-        {
-            CloseInventory();
-        }
+        inventoryManager.AddItem(interactiveObject, interactiveObject.gameObject);
     }
 
-    private void SelectItem(int index)
+    private void FocusOnObject()
     {
-        interactiveObject = inventoryManager.interactiveObjects[index];
-        UpdateInteractionText();
+        mainCamera.transform.LookAt(interactiveObject.transform.position);
     }
 
     private void SelectPreviousItem()
@@ -177,6 +188,21 @@ public class Interaction : MonoBehaviour
         SelectItem(selectedItemIndex);
     }
 
+    private void SelectItem(int index)
+    {
+        interactiveObject = inventoryManager.interactiveObjects[index];
+        UpdateInteractionText();
+    }
+
+    private void UpdateInteractionText()
+    {
+        if (isInventoryOpen)
+        {
+            interactionText.text = string.Format("\"{0}\" 선택 중, 손에 들기 (E)", interactiveObject.Name);
+            interactionText.gameObject.SetActive(true);
+        }
+    }
+
     private void DropSelectedItem()
     {
         Vector3 vec = transform.position + transform.forward * 2f + Vector3.up * 2.5f;
@@ -193,15 +219,9 @@ public class Interaction : MonoBehaviour
         isInventoryOpen = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        playerController.ExitInteractionMode();
     }
 
-    private void UpdateInteractionText()
-    {
-        if (isInventoryOpen)
-        {
-            interactionText.text = string.Format("\"{0}\" 선택 중, 버기리 (E)", interactiveObject.Name);
-            interactionText.gameObject.SetActive(true);
-        }
-    }
+    
 
 }
