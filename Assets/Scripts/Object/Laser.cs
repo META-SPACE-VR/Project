@@ -16,6 +16,7 @@ public class Laser : MonoBehaviour
             if (hit.collider)
             {
                 lineRenderer.SetPosition(1, hit.point);
+                Destroy(hit.collider.gameObject);
             }
         }
         else lineRenderer.SetPosition(1, transform.forward*5000);
