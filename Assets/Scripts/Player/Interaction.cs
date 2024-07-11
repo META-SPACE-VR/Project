@@ -103,10 +103,10 @@ public class Interaction : MonoBehaviour
 
         if (Input.GetButtonDown("Click"))
         {
-            // PickSelectedItem();
+            PickSelectedItem();
         }
 
-        if (Input.GetButtonDown("Button4"))
+        if (Input.GetButtonDown("Cancel"))
         {
             CloseInventory();
         }
@@ -117,6 +117,7 @@ public class Interaction : MonoBehaviour
         
     }
 
+    // NomalInput
     private void OnMouseEnter()
     {
         if (interactiveObject.Type == ObjectType.Collectable)
@@ -136,6 +137,17 @@ public class Interaction : MonoBehaviour
         interactionText.gameObject.SetActive(false);
     }
 
+    private void CollectObject()
+    {
+        inventoryManager.AddItem(interactiveObject, interactiveObject.gameObject);
+    }
+
+    private void FocusOnObject()
+    {
+        mainCamera.transform.LookAt(interactiveObject.transform.position);
+    }
+
+    // StateConvert
     private void ToggleInventory()
     {
         isInventoryOpen = !isInventoryOpen;
@@ -158,16 +170,15 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void CollectObject()
+    private void CloseInventory()
     {
-        inventoryManager.AddItem(interactiveObject, interactiveObject.gameObject);
+        isInventoryOpen = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        playerController.ExitInteractionMode();
     }
 
-    private void FocusOnObject()
-    {
-        mainCamera.transform.LookAt(interactiveObject.transform.position);
-    }
-
+    // InventoryInput
     private void SelectPreviousItem()
     {
         selectedItemIndex--;
@@ -203,6 +214,14 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    private void PickSelectedItem()
+    {
+        inventoryManager.PickItem(selectedItemIndex);
+        isItemPicked = true;
+        CloseInventory();
+    }
+
+    //ItemPickedInput
     private void DropSelectedItem()
     {
         Vector3 vec = transform.position + transform.forward * 2f + Vector3.up * 2.5f;
@@ -214,13 +233,7 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void CloseInventory()
-    {
-        isInventoryOpen = false;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        playerController.ExitInteractionMode();
-    }
+    
 
     
 

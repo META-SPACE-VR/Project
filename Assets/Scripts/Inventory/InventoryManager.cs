@@ -8,10 +8,14 @@ public class InventoryManager : MonoBehaviour
     public List<InteractiveObject> initialItems;
     public GameObject[] slots;
     public Dictionary<int, InteractiveObject> interactiveObjects;
+    private GameObject pickedItemPosition;
+    private GameObject pickedItem;
 
     private void Start()
     {
         interactiveObjects = new Dictionary<int, InteractiveObject>();
+        pickedItemPosition = GameObject.Find("PickedItemPosition");
+        pickedItemPosition.SetActive(false);
 
         for (int i = 0; i < slots.Length; i++) 
         {
@@ -107,6 +111,44 @@ public class InventoryManager : MonoBehaviour
             lastItemImage.enabled = false;
             interactiveObjects.Remove(slots.Length - 1);
         }
+    }
+
+    public void PickItem(int index)
+    {
+        if (index < 0 || index >= slots.Length)
+        {
+            Debug.LogError("Index Error: Inventory Manager Pick Item Index Error.");
+            return;
+        }
+
+        InteractiveObject prefab = interactiveObjects[index];
+
+        if (prefab == null)
+        {
+            Debug.LogError("Null Point Exception: Inventory Manager Pick Item Prefab is Null.");
+            return;
+        }
+
+        if (pickedItem != null)
+        {
+            Destroy(pickedItem);
+        }
+
+        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);
+        pickedItem.name = "pickedItem";
+        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();
+        Destroy(rb);
+        CollectableObject collectable = pickedItem.GetComponent<CollectableObject>();
+        Destroy(collectable);
+        Collider[] colliders = pickedItem.GetComponents<Collider>();
+        foreach (Collider collider in colliders)
+        {
+            Destroy(collider);
+        }
+        pickedItem.transform.localPosition = Vector3.zero;
+
+        pickedItem.SetActive(true);
+        pickedItemPosition.SetActive(true);
     }
 
     public void DropItem(int index, Vector3 dropPosition)
