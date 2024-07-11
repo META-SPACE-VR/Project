@@ -83,7 +83,7 @@ public class OpenSecondFloorEvent : MonoBehaviour
 
         // 타겟을 향해 조준 -> 발사
         foreach(GameObject targetObj in targetObjects) {
-            if(targetObj.IsDestroyed()) continue;
+            if(!targetObj.activeSelf || targetObj.IsDestroyed()) continue;
 
             // 조준
             Quaternion targetRot = Quaternion.LookRotation(targetObj.transform.position - laserPointer.transform.position);
