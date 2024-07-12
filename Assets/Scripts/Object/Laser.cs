@@ -17,9 +17,9 @@ public class Laser : MonoBehaviour
             {
                 lineRenderer.SetPosition(1, hit.point);
                 
-                ExplosionCube ec = hit.collider.gameObject.GetComponent<ExplosionCube>();
-                if(ec) {
-                    ec.Explode();
+                DestructibleRock dr = hit.collider.gameObject.GetComponent<DestructibleRock>();
+                if(dr) {
+                    dr.Explode();
                 }
             }
         }
