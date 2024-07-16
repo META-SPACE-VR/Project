@@ -34,21 +34,19 @@ public class OpenSecondFloorEvent : MonoBehaviour
 
     float currentTime = 0f;
 
-    void Start() {
+    void Awake() {
         onPos = laserPointer.transform.position;
         offPos = laserPointer.transform.position + Vector3.up * laserMoveLength;
         initRot = laserPointer.transform.rotation;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.M) && !isPlaying) {
-            StartCoroutine(PlayEvent());
+    public void PlayEvent() {
+        if(!isPlaying) {
+            StartCoroutine(PlayEventFlow());
         }
     }
 
-    IEnumerator PlayEvent() {
+    IEnumerator PlayEventFlow() {
         isPlaying = true;
 
         // Scene Fade Out
