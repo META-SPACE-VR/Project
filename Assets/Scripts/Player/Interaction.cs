@@ -61,16 +61,16 @@ public class Interaction : MonoBehaviour
             if (obj)
             {
                 interactiveObject = obj;
-                OnMouseEnter();
+                MouseEnter();
             }
             else
             {
-                OnMouseExit();
+                MouseExit();
             }
         }
         else
         {
-            OnMouseExit();
+            MouseExit();
         }
 
         if (Input.GetButtonDown("Click") && interactiveObject)
@@ -136,7 +136,7 @@ public class Interaction : MonoBehaviour
     } // 작성 예정
 
     // NomalInput
-    private void OnMouseEnter()
+    private void MouseEnter()
     {
         if (interactiveObject.Type == ObjectType.Collectable)
         {
@@ -149,7 +149,7 @@ public class Interaction : MonoBehaviour
         interactionText.gameObject.SetActive(true);
     }
 
-    private void OnMouseExit() 
+    private void MouseExit() 
     {
         interactiveObject = null;
         interactionText.gameObject.SetActive(false);
@@ -201,6 +201,11 @@ public class Interaction : MonoBehaviour
         playerController.ExitInteractionMode();
     }
 
+    private void TogglePickedItemZoom()
+    {
+
+    }
+
     // InventoryInput
     private void SelectPreviousItem()
     {
@@ -245,11 +250,6 @@ public class Interaction : MonoBehaviour
     }
 
     //ItemPickedInput
-    private void TogglePickedItemZoom()
-    {
-
-    }
-
     private void DropPickedItem()
     {
         Vector3 vec = transform.position + transform.forward * 2f + Vector3.up * 2.5f;
@@ -259,6 +259,7 @@ public class Interaction : MonoBehaviour
         {
             CloseInventory();
         }
+        DeselectItem();
     }
 
     private void DeselectItem()
