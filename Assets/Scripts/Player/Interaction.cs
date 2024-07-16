@@ -114,8 +114,26 @@ public class Interaction : MonoBehaviour
 
     private void HandleItemPickedInput()
     {
-        
+        if (Input.GetButtonDown("Button1"))
+        {
+            TogglePickedItemZoom();
+        }
+
+        if (Input.GetButtonDown("Click"))
+        {
+            DropPickedItem();
+        }
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            DeselectItem();
+        }
     }
+
+    private void HandleZoomInput()
+    {
+
+    } // 작성 예정
 
     // NomalInput
     private void OnMouseEnter()
@@ -159,6 +177,10 @@ public class Interaction : MonoBehaviour
 
         if (isInventoryOpen)
         {
+            if (isItemPicked)
+            {
+                DeselectItem();
+            }
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             playerController.EnterInteractionMode();
@@ -175,6 +197,7 @@ public class Interaction : MonoBehaviour
         isInventoryOpen = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        interactionText.gameObject.SetActive(false);
         playerController.ExitInteractionMode();
     }
 
@@ -222,7 +245,12 @@ public class Interaction : MonoBehaviour
     }
 
     //ItemPickedInput
-    private void DropSelectedItem()
+    private void TogglePickedItemZoom()
+    {
+
+    }
+
+    private void DropPickedItem()
     {
         Vector3 vec = transform.position + transform.forward * 2f + Vector3.up * 2.5f;
         inventoryManager.DropItem(selectedItemIndex, vec);
@@ -233,8 +261,9 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    
-
-    
-
+    private void DeselectItem()
+    {
+        isItemPicked = false;
+        inventoryManager.DeselectItem();
+    }
 }

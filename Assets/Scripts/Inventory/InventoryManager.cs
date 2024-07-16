@@ -129,14 +129,15 @@ public class InventoryManager : MonoBehaviour
             return;
         }
 
-        if (pickedItem != null)
+        if (pickedItem != null) // 이미 있다면 삭제
         {
             Destroy(pickedItem);
         }
 
-        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);
-        pickedItem.name = "pickedItem";
-        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();
+        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);  // 생성
+        pickedItem.transform.position = pickedItemPosition.transform.position;      // 위치 조정
+        pickedItem.name = "pickedItem";                                             // 이름 지정
+        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();                        // 기타 속성 제거
         Destroy(rb);
         CollectableObject collectable = pickedItem.GetComponent<CollectableObject>();
         Destroy(collectable);
@@ -145,10 +146,15 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(collider);
         }
-        pickedItem.transform.localPosition = Vector3.zero;
 
         pickedItem.SetActive(true);
         pickedItemPosition.SetActive(true);
+    }
+
+    public void DeselectItem()
+    {
+        Destroy(pickedItem);
+        pickedItemPosition.SetActive(false);
     }
 
     public void DropItem(int index, Vector3 dropPosition)
