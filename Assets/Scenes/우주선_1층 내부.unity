@@ -16671,7 +16671,8 @@ MonoBehaviour:
   - {fileID: 861242799}
   laserPointer: {fileID: 4285631332654554830}
   laserMoveLength: 0.5
-  laserMoveDuration: 0.5
+  laserMoveDuration: 0.3
+  stepInterval: 0.5
 --- !u!1 &643037998
 GameObject:
   m_ObjectHideFlags: 0
@@ -62892,7 +62893,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 4552482472626756921}
-  fadeTime: 0.6
+  fadeTime: 0.4
 --- !u!54 &6702828346853279532
 Rigidbody:
   m_ObjectHideFlags: 0

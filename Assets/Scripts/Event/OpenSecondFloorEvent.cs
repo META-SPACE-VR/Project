@@ -30,6 +30,9 @@ public class OpenSecondFloorEvent : MonoBehaviour
     [SerializeField]
     float laserMoveDuration; // 레이저 이동 소요 시간
 
+    [SerializeField]
+    float stepInterval; // 각 스텝 사이의 시간 간격
+
     bool isPlaying = false; // 이벤트 재생 상태
 
     float currentTime = 0f;
@@ -77,7 +80,7 @@ public class OpenSecondFloorEvent : MonoBehaviour
         }
         currentTime = 0f;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(stepInterval);
 
         // 타겟을 향해 조준 -> 발사
         foreach(GameObject targetObj in targetObjects) {
@@ -103,12 +106,12 @@ public class OpenSecondFloorEvent : MonoBehaviour
             }
             currentTime = 0f;
             
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(stepInterval);
             
             // 발사
             laserPointer.GetComponent<LaserPointer>().Shoot();
 
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(stepInterval);
         }
 
         // 원래 회전 상태로 복귀
@@ -146,7 +149,7 @@ public class OpenSecondFloorEvent : MonoBehaviour
 
         laserPointer.SetActive(false);
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(stepInterval);
 
         // Scene Fade Out
         yield return fadePanel.FadeOut();
