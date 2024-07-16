@@ -29,10 +29,11 @@ public class WheelchairController : MonoBehaviour
 
         interactionText.gameObject.SetActive(false); // 상호작용 텍스트 비활성화
 
-        wheelchairRigidbody = wheelchair.GetComponent<Rigidbody>();
+        // 자식 객체에서 Rigidbody를 찾음
+        wheelchairRigidbody = wheelchair.GetComponentInChildren<Rigidbody>();
         if (wheelchairRigidbody == null)
         {
-            Debug.LogError("Wheelchair does not have a Rigidbody component.");
+            Debug.LogError("Wheelchair does not have a Rigidbody component in its children.");
         }
         else
         {
