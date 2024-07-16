@@ -8,6 +8,8 @@ public class NPCInteraction : MonoBehaviour
     public GameObject player; // Reference to the player
     public GameObject dialoguePanel; // Reference to the dialogue UI panel
     public TMP_Text dialogueText; // Reference to the Text UI element
+    public GameObject npcModel; // NPC walking model
+    public GameObject npcModelOnWheelchair; // NPC on wheelchair model
 
     private bool playerNearby = false;
     private bool isInteracting = false;
@@ -23,6 +25,7 @@ public class NPCInteraction : MonoBehaviour
     {
         dialoguePanel.SetActive(false); // Initially hide the dialogue panel
         AddEventTriggerListener(dialoguePanel, EventTriggerType.PointerClick, OnDialoguePanelClick);
+        npcModelOnWheelchair.SetActive(false); // Initially hide the NPC on wheelchair model
     }
 
     void Update()
@@ -97,5 +100,12 @@ public class NPCInteraction : MonoBehaviour
         EventTrigger.Entry entry = new EventTrigger.Entry { eventID = type };
         entry.callback.AddListener(action);
         trigger.triggers.Add(entry);
+    }
+
+    public void NPCGetOnWheelchair()
+    {
+        Debug.Log("NPC getting on wheelchair.");
+        npcModel.SetActive(false);
+        npcModelOnWheelchair.SetActive(true);
     }
 }
