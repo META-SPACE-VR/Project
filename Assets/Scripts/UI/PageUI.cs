@@ -14,7 +14,7 @@ public class PageUI : MonoBehaviour
 
     TMP_InputField activeInputField; // 활성화된 InputField
 
-    private void Start() {
+    private void Awake() {
         activeInputField = null;
         keyboard.SetActive(false);
 

@@ -18,8 +18,6 @@ public class KeyBoard : MonoBehaviour
 
     void Start()
     {
-        keyBoard.SetActive(false); // 처음에는 키보드 숨김
-
         foreach (Button button in buttons)
         {
             if (button != null)
