@@ -6,7 +6,7 @@ using UnityEngine;
 public class LoginUI : PageUI
 {
     [SerializeField]
-    ControlUIManager controlUiMgr; // Control UI Manager
+    DisplayUIManager displayUiMgr; // Control UI Manager
     [SerializeField]
     GameObject wrongPanel; // 비밀번호가 틀릴 때 표시할 패널
 
@@ -15,7 +15,7 @@ public class LoginUI : PageUI
     protected override void DoCorrectAction()
     {
         // 퀴즈 페이지로 이동
-        controlUiMgr.NavigateQuizUI();
+        displayUiMgr.NavigateQuizUI();
     }
 
     protected override void DoWrongAction()

@@ -5,22 +5,22 @@ using UnityEngine;
 
 [Serializable]
 public class UIData {
-    public ControlUIType uiType;
+    public DisplayUIType uiType;
     public GameObject ui;
-    public UIData(ControlUIType _uiType, GameObject _ui) {
+    public UIData(DisplayUIType _uiType, GameObject _ui) {
         uiType = _uiType;
         ui = _ui;
     }
 }
 
-public class ControlUIManager : MonoBehaviour
+public class DisplayUIManager : MonoBehaviour
 {
-    ControlUIType currentType = ControlUIType.Main; // 현재 UI 타입
+    DisplayUIType currentType = DisplayUIType.Main; // 현재 UI 타입
     
     [SerializeField]
     List<UIData> uiDatas; // UI 목록 (List)
 
-    readonly Dictionary<ControlUIType, GameObject> uiDict = new(); // UI 목록 (Dictionary)
+    readonly Dictionary<DisplayUIType, GameObject> uiDict = new(); // UI 목록 (Dictionary)
 
     // Start is called before the first frame update
     void Start()
@@ -29,11 +29,11 @@ public class ControlUIManager : MonoBehaviour
             uiDict.Add(uiData.uiType, uiData.ui);
         }
 
-        ChangeUI(ControlUIType.Main);
+        ChangeUI(DisplayUIType.Main);
     }
     
     // UI 변경
-    void ChangeUI(ControlUIType nextType) {
+    void ChangeUI(DisplayUIType nextType) {
         // 변경하려는 타입이 현재 타입이랑 같다면 종료
         if(currentType == nextType) return;
 
@@ -49,9 +49,9 @@ public class ControlUIManager : MonoBehaviour
         Debug.Log("Change UI : " + currentType);
     }
 
-    public void NavigateMainUI() { ChangeUI(ControlUIType.Main); }
-    public void NavigateLoginUI() { ChangeUI(ControlUIType.Login); }
-    public void NavigateQuizUI() { ChangeUI(ControlUIType.Quiz); }
+    public void NavigateMainUI() { ChangeUI(DisplayUIType.Main); }
+    public void NavigateLoginUI() { ChangeUI(DisplayUIType.Login); }
+    public void NavigateQuizUI() { ChangeUI(DisplayUIType.Quiz); }
 
     // 현재 페이지의 활성화된 InputField에 문자 추가
     public void AddCharacter(string character) {

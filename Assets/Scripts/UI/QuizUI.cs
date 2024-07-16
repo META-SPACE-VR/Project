@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuizUI : PageUI
 {
     [SerializeField]
-    ControlUIManager controlUiMgr; // Control UI Manager
+    DisplayUIManager displayUiMgr; // Display UI Manager
     [SerializeField]
     GameObject wrongPanel; // 비밀번호가 틀릴 때 표시할 패널
     [SerializeField]

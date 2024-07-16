@@ -14,7 +14,7 @@ public class KeyBoard : MonoBehaviour
     GameObject keyBoard;
 
     [SerializeField]
-    ControlUIManager controlUIMgr;
+    DisplayUIManager displayUIMgr;
 
     void Start()
     {
@@ -40,17 +40,17 @@ public class KeyBoard : MonoBehaviour
 
     public void AddCharacter(string character)
     {   
-        controlUIMgr.AddCharacter(character);
+        displayUIMgr.AddCharacter(character);
     }
 
     public void CheckAnswer()
     {   
-        controlUIMgr.CheckAnswer();
+        displayUIMgr.CheckAnswer();
     }
 
     public void RemoveCharacter()
     {
-        controlUIMgr.RemoveCharacter();
+        displayUIMgr.RemoveCharacter();
     }
 
     public void OnButtonClick(string character)

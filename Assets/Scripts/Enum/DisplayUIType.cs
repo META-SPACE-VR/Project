@@ -4,6 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public enum ControlUIType {
+public enum DisplayUIType {
     Main = 0, Login = 1, Quiz = 2
 }
