@@ -3184,6 +3184,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1021547305830476309, guid: 709082820cf237f458ba4fdb9f3cc23b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 212927790}
+    - targetCorrespondingSourceObject: {fileID: 1021547305830476309, guid: 709082820cf237f458ba4fdb9f3cc23b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 212927796}
     - targetCorrespondingSourceObject: {fileID: 1183871510056342415, guid: 709082820cf237f458ba4fdb9f3cc23b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1906545222}
@@ -5613,6 +5616,22 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 677745512443192136, guid: 709082820cf237f458ba4fdb9f3cc23b, type: 3}
   m_PrefabInstance: {fileID: 104643576}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &212927796
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212927786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a93c20d96eb245444919aea0f8ed8130, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputFields: []
+  answers: []
+  keyboard: {fileID: 1906545218}
+  isMouseEntered: 0
 --- !u!1 &216886804 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7675953078473538517, guid: 897e5dd5846392342a0cc93e4847307d, type: 3}
