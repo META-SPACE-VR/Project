@@ -149,7 +149,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2838458298164806509}
-  - {fileID: 9109140699629952342}
   - {fileID: 7944583195751533490}
   - {fileID: 2574177650167015412}
   m_Father: {fileID: 2788661772126537463}
@@ -384,7 +383,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3884258372550556767}
   m_Father: {fileID: 4773497654166139207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5490588276858505971
@@ -939,12 +939,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8866205858836375997}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.15000002, y: 0, z: 0}
+  m_LocalScale: {x: 0.29999995, y: 0.3, z: 0.29999995}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6568421970541577063}
+  m_Father: {fileID: 2838458298164806509}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &1868356466159886031
 MeshFilter:
@@ -1025,18 +1025,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6568421970541577063}
     m_Modifications:
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Size.x
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Size.z
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Center.x
-      value: -0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 2441291184268255378, guid: 64af8466326e8dd4a8f8b8dfaf9bcdd6, type: 3}
       propertyPath: m_Name
       value: CableContactMale
@@ -1081,6 +1069,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Size.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Size.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Center.x
+      value: -0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7082755962264988041, guid: b155a0e856055f342935f48cafafea56, type: 3}
     - {fileID: 4667600389408559356, guid: b155a0e856055f342935f48cafafea56, type: 3}
@@ -1093,6 +1093,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3457132163642946136, guid: 64af8466326e8dd4a8f8b8dfaf9bcdd6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5731835285244864280}
+    - targetCorrespondingSourceObject: {fileID: 3457132163642946136, guid: 64af8466326e8dd4a8f8b8dfaf9bcdd6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9109140699629952342}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64af8466326e8dd4a8f8b8dfaf9bcdd6, type: 3}
 --- !u!4 &2838458298164806509 stripped
@@ -1106,7 +1109,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 5200852089227487083}
+    m_TransformParent: {fileID: 5109669316632238075}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a7c6f24935fba494fae944907bdfb736, type: 3}
       propertyPath: m_LocalScale.x
@@ -1280,26 +1283,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4773497654166139207}
     m_Modifications:
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Size.x
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Size.y
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Size.z
-      value: 0.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Center.x
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
-      propertyPath: m_Center.z
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2441291184268255378, guid: 64af8466326e8dd4a8f8b8dfaf9bcdd6, type: 3}
       propertyPath: m_Name
       value: CableContactMale
@@ -1344,15 +1327,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Size.x
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Size.y
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Size.z
+      value: 0.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Center.x
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7620940507162921636, guid: b155a0e856055f342935f48cafafea56, type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 434443429650187091, guid: b155a0e856055f342935f48cafafea56, type: 3}
     - {fileID: 315354874768086955, guid: b155a0e856055f342935f48cafafea56, type: 3}
     - {fileID: 1857551798474143958, guid: b155a0e856055f342935f48cafafea56, type: 3}
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3457132163642946136, guid: 64af8466326e8dd4a8f8b8dfaf9bcdd6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3884258372550556767}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 64af8466326e8dd4a8f8b8dfaf9bcdd6, type: 3}
 --- !u!4 &5200852089227487083 stripped
