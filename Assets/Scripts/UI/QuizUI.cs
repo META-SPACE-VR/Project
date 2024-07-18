@@ -13,6 +13,7 @@ public class QuizUI : PageUI
 
     IEnumerator wrongPanelCoroutine; // 실행중인 오답 패널 코루틴
 
+    public GameObject mainUI;
     public GameObject quiz1UI;
     public GameObject quiz2UI;
 
@@ -45,6 +46,7 @@ public class QuizUI : PageUI
     // 메인 탭으로 전환
     public void ShowMain()
     {
+        mainUI.SetActive(true);
         quiz1UI.SetActive(false);
         quiz2UI.SetActive(false);
     }
@@ -52,6 +54,7 @@ public class QuizUI : PageUI
     // 퀴즈 1 탭으로 전환
     public void ShowQuiz1()
     {
+        mainUI.SetActive(false);
         quiz1UI.SetActive(true);
         quiz2UI.SetActive(false);
     }
@@ -59,6 +62,7 @@ public class QuizUI : PageUI
     // 퀴즈 2 탭으로 전환
     public void ShowQuiz2()
     {
+        mainUI.SetActive(false);
         quiz1UI.SetActive(false);
         quiz2UI.SetActive(true);
     }
