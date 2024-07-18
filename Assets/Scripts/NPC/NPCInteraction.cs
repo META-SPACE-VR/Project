@@ -8,6 +8,9 @@ public class NPCInteraction : MonoBehaviour
     public GameObject player; // Reference to the player
     public GameObject dialoguePanel; // Reference to the dialogue UI panel
     public TMP_Text dialogueText; // Reference to the Text UI element
+    public GameObject wheelchair; // Reference to the wheelchair
+    public Transform sitArea; // Reference to the sit area on the wheelchair
+    public float interactionDistance; // Distance to check if the wheelchair is nearby
 
     private bool playerNearby = false;
     private bool isInteracting = false;
@@ -77,6 +80,24 @@ public class NPCInteraction : MonoBehaviour
         isInteracting = false;
         dialoguePanel.SetActive(false);
         Debug.Log("Find something to carry the NPC.");
+        if (wheelchair != null && IsWheelchairNearby())
+        {
+            SitInWheelchair();
+        }
+    }
+
+    private bool IsWheelchairNearby()
+    {
+        float distance = Vector3.Distance(transform.position, wheelchair.transform.position);
+        return distance <= interactionDistance;
+    }
+
+    private void SitInWheelchair()
+    {
+        transform.position = sitArea.position;
+        transform.rotation = sitArea.rotation;
+        transform.SetParent(wheelchair.transform);
+        Debug.Log("NPC is now in the wheelchair.");
     }
 
     private void OnDialoguePanelClick(BaseEventData eventData)

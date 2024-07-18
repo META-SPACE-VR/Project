@@ -15,6 +15,8 @@ public class WheelchairController : MonoBehaviour
     private Rigidbody wheelchairRigidbody;
     private Transform originalParent;
 
+    private float originalPlayerMoveSpeed;
+
     void Start()
     {
         // 모든 공개 변수가 할당되었는지 확인하는 디버그 로그
