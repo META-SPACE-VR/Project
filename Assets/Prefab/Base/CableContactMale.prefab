@@ -118,6 +118,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Joints
       objectReference: {fileID: 0}
+    - target: {fileID: -6902573867230041995, guid: dec63744c5a876a43b61d6b4ba62cd61, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6735293db45bd034d9c29d3f03fbf60a, type: 2}
     - target: {fileID: -5568371526223589888, guid: dec63744c5a876a43b61d6b4ba62cd61, type: 3}
       propertyPath: m_Name
       value: Main
@@ -126,6 +130,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: male
       objectReference: {fileID: 0}
+    - target: {fileID: 1129496810705857465, guid: dec63744c5a876a43b61d6b4ba62cd61, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2b9b15e3ce85e50409f9655ce7fede63, type: 2}
+    - target: {fileID: 7202271454713460447, guid: dec63744c5a876a43b61d6b4ba62cd61, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: d7294a8532b728f4a96be4a6e72419d7, type: 2}
     - target: {fileID: 8700725330082129686, guid: dec63744c5a876a43b61d6b4ba62cd61, type: 3}
       propertyPath: m_Name
       value: Color
