@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class PageUI : MonoBehaviour
+public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     List<TMP_InputField> inputFields; // 각 UI에서 사용하는 InputField들
@@ -14,9 +16,10 @@ public class PageUI : MonoBehaviour
 
     TMP_InputField activeInputField; // 활성화된 InputField
 
+    public bool isMouseEntered; // 마우스 커서가 내부에 있으면 true
+
     private void Awake() {
         activeInputField = null;
-        keyboard.SetActive(false);
 
         // inputField에 이벤트 추가
         foreach (TMP_InputField inputField in inputFields) {
@@ -26,13 +29,39 @@ public class PageUI : MonoBehaviour
             });
 
             inputField.onDeselect.AddListener((_) => {
-                // if(activeInputField == inputField) {
-                //     activeInputField = null;
-                //     keyboard.SetActive(false);
-                // }
+                if(isMouseEntered) {
+                    if(activeInputField == inputField) {
+                        activeInputField = null;
+                        keyboard.SetActive(false);
+                    }
+                }
+                else {
+                    if(activeInputField == inputField) {
+                        StartCoroutine(SelectActiveInputField());
+                    }
+                }
             });
         }
     }
+
+    IEnumerator SelectActiveInputField() {
+        yield return null;
+        activeInputField.ActivateInputField();
+        activeInputField.Select();
+    }
+
+    private void OnEnable() {
+        // 오브젝트가 비활성화되다가 다시 활성화되면 모든 InputField의 값을 빈 문자열로 설정
+        foreach (TMP_InputField inputField in inputFields) {
+            inputField.text = "";
+        }
+
+        // 키보드 비활성화
+        keyboard.SetActive(false);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData) { isMouseEntered = true; }
+    public void OnPointerExit(PointerEventData eventData) { isMouseEntered = false; }
 
     // inputField에 문자 추가
     public void AddCharacter(string character) {
