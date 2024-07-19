@@ -20,6 +20,7 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void Awake() {
         activeInputField = null;
+        isMouseEntered = false;
 
         // inputField에 이벤트 추가
         foreach (TMP_InputField inputField in inputFields) {
@@ -58,6 +59,10 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         // 키보드 비활성화
         keyboard.SetActive(false);
+    }
+
+    private void OnDisable() {
+        isMouseEntered = false;
     }
 
     public void OnPointerEnter(PointerEventData eventData) { isMouseEntered = true; }
