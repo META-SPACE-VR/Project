@@ -7,6 +7,7 @@ TagManager:
   - Container
   - Robot Arm
   - Wall
+  - Corridor
   layers:
   - Default
   - TransparentFX
