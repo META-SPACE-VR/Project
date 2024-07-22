@@ -61,11 +61,11 @@ public class ExaminationPanel : MonoBehaviour
         if (npcInteraction.transform.IsChildOf(bedTransform))
         {
             bedAnimator.SetTrigger("Bed_In");
-            DisplayExaminationResults();
+            DisplayHologramResults();
         }
     }
 
-    private void DisplayExaminationResults()
+    private void DisplayHologramResults()
     {
         if (resultPanel != null)
         {
