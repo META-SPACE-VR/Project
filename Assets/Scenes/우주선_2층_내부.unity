@@ -27660,7 +27660,65 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9172220658530277724, guid: 28944a2027a94444f9f8eb72bef797df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 228573692}
+    - targetCorrespondingSourceObject: {fileID: 4998388121646442282, guid: 28944a2027a94444f9f8eb72bef797df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2670311344323525459}
+    - targetCorrespondingSourceObject: {fileID: 4998388121646442282, guid: 28944a2027a94444f9f8eb72bef797df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2670311344323525458}
   m_SourcePrefab: {fileID: 100100000, guid: 28944a2027a94444f9f8eb72bef797df, type: 3}
+--- !u!4 &2670311344323525455 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7202049906099021276, guid: 28944a2027a94444f9f8eb72bef797df, type: 3}
+  m_PrefabInstance: {fileID: 2670311344323525454}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2670311344323525456 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4998388121646442282, guid: 28944a2027a94444f9f8eb72bef797df, type: 3}
+  m_PrefabInstance: {fileID: 2670311344323525454}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2670311344323525457 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1566573191021813161, guid: 28944a2027a94444f9f8eb72bef797df, type: 3}
+  m_PrefabInstance: {fileID: 2670311344323525454}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2670311344323525458
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2670311344323525456}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0dde51fd521a73745bcd9b4121a31510, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2670311344323525459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2670311344323525456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 903a78dd8ec16b342b296c8de04e077d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  anim: {fileID: 2670311344323525458}
+  lift: {fileID: 2670311344323525455}
+  floor2Position: {fileID: 0}
+  floor1Position: {fileID: 2670311344323525457}
 --- !u!1001 &4110674184465347601
 PrefabInstance:
   m_ObjectHideFlags: 0
