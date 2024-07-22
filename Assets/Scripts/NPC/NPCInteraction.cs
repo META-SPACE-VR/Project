@@ -16,7 +16,6 @@ public class NPCInteraction : MonoBehaviour
     private bool isInteracting = false;
     private int dialogueStep = 0;
 
-
     private string[] dialogueLines = new string[]
     {
         "Help!",
@@ -100,6 +99,16 @@ public class NPCInteraction : MonoBehaviour
         transform.SetParent(wheelchair.transform);
         isSittingInWheelchair = true;
         Debug.Log("NPC is now in the wheelchair.");
+    }
+
+    public void LayOnBed(Transform bedTransform)
+    {
+        // Move the NPC to the bed
+        transform.SetParent(bedTransform);
+        transform.position = bedTransform.position;
+        transform.rotation = bedTransform.rotation;
+        isSittingInWheelchair = false;
+        Debug.Log("NPC is now on the bed.");
     }
 
     private void OnDialoguePanelClick(BaseEventData eventData)

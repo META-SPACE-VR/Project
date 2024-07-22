@@ -54,7 +54,7 @@ public class Interaction : MonoBehaviour
             if (obj)
             {
                 interactiveObject = obj;
-                OnMouseEnter();
+                MouseEnter();
             }
             else
             {
@@ -79,7 +79,7 @@ public class Interaction : MonoBehaviour
         }
     }
 
-    private void OnMouseEnter()
+    private void MouseEnter()
     {
         if (interactiveObject.Type == ObjectType.Collectable)
         {
