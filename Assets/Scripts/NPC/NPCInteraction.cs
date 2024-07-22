@@ -11,7 +11,7 @@ public class NPCInteraction : MonoBehaviour
     public GameObject wheelchair; // Reference to the wheelchair
     public Transform sitArea; // Reference to the sit area on the wheelchair
     public float interactionDistance; // Distance to check if the wheelchair is nearby
-
+    public bool isSittingInWheelchair = false;
     private bool playerNearby = false;
     private bool isInteracting = false;
     private int dialogueStep = 0;
@@ -92,12 +92,23 @@ public class NPCInteraction : MonoBehaviour
         return distance <= interactionDistance;
     }
 
-    private void SitInWheelchair()
+    public void SitInWheelchair()
     {
         transform.position = sitArea.position;
         transform.rotation = sitArea.rotation;
         transform.SetParent(wheelchair.transform);
+        isSittingInWheelchair = true;
         Debug.Log("NPC is now in the wheelchair.");
+    }
+
+    public void LayOnBed(Transform bedTransform)
+    {
+        // Move the NPC to the bed
+        transform.SetParent(bedTransform);
+        transform.position = bedTransform.position;
+        transform.rotation = bedTransform.rotation;
+        isSittingInWheelchair = false;
+        Debug.Log("NPC is now on the bed.");
     }
 
     private void OnDialoguePanelClick(BaseEventData eventData)
