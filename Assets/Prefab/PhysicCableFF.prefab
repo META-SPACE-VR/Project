@@ -189,7 +189,7 @@ MonoBehaviour:
   allowConnectDifrentCollor: 0
   <ConnectedTo>k__BackingField: {fileID: 0}
   connectionPoint: {fileID: 2574177650167015412}
-  collorRenderer: {fileID: 0}
+  collorRenderer: {fileID: 2220368418145837553}
   sparksParticle: {fileID: 0}
 --- !u!65 &1438549801109063057
 BoxCollider:
@@ -1164,6 +1164,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 279f84273bface843905f1fe54fe3a36, type: 3}
+--- !u!23 &2220368418145837553 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8721015371757745346, guid: 279f84273bface843905f1fe54fe3a36, type: 3}
+  m_PrefabInstance: {fileID: 7482466939428885811}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3311165147282918423 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5342552433559116068, guid: 279f84273bface843905f1fe54fe3a36, type: 3}
