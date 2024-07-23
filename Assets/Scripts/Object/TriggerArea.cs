@@ -52,7 +52,6 @@ public class TriggerArea : MonoBehaviour
         {
             isPlayerInRange = true;
             interactionPrompt.SetActive(true); // 텍스트 활성화
-            Debug.Log("텍스트 활성화");
         }
     }
 
@@ -62,8 +61,6 @@ public class TriggerArea : MonoBehaviour
         {
             isPlayerInRange = false;
             interactionPrompt.SetActive(false); // 텍스트 비활성화
-            Debug.Log("텍스트 비활성화");
-
         }
     }
 
