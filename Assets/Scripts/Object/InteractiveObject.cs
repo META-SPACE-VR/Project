@@ -6,6 +6,7 @@ using UnityEngine;
 public enum ObjectType
 {
     Collectable,
+    Putable,
     Zoomable,
     Zoomed
 };

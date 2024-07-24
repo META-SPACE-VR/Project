@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
@@ -14,10 +15,13 @@ public class Interaction : MonoBehaviour
 
     public float range = 10.0f; // 상호작용 범위
 
-    private InteractiveObject interactiveObject = null; // 현재 주을 수 있는 물체
+    private InteractiveObject interactiveObject = null; // 현재 상호작용 할 수 있는 물체
+    private GameObject putItem;
+    private GameObject putItemPosition;
     private bool isInventoryOpen = false; // 인벤토리 On/Off 상태
     private bool isItemPicked = false; // 선택된 아이템 여부
     private bool isItemZoomed = false; // 아이템 자세히 보기 On/Off 상태
+    private bool isItemPut = false; // 아이템이 상호작용 가능한 물체 위에 올려져 있는지 여부
     private int selectedItemIndex = 0; // 현재 선택중인 아이템의 인벤토리 내 인덱스
 
 
@@ -27,7 +31,7 @@ public class Interaction : MonoBehaviour
         inventoryManager = inventory.GetComponent<InventoryManager>();
         playerController = gameObject.GetComponent<PlayerController>();
         zoomItemCamera.enabled = false;
-        range = 10.0f;
+        range = 5.0f;
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -64,7 +68,7 @@ public class Interaction : MonoBehaviour
         if (Physics.Raycast(ray, out hit, range))
         {
             InteractiveObject obj = hit.collider.GetComponent<InteractiveObject>();
-            if (obj)
+            if (obj && (obj.Type == ObjectType.Collectable || obj.Type == ObjectType.Zoomable))
             {
                 interactiveObject = obj;
                 MouseEnter();
@@ -120,6 +124,27 @@ public class Interaction : MonoBehaviour
 
     private void HandleItemPickedInput()
     {
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, range))
+        {
+            InteractiveObject obj = hit.collider.GetComponent<InteractiveObject>();
+            if (obj && obj.Type == ObjectType.Putable)
+            {
+                interactiveObject = obj;
+                PreviewItemPut();
+            }
+            else
+            {
+                PreviewCancel();
+            }
+        }
+        else
+        {
+            PreviewCancel();
+        }
+
         if (Input.GetButtonDown("Button1"))
         {
             TogglePickedItemZoom();
@@ -127,7 +152,14 @@ public class Interaction : MonoBehaviour
 
         if (Input.GetButtonDown("Click"))
         {
-            DropPickedItem();
+            if (isItemPut)
+            {
+                PutPickedItem();
+            }
+            else
+            {
+                DropPickedItem();
+            }
         }
 
         if (Input.GetButtonDown("Cancel"))
@@ -297,4 +329,58 @@ public class Interaction : MonoBehaviour
         inventoryManager.DeselectItem();
     }
 
+    private void PreviewItemPut()
+    {
+        if (isItemPut)
+        {
+            return;
+        }
+
+        // 프리팹 미리보기
+        isItemPut = true;
+        Transform putItemTransform = interactiveObject.transform.Find("PutItemPosition");
+        if (putItemTransform != null)
+        {
+            putItemPosition = putItemTransform.gameObject;
+        }
+        InteractiveObject prefab = inventoryManager.GetItemByIndex(selectedItemIndex);
+        putItem = Instantiate(prefab.gameObject, putItemTransform);
+        putItem.transform.SetPositionAndRotation(putItemTransform.position, Quaternion.identity);
+        Rigidbody rb = putItem.GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+
+        putItem.SetActive(true);
+        putItemTransform.gameObject.SetActive(true);
+
+        // 손에 들고 있는 아이템 안보이게
+        inventoryManager.DeselectItem();
+
+        // 텍스트 UI
+        interactionText.text = "아이템 놓기 (E)";
+        interactionText.gameObject.SetActive(true);
+    }
+
+    private void PreviewCancel()
+    {
+        if (!isItemPut)
+        {
+            return;
+        }
+
+        // 프리팹 제거
+        isItemPut = false;
+        Destroy(putItem);
+
+        // 아이템 다시 손에 들기
+        inventoryManager.PickItem(selectedItemIndex);
+
+        // 텍스트 UI 제거
+        interactiveObject = null;
+        interactionText.gameObject.SetActive(false);
+    }
+
+    private void PutPickedItem()
+    {
+
+    }
 }

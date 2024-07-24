@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -139,8 +140,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);  // 생성
-        pickedItem.transform.position = pickedItemPosition.transform.position;      // 위치 조정
-        pickedItem.transform.rotation = Quaternion.identity;
+        pickedItem.transform.SetPositionAndRotation(pickedItemPosition.transform.position, Quaternion.identity);
         pickedItem.name = "pickedItem";                                             // 이름 지정
         Rigidbody rb = pickedItem.GetComponent<Rigidbody>();                        // 기타 속성 제거
         Destroy(rb);
@@ -174,6 +174,8 @@ public class InventoryManager : MonoBehaviour
                 dropItem.gameObject.SetActive(true);
 
                 dropItem.transform.position = dropPosition;
+                Rigidbody rb = dropItem.GetComponent<Rigidbody>();
+                rb.isKinematic = false;
 
                 RemoveItem(index);
             }
@@ -202,8 +204,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         zoomedItem = Instantiate(prefab.gameObject, zoomedItemPosition.transform);
-        zoomedItem.transform.position = zoomedItemPosition.transform.position;
-        zoomedItem.transform.rotation = Quaternion.identity;
+        zoomedItem.transform.SetPositionAndRotation(zoomedItemPosition.transform.position, Quaternion.identity);
         zoomedItem.name = "zoomedItem";
         Rigidbody rb = zoomedItem.GetComponent<Rigidbody>();                        // 기타 속성 제거, 변경
         Destroy(rb);
@@ -223,6 +224,11 @@ public class InventoryManager : MonoBehaviour
     {
         Destroy(zoomedItem);
         zoomedItemPosition.SetActive(false);
+    }
+
+    public InteractiveObject GetItemByIndex(int index)
+    {
+        return interactiveObjects[index];
     }
 
     public int GetItemCount()
