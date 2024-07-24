@@ -12,9 +12,9 @@ public class ExaminationPanel : MonoBehaviour
     public Animator bedAnimator;
     public float wheelDistance;
     public GameObject wheelchair;
-    public Transform bedTransform;
-    public TriggerArea triggerArea; 
-    public GameObject resultPanel;
+    public Transform bedTransform; // Add a reference to the bed's transform
+    public TriggerArea triggerArea; // Add a reference to TriggerArea
+    public GameObject resultPanel; // Add a reference to the result panel
 
     void Start()
     {
@@ -26,18 +26,6 @@ public class ExaminationPanel : MonoBehaviour
             resultPanel.SetActive(false); // Initially hide the result panel
         }
 
-    }
-
-    void Update()
-    {
-        if (npcInteraction.isSittingInWheelchair && !IsNearby())
-        {
-            // NPC가 휠체어에 앉아 있고, 휠체어가 범위를 벗어났을 때 홀로그램을 끕니다.
-            if (resultPanel != null && resultPanel.activeSelf)
-            {
-                resultPanel.SetActive(false);
-            }
-        }
     }
 
     private bool IsNearby()
