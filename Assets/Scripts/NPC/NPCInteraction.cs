@@ -9,12 +9,15 @@ public class NPCInteraction : MonoBehaviour
     public GameObject dialoguePanel; // Reference to the dialogue UI panel
     public TMP_Text dialogueText; // Reference to the Text UI element
     public GameObject wheelchair; // Reference to the wheelchair
+    public GameObject Inventory; // 인벤토리 숨기기
     public Transform sitArea; // Reference to the sit area on the wheelchair
+    public Button sitWheelChairBtn; // 휠체어 태우기 버튼
     public float interactionDistance; // Distance to check if the wheelchair is nearby
     public bool isSittingInWheelchair = false;
     private bool playerNearby = false;
     private bool isInteracting = false;
     private int dialogueStep = 0;
+    
 
     private string[] dialogueLines = new string[]
     {
@@ -24,6 +27,7 @@ public class NPCInteraction : MonoBehaviour
 
     void Start()
     {
+        sitWheelChairBtn.onClick.AddListener(sitWheelChairBtnClick);
         dialoguePanel.SetActive(false); // Initially hide the dialogue panel
         AddEventTriggerListener(dialoguePanel, EventTriggerType.PointerClick, OnDialoguePanelClick);
     }
@@ -33,6 +37,14 @@ public class NPCInteraction : MonoBehaviour
         if (playerNearby && Input.GetKeyDown(KeyCode.E) && !isInteracting)
         {
             StartDialogue();
+        }
+        if (IsWheelchairNearby() && playerNearby && !isSittingInWheelchair)
+        {
+            sitWheelChairBtn.gameObject.SetActive(true);
+        }
+        else
+        {
+            sitWheelChairBtn.gameObject.SetActive(false);
         }
     }
 
@@ -59,6 +71,7 @@ public class NPCInteraction : MonoBehaviour
         isInteracting = true;
         dialogueStep = 0;
         dialoguePanel.SetActive(true);
+        Inventory.SetActive(false);
         dialogueText.text = dialogueLines[dialogueStep];
     }
 
@@ -79,13 +92,18 @@ public class NPCInteraction : MonoBehaviour
     {
         isInteracting = false;
         dialoguePanel.SetActive(false);
-        Debug.Log("Find something to carry the NPC.");
+        Debug.Log("Find something to carry the NPC");
+    }
+
+
+    private void sitWheelChairBtnClick()
+    {
         if (wheelchair != null && IsWheelchairNearby())
         {
             SitInWheelchair();
         }
     }
-
+        
     private bool IsWheelchairNearby()
     {
         float distance = Vector3.Distance(transform.position, wheelchair.transform.position);
@@ -98,6 +116,7 @@ public class NPCInteraction : MonoBehaviour
         transform.rotation = sitArea.rotation;
         transform.SetParent(wheelchair.transform);
         isSittingInWheelchair = true;
+        sitWheelChairBtn.gameObject.SetActive(false);
         Debug.Log("NPC is now in the wheelchair.");
     }
 
