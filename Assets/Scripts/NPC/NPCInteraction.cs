@@ -17,6 +17,7 @@ public class NPCInteraction : MonoBehaviour
     private bool playerNearby = false;
     private bool isInteracting = false;
     private int dialogueStep = 0;
+    public Animator npcAnimator;
     
 
     private string[] dialogueLines = new string[]
@@ -116,6 +117,7 @@ public class NPCInteraction : MonoBehaviour
         transform.rotation = sitArea.rotation;
         transform.SetParent(wheelchair.transform);
         isSittingInWheelchair = true;
+        npcAnimator.SetTrigger("Painful");
         sitWheelChairBtn.gameObject.SetActive(false);
         Debug.Log("NPC is now in the wheelchair.");
     }
