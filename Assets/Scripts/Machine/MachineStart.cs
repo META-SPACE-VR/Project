@@ -35,8 +35,6 @@ public class MachineStart : MonoBehaviour
             // Move the patient to the bed
             npcInteraction.LayOnBed(bedTransform);
 
-            // Set "Laying" trigger for NPC's Animator
-            npcInteraction.GetComponent<Animator>().SetTrigger("Laying");
         }
         else
         {
