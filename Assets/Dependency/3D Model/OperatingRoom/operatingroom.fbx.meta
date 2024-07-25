@@ -218,10 +218,10 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Robotic Arm.001|Robotic Arm.001Action
+      name: Center_Suck
       takeName: Robotic Arm.001|Robotic Arm.001Action
       internalID: 747807231015141174
-      firstFrame: 0
+      firstFrame: 30
       lastFrame: 73
       wrapMode: 0
       orientationOffsetY: 0
@@ -247,7 +247,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Robotic Arm.001|Robotic Arm.002Action
+      name: Center_Start
       takeName: Robotic Arm.001|Robotic Arm.002Action
       internalID: -5777066676236024569
       firstFrame: 0
@@ -305,10 +305,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Robotic Arm.002|Robotic Arm.001Action
+      name: Right_BleedStop
       takeName: Robotic Arm.002|Robotic Arm.001Action
       internalID: -5157279229473597879
-      firstFrame: 0
+      firstFrame: 30
       lastFrame: 73
       wrapMode: 0
       orientationOffsetY: 0
@@ -334,7 +334,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Robotic Arm.002|Robotic Arm.002Action
+      name: Right_Start
       takeName: Robotic Arm.002|Robotic Arm.002Action
       internalID: 1819174769179752267
       firstFrame: 0
@@ -363,10 +363,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Robotic Arm.002|Robotic Arm.005Action
+      name: Right_BleedStop2
       takeName: Robotic Arm.002|Robotic Arm.005Action
       internalID: 584938961193288071
-      firstFrame: 0
+      firstFrame: 80
       lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
@@ -392,10 +392,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Robotic Arm.005|Robotic Arm.001Action
+      name: Left_Cut2
       takeName: Robotic Arm.005|Robotic Arm.001Action
       internalID: 7842269013836849305
-      firstFrame: 0
+      firstFrame: 50
       lastFrame: 73
       wrapMode: 0
       orientationOffsetY: 0
@@ -421,7 +421,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Robotic Arm.005|Robotic Arm.002Action
+      name: Left_Start
       takeName: Robotic Arm.005|Robotic Arm.002Action
       internalID: -8798520533825977406
       firstFrame: 0
@@ -450,10 +450,10 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Robotic Arm.005|Robotic Arm.005Action
+      name: Left_Cut
       takeName: Robotic Arm.005|Robotic Arm.005Action
       internalID: 1809568146980423408
-      firstFrame: 0
+      firstFrame: 50
       lastFrame: 110
       wrapMode: 0
       orientationOffsetY: 0
