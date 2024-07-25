@@ -13,12 +13,17 @@ public enum ObjectType
 
 public class InteractiveObject : MonoBehaviour
 {
+    // Common
     public GameObject Prefab;
     public ObjectType Type;
     public string Name;
     public Sprite Icon;
 
-    public float rotationSpeed = 500.0f;
+    // Zoomed
+    private float rotationSpeed = 500.0f;
+
+    // Putable
+    public GameObject putItem;
 
     private void Awake()
     {
@@ -29,11 +34,21 @@ public class InteractiveObject : MonoBehaviour
     {
         if (Type == ObjectType.Zoomed)
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
-
-            transform.Rotate(Vector3.down, mouseX * rotationSpeed * Time.deltaTime, Space.World);
-            transform.Rotate(Vector3.right, mouseY * rotationSpeed * Time.deltaTime, Space.World);
+            ZoomedController();
         }
+    }
+
+    private void ZoomedController()
+    {
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        transform.Rotate(Vector3.down, mouseX * rotationSpeed * Time.deltaTime, Space.World);
+        transform.Rotate(Vector3.right, mouseY * rotationSpeed * Time.deltaTime, Space.World);
+    }
+
+    public void UpdatePutItem(GameObject obj)
+    {
+        putItem = obj;
     }
 }
