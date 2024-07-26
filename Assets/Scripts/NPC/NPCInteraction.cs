@@ -17,7 +17,7 @@ public class NPCInteraction : MonoBehaviour
     private bool playerNearby = false;
     private bool isInteracting = false;
     private int dialogueStep = 0;
-    
+    public Animator npcAnimator;
 
     private string[] dialogueLines = new string[]
     {
@@ -95,7 +95,6 @@ public class NPCInteraction : MonoBehaviour
         Debug.Log("Find something to carry the NPC");
     }
 
-
     private void sitWheelChairBtnClick()
     {
         if (wheelchair != null && IsWheelchairNearby())
@@ -103,7 +102,7 @@ public class NPCInteraction : MonoBehaviour
             SitInWheelchair();
         }
     }
-        
+
     private bool IsWheelchairNearby()
     {
         float distance = Vector3.Distance(transform.position, wheelchair.transform.position);
@@ -116,6 +115,7 @@ public class NPCInteraction : MonoBehaviour
         transform.rotation = sitArea.rotation;
         transform.SetParent(wheelchair.transform);
         isSittingInWheelchair = true;
+        npcAnimator.SetBool("Laying", false);
         sitWheelChairBtn.gameObject.SetActive(false);
         Debug.Log("NPC is now in the wheelchair.");
     }
@@ -127,6 +127,7 @@ public class NPCInteraction : MonoBehaviour
         transform.position = bedTransform.position;
         transform.rotation = bedTransform.rotation;
         isSittingInWheelchair = false;
+        npcAnimator.SetBool("Laying", true);
         Debug.Log("NPC is now on the bed.");
     }
 

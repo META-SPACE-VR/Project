@@ -38,7 +38,8 @@ public class QuizUI : PageUI
     // 오답 패널을 보여주는 코루틴
     IEnumerator ShowWrongPanel() {
         wrongPanel.SetActive(true);
-        yield return new WaitForSeconds(3f);
+        wrongSound.Play();
+        yield return new WaitForSeconds(1f);
         wrongPanel.SetActive(false);
         yield return null;
     }

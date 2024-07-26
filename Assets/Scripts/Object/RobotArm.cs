@@ -24,10 +24,17 @@ public class RobotArm : MonoBehaviour
 
     bool isMoving = false; // 이동 상태
     bool isMoveReset = false; // 이동 초기화 여부
+    bool isAttaching = false; // 컨테이너 부착 여부
     GameObject selectedContainer = null; // 선택된 컨테이너
 
     [SerializeField]
     Transform attachPoint; // 부착 위치
+
+    [SerializeField]
+    AudioSource attachSound; // 컨테이너 부착 소리
+
+    [SerializeField]
+    AudioSource detachSound; // 컨테이너 부착 해제 소리
 
     [SerializeField]
     Transform lightPoint; // 빛 기준점
@@ -73,7 +80,7 @@ public class RobotArm : MonoBehaviour
                 curPosInPuzzle = targetPosInPuzzle;
                 offset1 = offset2;
                 
-                if(selectedContainer) {
+                if(selectedContainer && !isAttaching) {
                     AttachContainer(selectedContainer);
                 }
             }
@@ -108,7 +115,7 @@ public class RobotArm : MonoBehaviour
                 targetPosInPuzzle.y -= 1;
                 break;
             case MoveType.Attach:
-                if(selectedContainer) {
+                if(isAttaching) {
                     DetachContainer();
                     offset2 = Vector3.zero;
                     selectedContainer = null;
@@ -147,6 +154,9 @@ public class RobotArm : MonoBehaviour
 
     // 로봇 팔에 컨테이너 부착
     void AttachContainer(GameObject container) {
+        attachSound.Play();
+
+        isAttaching = true;
         container.transform.SetParent(attachPoint);
         container.transform.localPosition = Vector3.zero;
         container.GetComponent<Rigidbody>().useGravity = false;
@@ -154,11 +164,16 @@ public class RobotArm : MonoBehaviour
 
     // 로봇 팔에서 컨테이너 제거 
     void DetachContainer() {
+        detachSound.Play();
+
         GameObject container = attachPoint.GetChild(0).gameObject;
         
         attachPoint.DetachChildren();
         container.transform.parent = containerPuzzle;
         container.GetComponent<Rigidbody>().useGravity = true;
+
+        selectedContainer = null;
+        isAttaching = false;
     }
 
     // 이동 초기화

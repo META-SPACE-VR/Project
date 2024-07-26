@@ -15,6 +15,7 @@ public class ExaminationPanel : MonoBehaviour
     public Transform bedTransform;
     public TriggerArea triggerArea; 
     public GameObject resultPanel;
+    public Animator doorAnimator;
 
     void Start()
     {
@@ -30,7 +31,7 @@ public class ExaminationPanel : MonoBehaviour
 
     void Update()
     {
-        if (npcInteraction.isSittingInWheelchair && !IsNearby())
+        if (npcInteraction.isSittingInWheelchair)
         {
             // NPC가 휠체어에 앉아 있고, 휠체어가 범위를 벗어났을 때 홀로그램을 끕니다.
             if (resultPanel != null && resultPanel.activeSelf)
@@ -86,6 +87,10 @@ public class ExaminationPanel : MonoBehaviour
         else
         {
             Debug.LogError("Result panel is not assigned.");
+        }
+        if (doorAnimator != null)
+        {
+            doorAnimator.SetTrigger("Door_Open");
         }
     }
 }
