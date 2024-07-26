@@ -17,6 +17,9 @@ public class DestructibleRock : MonoBehaviour
     [SerializeField]
     float explosionUpward = 5;
 
+    [SerializeField]
+    AudioSource crumbleSound;
+
     private void Start() {
         // 원래 돌은 활성화
         gameObject.SetActive(true);
@@ -30,6 +33,8 @@ public class DestructibleRock : MonoBehaviour
     // 폭발
     public void Explode() {
         Debug.Log("Explode");
+
+        crumbleSound.Play();
 
         // 원래 돌 비활성화
         gameObject.SetActive(false);
