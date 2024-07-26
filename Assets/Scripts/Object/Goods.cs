@@ -2,34 +2,61 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Theme.Primitives;
 
 public class Goods : MonoBehaviour
 {
-
+    GameObject playerInRange = null;
     bool hasFood = true;
 
-    void Start() {
-        XRSimpleInteractable interactable = GetComponent<XRSimpleInteractable>();
-        interactable.selectEntered.AddListener(GiveItem);
+    [SerializeField]
+    GameObject spaceFood; // 우주식량
+
+    [SerializeField]
+    GameObject interactionPrompt; // Interaction prompt
+
+    void Awake() {
+        interactionPrompt.SetActive(false);
     }
 
-    private void GiveItem(SelectEnterEventArgs args) {
-        // 아이템을 가지고 있지 않으면 그대로 종료
-        if(!hasFood) return;
+    void Update() {
+        if(playerInRange && Input.GetKeyDown(KeyCode.E)) {
+            SpawnFood();
+        }
+    }
 
-        XRBaseInteractor interactor = args.interactorObject as XRBaseInteractor;
+    private void SpawnFood() {
+        // 우주식량 스폰 
+        GameObject spawnedFood = Instantiate(spaceFood, transform.position + Vector3.up * 4f, Quaternion.identity);
+        Rigidbody foodRigid = spawnedFood.GetComponent<Rigidbody>();
+
+        // 식량이 날아갈 방향 계산
+        Transform playerCamera = playerInRange.transform.Find("Camera Offset").transform.Find("Main Camera");
+        Vector3 direction = playerCamera.transform.position - transform.position;
+        direction -= Vector3.up * direction.y;
+        direction.Normalize();
         
-        if (interactor != null)
-        {   
-            // 테스트 로그
-            Debug.Log("Get Food!!!!!");
+        float xzPower = 2.5f;
+        float yPower = 4f;
+        Vector3 force = xzPower * direction + Vector3.up * yPower;
+        foodRigid.AddForce(force, ForceMode.Impulse);
 
-            /* 상호작용한 플레이어에게 식량 아이템 지급하는 로직
-            *
-            */
+        playerInRange = null;
+        interactionPrompt.SetActive(false);
+        hasFood = false;
+    }
 
-            // 아이템을 지급했으므로 hasFood를 false로 전환
-            hasFood = false;
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("Player") && hasFood) {
+            playerInRange = other.gameObject;
+            interactionPrompt.SetActive(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other) {
+        if(other.CompareTag("Player") && hasFood) {
+            playerInRange = null;
+            interactionPrompt.SetActive(false);
         }
     }
 }

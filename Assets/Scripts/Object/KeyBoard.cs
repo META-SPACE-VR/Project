@@ -17,6 +17,13 @@ public class KeyBoard : MonoBehaviour
     [SerializeField]
     DisplayUIManager displayUIMgr;
 
+    [SerializeField]
+    AudioSource typingSound;
+
+    [SerializeField]
+    AudioSource enterKeytypingSound;
+
+
     void Start()
     {
         foreach (Button button in buttons)
@@ -39,16 +46,19 @@ public class KeyBoard : MonoBehaviour
 
     public void AddCharacter(string character)
     {   
+        typingSound.Play();
         displayUIMgr.AddCharacter(character);
     }
 
     public void CheckAnswer()
     {   
+        enterKeytypingSound.Play();
         displayUIMgr.CheckAnswer();
     }
 
     public void RemoveCharacter()
     {
+        typingSound.Play();
         displayUIMgr.RemoveCharacter();
     }
 

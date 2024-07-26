@@ -10,12 +10,16 @@ public class LaserPointer : MonoBehaviour
     [SerializeField]
     float shootDuration;
 
+    [SerializeField]
+    AudioSource shootSound;
+
     public void Shoot() {
         StartCoroutine(ShootFlow());
     }
 
     IEnumerator ShootFlow() {
         laser.SetActive(true);
+        shootSound.Play();
 
         yield return new WaitForSeconds(shootDuration);
 
