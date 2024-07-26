@@ -9,8 +9,13 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     List<TMP_InputField> inputFields; // 각 UI에서 사용하는 InputField들
+
     [SerializeField]
     List<string> answers; // 정답
+
+    [SerializeField]
+    protected AudioSource wrongSound; // 오답 사운드
+
     [SerializeField]
     GameObject keyboard; // 키보드
 
