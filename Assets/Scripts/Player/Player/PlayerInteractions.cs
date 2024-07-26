@@ -33,13 +33,13 @@ namespace HPlayer
         {
             OnInteractionStart += ChangeHeldObject;
 
-            // PlayerController.OnPlayerEnterPortal += CheckHeldObjectOnTeleport;
+            PlayerController.OnPlayerEnterPortal += CheckHeldObjectOnTeleport;
         }
         private void OnDisable()
         {
             OnInteractionStart -= ChangeHeldObject;
 
-            // PlayerController.OnPlayerEnterPortal -= CheckHeldObjectOnTeleport;
+            PlayerController.OnPlayerEnterPortal -= CheckHeldObjectOnTeleport;
         }
 
         private void Update()
