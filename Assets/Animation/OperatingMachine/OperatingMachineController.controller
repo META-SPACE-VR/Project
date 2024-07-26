@@ -123,9 +123,6 @@ AnimatorStateMachine:
     m_State: {fileID: -1812715336508663142}
     m_Position: {x: 660, y: -70, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 5627413913188985454}
-    m_Position: {x: 90, y: -110, z: 0}
-  - serializedVersion: 1
     m_State: {fileID: 5831601296529977435}
     m_Position: {x: 80, y: -50, z: 0}
   - serializedVersion: 1
@@ -188,7 +185,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Machine_Start
+    m_ConditionEvent: Center_Suck
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8279543203649075739}
@@ -213,7 +210,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Machine_Start
+    m_ConditionEvent: Right_BleedStop
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5831601296529977435}
@@ -322,32 +319,6 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 584938961193288071, guid: 0a00c0ca59db54924956c28e95855cae, type: 3}
-  m_Tag: 
-  m_SpeedParameter: 
-  m_MirrorParameter: 
-  m_CycleOffsetParameter: 
-  m_TimeParameter: 
---- !u!1102 &5627413913188985454
-AnimatorState:
-  serializedVersion: 6
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Right_BleedStop
-  m_Speed: 1
-  m_CycleOffset: 0
-  m_Transitions: []
-  m_StateMachineBehaviours: []
-  m_Position: {x: 50, y: 50, z: 0}
-  m_IKOnFeet: 0
-  m_WriteDefaultValues: 1
-  m_Mirror: 0
-  m_SpeedParameterActive: 0
-  m_MirrorParameterActive: 0
-  m_CycleOffsetParameterActive: 0
-  m_TimeParameterActive: 0
-  m_Motion: {fileID: -5157279229473597879, guid: 0a00c0ca59db54924956c28e95855cae, type: 3}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
