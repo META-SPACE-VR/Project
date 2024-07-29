@@ -8,6 +8,7 @@ TagManager:
   - Robot Arm
   - Wall
   - Corridor
+  - Medicine
   layers:
   - Default
   - TransparentFX

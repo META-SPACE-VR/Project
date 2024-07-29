@@ -82,5 +82,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighlightColor: {r: 1, g: 0, b: 0, a: 1}
-    - _HighlightPosition: {r: -61.010025, g: 1.3147535, b: 58.556145, a: 1}
+    - _HighlightPosition: {r: -61.056007, g: 1.1943219, b: 59.155598, a: 1}
   m_BuildTextureStacks: []
