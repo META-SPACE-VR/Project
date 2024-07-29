@@ -71,7 +71,7 @@ public class NPCInteraction : MonoBehaviour
         isInteracting = true;
         dialogueStep = 0;
         dialoguePanel.SetActive(true);
-        Inventory.SetActive(false);
+        Inventory.SetActive(false); // Hide the inventory during the dialogue
         dialogueText.text = dialogueLines[dialogueStep];
     }
 
@@ -92,6 +92,7 @@ public class NPCInteraction : MonoBehaviour
     {
         isInteracting = false;
         dialoguePanel.SetActive(false);
+        Inventory.SetActive(true); // Show the inventory after the dialogue ends
         Debug.Log("Find something to carry the NPC");
     }
 
