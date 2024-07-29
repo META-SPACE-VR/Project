@@ -74,7 +74,11 @@ namespace HPlayer
         private void UpdateSelectedObject()
         {
             Interactable foundInteractable = null;
-            if (Physics.SphereCast(playerCamera.position, 0.2f, playerCamera.forward, out RaycastHit hit, selectRange, selectLayer))
+
+            // 마우스 위치에서 월드 공간으로 레이캐스트 수행
+            Ray ray = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, selectRange, selectLayer))
                 foundInteractable = hit.collider.GetComponent<Interactable>();
 
             if (SelectedObject == foundInteractable)
@@ -90,11 +94,11 @@ namespace HPlayer
 
             if (foundInteractable && foundInteractable.enabled)
             {
-
                 foundInteractable.Select();
                 OnSelect?.Invoke();
             }
         }
+
 
         #endregion
 

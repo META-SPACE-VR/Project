@@ -22,7 +22,7 @@ namespace HPhysic
         [SerializeField] private bool allowConnectDifrentCollor = false;
 
         [field: SerializeField] public Connector ConnectedTo { get; private set; }
-
+        [SerializeField] public Connector TargetConnector;
 
         [Header("Object to set")]
         [SerializeField, Required] private Transform connectionPoint;
@@ -58,6 +58,10 @@ namespace HPhysic
                 ConnectedTo = null;
                 Connect(t);
             }
+            
+            // if(TargetConnector != null){
+            //     IsConnectedTo(TargetConnector);
+            // }
         }
 
         private void OnDisable() => Disconnect();
@@ -91,14 +95,14 @@ namespace HPhysic
                 secondConnector.Rigidbody.isKinematic = true;
             ConnectedTo = secondConnector;
 
-            // sparks on inncretc connection
-            if (incorrectSparksC == null && sparksParticle && IsConnected && !IsConnectedRight)
+            // 스파크 효과
+            if (incorrectSparksC == null && sparksParticle && !AreConnected(this, TargetConnector))
             {
                 incorrectSparksC = IncorrectSparks();
                 StartCoroutine(incorrectSparksC);
             }
 
-            // disable outline on select
+            // 연결 시 아웃라인 업데이트
             UpdateInteractableWhenIsConnected();
         }
         public void Disconnect(Connector onlyThis = null)
@@ -108,21 +112,21 @@ namespace HPhysic
 
             Destroy(_fixedJoint);
 
-            // important to dont make recusrion
+            // 중요한 부분: 재귀 방지
             Connector toDisconect = ConnectedTo;
             ConnectedTo = null;
             if (makeConnectionKinematic)
                 toDisconect.Rigidbody.isKinematic = _wasConnectionKinematic;
             toDisconect.Disconnect(this);
 
-            // sparks on inncretc connection
+            // 스파크 효과 정지
             if (sparksParticle)
             {
                 sparksParticle.Stop();
                 sparksParticle.Clear();
             }
 
-            // enable outline on select
+            // 연결 시 아웃라인 업데이트
             UpdateInteractableWhenIsConnected();
         }
 
@@ -139,7 +143,7 @@ namespace HPhysic
         private IEnumerator incorrectSparksC;
         private IEnumerator IncorrectSparks()
         {
-            while (incorrectSparksC != null && sparksParticle && IsConnected && !IsConnectedRight)
+            while (incorrectSparksC != null && sparksParticle && !AreConnected(this, TargetConnector))
             {
                 sparksParticle.Play();
 
@@ -173,10 +177,83 @@ namespace HPhysic
         };
 
 
-        public bool CanConnect(Connector secondConnector) =>
-            this != secondConnector
-            && !this.IsConnected && !secondConnector.IsConnected
-            && this.ConnectionType != secondConnector.ConnectionType
-            && (this.allowConnectDifrentCollor || secondConnector.allowConnectDifrentCollor || this.ConnectionColor == secondConnector.ConnectionColor);
+        public bool CanConnect(Connector secondConnector)
+        {
+            // 동일한 객체나 이미 연결된 커넥터는 연결 불가
+            if (this == secondConnector || IsConnected || secondConnector.IsConnected)
+                return false;
+
+            // F-F, M-M 연결 금지, F-M만 연결 가능
+            if (ConnectionType == secondConnector.ConnectionType)
+                return false;
+
+            // 색상이 다른 경우 연결 가능 여부 확인
+            // return allowConnectDifrentCollor || secondConnector.allowConnectDifrentCollor || ConnectionColor == secondConnector.ConnectionColor;
+            return true;
+        }
+
+        // 커넥터가 다른 커넥터에 연결되어 있는지 확인
+        public bool IsConnectedTo(Connector target)
+        {
+            if (target == null)
+                return false;
+
+            if (ConnectedTo == target)
+                return true;
+
+            Connector nextConnector = ConnectedTo;
+            while (nextConnector != null)
+            {
+                Debug.Log("2: " + nextConnector.name);
+                if (nextConnector == target)
+                {
+                    Debug.Log("3: " + nextConnector.name);
+                    return true;
+                }
+
+                // `Start` 자식 탐색
+                Transform startTransform = nextConnector.transform.Find("Start");
+                if (startTransform != null)
+                {
+                    Connector endConnector = startTransform.transform.Find("End").GetComponent<Connector>();
+                    if (endConnector != null)
+                    {
+                        nextConnector = endConnector.ConnectedTo;
+                        Debug.Log("4-1: " + (nextConnector != null ? nextConnector.name : "null"));
+                        continue; // 다음 루프로 이동
+                    } 
+                }
+
+                // `End` 자식 탐색
+                Transform endTransform = nextConnector.transform.Find("End");
+                if (endTransform != null)
+                {
+                    Connector startConnector = endTransform.transform.Find("Start").GetComponent<Connector>();
+                    if (startConnector != null)
+                    {
+                        nextConnector = startConnector.ConnectedTo;
+                        Debug.Log("4-2: " + (nextConnector != null ? nextConnector.name : "null"));
+                        continue; // 다음 루프로 이동
+                    }
+                }
+
+                // 더 이상 연결이 없는 경우
+                Debug.Log("5: null");
+                nextConnector = null;
+            }
+
+            Debug.Log("6: null");
+            return false;
+        }
+
+
+        // 두 커넥터가 연결되어 있는지 확인
+        public static bool AreConnected(Connector start, Connector end)
+        {
+            if (start == null || end == null)
+                return false;
+
+            return start.IsConnectedTo(end);
+        }
     }
 }
