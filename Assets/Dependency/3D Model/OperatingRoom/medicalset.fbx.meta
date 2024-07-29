@@ -3,7 +3,47 @@ guid: e8b70d770b2af45cab1884897c4d08e7
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Esparadrapo
+    second: {fileID: 5960947126638185372, guid: 395eec82635316f4488ca01dc1839d5d, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Plastico azul
+    second: {fileID: 2100000, guid: 21e4093cc9f3c4b8a8ea701438da7c7b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Rotulo
+    second: {fileID: 2100000, guid: 493ca72802ec64609bb46f328a982fa8, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Transparent Glass
+    second: {fileID: -5144493293934553498, guid: 54e680f76cc78477f9c5aaa7d229b570, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Transparent Glass.001
+    second: {fileID: -6132461266599722602, guid: 3cbe77c20dcaf8d4ca48025601a3e0b5, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: foil metal
+    second: {fileID: -5436482957069116607, guid: 8d1e9436052ed409db7d5dcb0801453c, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: metal foil
+    second: {fileID: -3846018093981099296, guid: 1a0541449f89d6a4eb83e1c5131ade9c, type: 3}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white pill
+    second: {fileID: 2100000, guid: f0145718fb9044b16a3884e07c76d5f3, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
