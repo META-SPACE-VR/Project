@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 5346858a84563471c8306ae3a0276979, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.7322
+      value: 31.931435
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5346858a84563471c8306ae3a0276979, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.2163
+      value: -4.24
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5346858a84563471c8306ae3a0276979, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 200.48
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5346858a84563471c8306ae3a0276979, type: 3}
       propertyPath: m_LocalRotation.w
@@ -64,7 +64,7 @@ PrefabInstance:
       addedObject: {fileID: 6606644343261038639}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 5346858a84563471c8306ae3a0276979, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -3164859916814919803}
+      addedObject: {fileID: 5265575491877777693}
   m_SourcePrefab: {fileID: 100100000, guid: 5346858a84563471c8306ae3a0276979, type: 3}
 --- !u!1 &7439110422508331433 stripped
 GameObject:
@@ -119,7 +119,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.0040905196, y: 0.0029847538, z: 0.00051853573}
   m_Center: {x: 0.000004527347, y: 0.000001404163, z: 0.00025730694}
---- !u!114 &-3164859916814919803
+--- !u!114 &5265575491877777693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,6 +128,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7439110422508331433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74eb2af6cba3e894aa9828afecafe888, type: 3}
+  m_Script: {fileID: 11500000, guid: c3297615ac3bdee49a27d32a548cfd2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Prefab: {fileID: 7439110422508331433}
+  Type: 0
+  Name: "\uC6B0\uC8FC\uC2DD\uB7C9 B\uD615"
+  Icon: {fileID: 21300000, guid: 27760ad7851290740b35fff4251e3934, type: 3}
+  rotationSpeed: 500
