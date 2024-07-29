@@ -5,7 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     [SerializeField]
     List<TMP_InputField> inputFields; // 각 UI에서 사용하는 InputField들
@@ -19,6 +19,9 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [SerializeField]
     GameObject keyboard; // 키보드
 
+    [SerializeField]
+    AudioSource clickSound; // 클릭 소리
+
     TMP_InputField activeInputField; // 활성화된 InputField
 
     public bool isMouseEntered; // 마우스 커서가 내부에 있으면 true
@@ -30,8 +33,11 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // inputField에 이벤트 추가
         foreach (TMP_InputField inputField in inputFields) {
             inputField.onSelect.AddListener((_) => {
-                activeInputField = inputField;
-                keyboard.SetActive(true);
+                if(activeInputField != inputField) {
+                    clickSound.Play();
+                    activeInputField = inputField;
+                    keyboard.SetActive(true);
+                }
             });
 
             inputField.onDeselect.AddListener((_) => {
@@ -68,9 +74,11 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnDisable() {
         isMouseEntered = false;
+        activeInputField = null;
     }
 
     public void OnPointerEnter(PointerEventData eventData) { isMouseEntered = true; }
+    public void OnPointerClick(PointerEventData eventData) { if(isMouseEntered) clickSound.Play(); }
     public void OnPointerExit(PointerEventData eventData) { isMouseEntered = false; }
 
     // inputField에 문자 추가
