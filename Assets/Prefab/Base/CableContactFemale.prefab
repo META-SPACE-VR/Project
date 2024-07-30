@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5342552433559116068}
   - component: {fileID: 3507871718589046159}
   m_Layer: 0
-  m_Name: CableContactFamale
+  m_Name: CableContactFemale
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
