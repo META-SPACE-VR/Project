@@ -167,9 +167,8 @@ public class InventoryManager : MonoBehaviour
         if (index >= 0 && index < slots.Length)
         {
             InteractiveObject dropItem = interactiveObjects[index];
-            Image itemImage = slots[index].transform.Find("Item").GetComponent<Image>();
             
-            if (itemImage.sprite != null && dropItem != null)
+            if (dropItem != null)
             {
                 dropItem.gameObject.SetActive(true);
 
@@ -224,6 +223,27 @@ public class InventoryManager : MonoBehaviour
     {
         Destroy(zoomedItem);
         zoomedItemPosition.SetActive(false);
+    }
+
+    public void PutItem(int index, Transform putTransform)
+    {
+        if (index >= 0 && index < slots.Length)
+        {
+            InteractiveObject putItem = interactiveObjects[index];
+
+            if (putItem != null)
+            {
+                putItem.transform.SetParent(putTransform);
+                putItem.transform.SetPositionAndRotation(putTransform.position, putTransform.rotation);
+                Rigidbody rb = putItem.GetComponent<Rigidbody>();
+                putItem.transform.localScale = putTransform.localScale;
+                rb.isKinematic = true;
+
+                putItem.gameObject.SetActive(true);
+
+                RemoveItem(index);
+            }
+        }
     }
 
     public InteractiveObject GetItemByIndex(int index)
