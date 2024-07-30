@@ -366,12 +366,12 @@ public class Interaction : MonoBehaviour
             return;
         }
 
-        // 프리팹 미리보기 ==> 수정 사항 맞는 아이템만 미리보기 보여주기, 나머진 경고메세지 등으로 대체
         isItemPut = true;
         Transform putItemTransform = interactiveObject.transform.Find("PutItemPosition");
         InteractiveObject prefab = inventoryManager.GetItemByIndex(selectedItemIndex);
         putItem = Instantiate(prefab.gameObject, putItemTransform);
         putItem.transform.SetPositionAndRotation(putItemTransform.position, Quaternion.identity);
+        putItem.name = prefab.name;
         Rigidbody rb = putItem.GetComponent<Rigidbody>();
         rb.isKinematic = true;
 
@@ -409,11 +409,7 @@ public class Interaction : MonoBehaviour
     {
         isItemPut = false;
         isItemPicked = false;
-
-        Transform putItemTransform = interactiveObject.transform.Find("PutItemPosition");
-        inventoryManager.PutItem(selectedItemIndex, putItemTransform);
+        inventoryManager.DestroyItem(selectedItemIndex);
         interactiveObject.UpdatePutItem(putItem);
-
-        Destroy(putItem);
     }
 }

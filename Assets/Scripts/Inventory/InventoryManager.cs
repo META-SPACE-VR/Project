@@ -225,21 +225,15 @@ public class InventoryManager : MonoBehaviour
         zoomedItemPosition.SetActive(false);
     }
 
-    public void PutItem(int index, Transform putTransform)
+    public void DestroyItem(int index)
     {
         if (index >= 0 && index < slots.Length)
         {
-            InteractiveObject putItem = interactiveObjects[index];
+            InteractiveObject item = interactiveObjects[index];
 
-            if (putItem != null)
-            {
-                putItem.transform.SetParent(putTransform);
-                putItem.transform.SetPositionAndRotation(putTransform.position, putTransform.rotation);
-                Rigidbody rb = putItem.GetComponent<Rigidbody>();
-                putItem.transform.localScale = putTransform.localScale;
-                rb.isKinematic = true;
-
-                putItem.gameObject.SetActive(true);
+            if (item != null)
+            {   
+                Destroy(item.gameObject);
 
                 RemoveItem(index);
             }
