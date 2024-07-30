@@ -144,6 +144,7 @@ namespace HPhysic
         private IEnumerator IncorrectSparks()
         {
             while (incorrectSparksC != null && sparksParticle && !AreConnected(this, TargetConnector))
+            // while (incorrectSparksC != null && sparksParticle)
             {
                 sparksParticle.Play();
 
@@ -204,45 +205,49 @@ namespace HPhysic
             Connector nextConnector = ConnectedTo;
             while (nextConnector != null)
             {
-                Debug.Log("2: " + nextConnector.name);
+                // Debug.Log("2: " + nextConnector.name);
                 if (nextConnector == target)
                 {
-                    Debug.Log("3: " + nextConnector.name);
+                    Debug.Log("connected " + nextConnector.name);
                     return true;
                 }
 
-                // `Start` 자식 탐색
-                Transform startTransform = nextConnector.transform.Find("Start");
-                if (startTransform != null)
+                // `Start` 
+                if (nextConnector.name == "Start")
                 {
-                    Connector endConnector = startTransform.transform.Find("End").GetComponent<Connector>();
+                    // Debug.Log("start잇음");
+                    Transform parentConnector = nextConnector.transform.parent;
+                    Connector endConnector = parentConnector.transform.Find("End").GetComponent<Connector>();
                     if (endConnector != null)
                     {
+                        // Debug.Log("4-0: " + endConnector.name);
                         nextConnector = endConnector.ConnectedTo;
-                        Debug.Log("4-1: " + (nextConnector != null ? nextConnector.name : "null"));
+                        // Debug.Log("4-1: " + (nextConnector != null ? nextConnector.name : "null"));
                         continue; // 다음 루프로 이동
                     } 
                 }
 
-                // `End` 자식 탐색
-                Transform endTransform = nextConnector.transform.Find("End");
-                if (endTransform != null)
+                // `End`
+                else if (nextConnector.name == "End")
                 {
-                    Connector startConnector = endTransform.transform.Find("Start").GetComponent<Connector>();
+                    // Debug.Log("end잇음");
+                    Transform parentConnector = nextConnector.transform.parent;
+                    Connector startConnector = parentConnector.transform.Find("Start").GetComponent<Connector>();
                     if (startConnector != null)
                     {
+                        // Debug.Log("4-2: " + startConnector.name);
                         nextConnector = startConnector.ConnectedTo;
-                        Debug.Log("4-2: " + (nextConnector != null ? nextConnector.name : "null"));
+                        // Debug.Log("4-3: " + (nextConnector != null ? nextConnector.name : "null"));
                         continue; // 다음 루프로 이동
-                    }
+                    } 
                 }
 
                 // 더 이상 연결이 없는 경우
-                Debug.Log("5: null");
+                // Debug.Log("5: null");
                 nextConnector = null;
             }
 
-            Debug.Log("6: null");
+            // Debug.Log("6: null");
             return false;
         }
 
