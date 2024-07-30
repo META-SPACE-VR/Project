@@ -5,10 +5,11 @@ using UnityEngine;
 public class MixerButtonController : MonoBehaviour
 {
     public InteractiveObject leftInput;
-    public GameObject leftIngredient;
     public InteractiveObject rightInput;
-    public GameObject rightIngredient;
-    public CollectableObject result; 
+    public Transform leftTransform;
+    public Transform rightTransform;
+    public GameObject Kerosene;
+    public GameObject RocketFuel;
     public MixerCoverController cover;
     public Renderer Alert;
     public Camera focusCamera;
@@ -32,16 +33,42 @@ public class MixerButtonController : MonoBehaviour
 
     private void CheckValidate()
     {
-        if (cover.isClosed && leftInput.putItem.name == "LOx" && rightInput.putItem.name == "Dodecane")
+        if (cover.isClosed)
         {
-            Alert.material.color = Color.green;
-            leftIngredient.SetActive(false);
-            rightIngredient.SetActive(false);
-            result.name = "로켓 연료";
+            if ((leftInput.putItem.name == "Naphthalene" && rightInput.putItem.name == "Dodecane") || (leftInput.putItem.name == "Dodecane" && rightInput.putItem.name == "Naphthalene"))
+            {
+                MixComplete(Kerosene);
+            }
+            else if ((leftInput.putItem.name == "Kerosene" && rightInput.putItem.name == "LOx") || (leftInput.putItem.name == "LOx" && rightInput.putItem.name == "Kerosene"))
+            {
+                MixComplete(RocketFuel);
+            }
+            else
+            {
+                Alert.material.color = Color.red;
+            }
         }
         else
         {
             Alert.material.color = Color.red;
         }
+    }
+
+    private void MixComplete(GameObject result)
+    {
+        Alert.material.color = Color.green;
+        leftInput.UpdatePutItem(null);
+        rightInput.UpdatePutItem(null);
+        if (leftTransform.childCount > 0)
+        {
+            Transform leftPutItem = leftTransform.GetChild(0);
+            Destroy(leftPutItem);
+        }
+        if (rightTransform.childCount > 0)
+        {
+            Transform rightPutItem = leftTransform.GetChild(0);
+            Destroy(rightPutItem);
+        }
+        result.SetActive(true);
     }
 }
