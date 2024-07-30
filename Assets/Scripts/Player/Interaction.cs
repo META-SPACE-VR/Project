@@ -13,15 +13,15 @@ public class Interaction : MonoBehaviour
     public Camera mainCamera; // 카메라 참조
     public Camera zoomItemCamera; // 아이템 자세히 보기 카메라
 
-    public float range = 10.0f; // 상호작용 범위
-
+    private float range = 5.0f; // 상호작용 범위
     private InteractiveObject interactiveObject = null; // 현재 상호작용 할 수 있는 물체
-    private GameObject putItem;
-    private GameObject putItemPosition;
+    private GameObject putItem;  // Putable Object 에 올려놓은 아이템
+
     private bool isInventoryOpen = false; // 인벤토리 On/Off 상태
-    private bool isItemPicked = false; // 선택된 아이템 여부
-    private bool isItemZoomed = false; // 아이템 자세히 보기 On/Off 상태
-    private bool isItemPut = false; // 아이템이 상호작용 가능한 물체 위에 올려져 있는지 여부
+    private bool isItemPicked = false; // 인벤토리 내 아이템 선택 여부
+    private bool isItemZoomed = false; // 픽한 아이템 자세히 보기 상태
+    private bool isItemPut = false; // Putable Object 와 상호작용 여부
+    private bool isFocused = false; // Zoomable Object 포커스 여부
     private int selectedItemIndex = 0; // 현재 선택중인 아이템의 인벤토리 내 인덱스
 
 
@@ -42,7 +42,11 @@ public class Interaction : MonoBehaviour
             ToggleInventory();
         }
 
-        if (isInventoryOpen)
+        if (isFocused)
+        {
+            HandleFocusInput();
+        }
+        else if (isInventoryOpen)
         {
             HandleInventoryInput();
         }
@@ -60,6 +64,7 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    // Input Handler
     private void HandleNomalInput()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
@@ -91,7 +96,7 @@ public class Interaction : MonoBehaviour
             }
             else if (interactiveObject.Type == ObjectType.Zoomable)
             {
-                FocusOnObject();
+                ToggleFocusOnObject();
             }
         }
     }
@@ -176,6 +181,14 @@ public class Interaction : MonoBehaviour
         }
     }
 
+    private void HandleFocusInput()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            ToggleFocusOnObject();
+        }
+    }
+
     // NomalInput
     private void MouseEnter()
     {
@@ -201,9 +214,26 @@ public class Interaction : MonoBehaviour
         inventoryManager.AddItem(interactiveObject, interactiveObject.gameObject);
     }
 
-    private void FocusOnObject()
+    private void ToggleFocusOnObject()
     {
-        
+        isFocused = !isFocused;
+        Camera focusCamera = interactiveObject.GetComponentInChildren<Camera>();
+        if (isFocused)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            playerController.EnterInteractionMode();
+            mainCamera.enabled = false;
+            focusCamera.enabled = true;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            playerController.ExitInteractionMode();
+            mainCamera.enabled = true;
+            focusCamera.enabled = false;
+        } 
     }
 
     // StateConvert
@@ -336,13 +366,9 @@ public class Interaction : MonoBehaviour
             return;
         }
 
-        // 프리팹 미리보기
+        // 프리팹 미리보기 ==> 수정 사항 맞는 아이템만 미리보기 보여주기, 나머진 경고메세지 등으로 대체
         isItemPut = true;
         Transform putItemTransform = interactiveObject.transform.Find("PutItemPosition");
-        if (putItemTransform != null)
-        {
-            putItemPosition = putItemTransform.gameObject;
-        }
         InteractiveObject prefab = inventoryManager.GetItemByIndex(selectedItemIndex);
         putItem = Instantiate(prefab.gameObject, putItemTransform);
         putItem.transform.SetPositionAndRotation(putItemTransform.position, Quaternion.identity);
@@ -381,6 +407,13 @@ public class Interaction : MonoBehaviour
 
     private void PutPickedItem()
     {
+        isItemPut = false;
+        isItemPicked = false;
 
+        Transform putItemTransform = interactiveObject.transform.Find("PutItemPosition");
+        inventoryManager.PutItem(selectedItemIndex, putItemTransform);
+        interactiveObject.UpdatePutItem(putItem);
+
+        Destroy(putItem);
     }
 }
