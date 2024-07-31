@@ -99,6 +99,8 @@ public class OpenSecondFloorEvent : MonoBehaviour
                 slope = dy / Mathf.Sqrt(dx * dx + dz * dz);
             }
 
+            Debug.Log(targetObj.transform.position);
+            Debug.Log(laserPointer.transform.position);
             Debug.Log(slope);
             if(slope > -0.001f) continue;
 
