@@ -5,5 +5,5 @@ using UnityEngine;
 
 [Serializable]
 public enum DisplayUIType {
-    Main = 0, Login = 1, Quiz = 2
+    Main, Login, Quiz, FaceScan
 }

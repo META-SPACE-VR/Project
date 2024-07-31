@@ -53,6 +53,7 @@ public class DisplayUIManager : MonoBehaviour
     public void NavigateMainUI() { ChangeUI(DisplayUIType.Main); }
     public void NavigateLoginUI() { ChangeUI(DisplayUIType.Login); }
     public void NavigateQuizUI() { ChangeUI(DisplayUIType.Quiz); }
+    public void NavigateFaceScanUI() { ChangeUI(DisplayUIType.FaceScan); }
 
     // 현재 페이지의 활성화된 InputField에 문자 추가
     public void AddCharacter(string character) {

@@ -4,6 +4,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -25,6 +26,11 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     TMP_InputField activeInputField; // 활성화된 InputField
 
     public bool isMouseEntered; // 마우스 커서가 내부에 있으면 true
+
+    [SerializeField]
+    UnityEvent onSuccess; // 성공 시 이벤트
+    [SerializeField]
+    UnityEvent onFailed; // 실패 시 이벤트
 
     private void Awake() {
         activeInputField = null;
@@ -62,7 +68,7 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         activeInputField.Select();
     }
 
-    private void OnEnable() {
+    protected void OnEnable() {
         // 오브젝트가 비활성화되다가 다시 활성화되면 모든 InputField의 값을 빈 문자열로 설정
         foreach (TMP_InputField inputField in inputFields) {
             inputField.text = "";
@@ -116,6 +122,10 @@ public class PageUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         }
     }
 
-    protected virtual void DoCorrectAction() { }
-    protected virtual void DoWrongAction() { }
+    void DoCorrectAction() {
+        onSuccess.Invoke();
+    }
+    void DoWrongAction() {
+        onFailed.Invoke();
+    }
 }

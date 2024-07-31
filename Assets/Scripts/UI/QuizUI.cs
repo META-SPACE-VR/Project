@@ -17,12 +17,12 @@ public class QuizUI : PageUI
     public GameObject quiz1UI;
     public GameObject quiz2UI;
 
-    protected override void DoCorrectAction()
+    public void SuccessAction()
     {
         successEvent.PlayEvent();
     }
 
-    protected override void DoWrongAction()
+    public void FailedAction()
     {
         // 이미 작동중인 코루틴이 있으면 중지
         if(wrongPanelCoroutine != null) {
