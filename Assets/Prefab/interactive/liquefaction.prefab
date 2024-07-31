@@ -289,7 +289,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4436623608626118464
 Transform:
   m_ObjectHideFlags: 0
@@ -1398,7 +1398,7 @@ MonoBehaviour:
   input: {fileID: 7222759731275453415}
   Alert: {fileID: 6165021113792645248}
   ingredient: {fileID: 3841964671545327525}
-  result: {fileID: 0}
+  result: {fileID: 1367138033881443094}
 --- !u!1 &6524317869075309150
 GameObject:
   m_ObjectHideFlags: 0
