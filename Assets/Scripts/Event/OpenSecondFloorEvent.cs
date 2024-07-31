@@ -85,6 +85,22 @@ public class OpenSecondFloorEvent : MonoBehaviour
         // 타겟을 향해 조준 -> 발사
         foreach(GameObject targetObj in targetObjects) {
             if(!targetObj.activeSelf || targetObj.IsDestroyed()) continue;
+            
+            // 레이져의 기울기를 계산. 만약에 기울기가 일정 수준 이상 커질것 같다면 해당 오브젝트는 일단 넘긴다.
+            float dx = targetObj.transform.position.x - laserPointer.transform.position.x;
+            float dy = targetObj.transform.position.y - laserPointer.transform.position.y;
+            float dz = targetObj.transform.position.z - laserPointer.transform.position.z;
+
+            float slope;
+            if(dx == 0 || dz == 0) {
+                slope = (dy < 0 ? -1 : 1) * 1000000000;
+            }
+            else {
+                slope = dy / Mathf.Sqrt(dx * dx + dz * dz);
+            }
+
+            Debug.Log(slope);
+            if(slope > -0.001f) continue;
 
             // 조준
             Quaternion targetRot = Quaternion.LookRotation(targetObj.transform.position - laserPointer.transform.position);

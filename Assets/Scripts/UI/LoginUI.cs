@@ -12,13 +12,7 @@ public class LoginUI : PageUI
 
     IEnumerator wrongPanelCoroutine; // 실행중인 오답 패널 코루틴
 
-    protected override void DoCorrectAction()
-    {
-        // 퀴즈 페이지로 이동
-        displayUiMgr.NavigateQuizUI();
-    }
-
-    protected override void DoWrongAction()
+    public void FailedAction()
     {
         // 이미 작동중인 코루틴이 있으면 중지
         if(wrongPanelCoroutine != null) {
