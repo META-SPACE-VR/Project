@@ -27,7 +27,7 @@ public class LabScreenController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown("Fire1"))
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = focusCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
