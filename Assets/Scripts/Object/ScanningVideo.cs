@@ -54,7 +54,7 @@ public class ScanningVideo : MonoBehaviour
     void VideoFinished(VideoPlayer vp) {
         ui.VerifySuccess();
         currentTime = 0f;
-        scanningDone = true;
+        scanningDone = false;
         scanSuccessDone = false;
         // 오브젝트 비활성화
         gameObject.SetActive(false);
