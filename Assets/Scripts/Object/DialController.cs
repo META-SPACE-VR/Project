@@ -13,7 +13,7 @@ public class DialController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Click"))
         {
             Ray ray = focusCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
