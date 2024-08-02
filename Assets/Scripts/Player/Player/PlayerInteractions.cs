@@ -35,6 +35,7 @@ namespace HPlayer
 
             PlayerController.OnPlayerEnterPortal += CheckHeldObjectOnTeleport;
         }
+
         private void OnDisable()
         {
             OnInteractionStart -= ChangeHeldObject;
@@ -56,7 +57,8 @@ namespace HPlayer
 
         private void UpdateInput()
         {
-            bool interacting = Input.GetMouseButton(0);
+            // OVRInput 사용하여 입력 감지
+            bool interacting = OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger) || OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger);
             if (interacting != Interacting)
             {
                 Interacting = interacting;
@@ -75,8 +77,8 @@ namespace HPlayer
         {
             Interactable foundInteractable = null;
 
-            // 마우스 위치에서 월드 공간으로 레이캐스트 수행
-            Ray ray = playerCamera.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+            // 손의 위치에서 월드 공간으로 레이캐스트 수행
+            Ray ray = new Ray(playerCamera.position, playerCamera.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hit, selectRange, selectLayer))
                 foundInteractable = hit.collider.GetComponent<Interactable>();
@@ -99,7 +101,6 @@ namespace HPlayer
             }
         }
 
-
         #endregion
 
         #region -held object-
@@ -114,6 +115,7 @@ namespace HPlayer
             handRot.x = Mathf.Clamp(handRot.x, -heldClamXRotation, heldClamXRotation);
             HeldObject.transform.rotation = Quaternion.Euler(handRot + HeldObject.LiftDirectionOffset);
         }
+
         private void ChangeHeldObject()
         {
             if (HeldObject)
@@ -121,6 +123,7 @@ namespace HPlayer
             else if (SelectedObject is Liftable liftable)
                 PickUpObject(liftable);
         }
+
         private void PickUpObject(Liftable obj)
         {
             if (obj == null)
@@ -132,6 +135,7 @@ namespace HPlayer
             HeldObject = obj;
             obj.PickUp(this, heldObjectLayer);
         }
+
         private void DropObject(Liftable obj)
         {
             if (obj == null)
