@@ -7,10 +7,16 @@ public class LiquefactionDoorController : MonoBehaviour
     public bool isClosed = false;
 
     private readonly float range = 5.0f;
+    private Camera mainCamera;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Click") && Camera.main != null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
