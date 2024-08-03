@@ -52,6 +52,8 @@ public class PlayerController : MonoBehaviour
     // 필요한 컴포넌트
     [SerializeField]
     private Camera theCamera;
+    [SerializeField] private ActionBasedController leftController;
+    [SerializeField] private ActionBasedController rightController;
     private Rigidbody myRigid;
 
     // 애니메이터 컴포넌트
@@ -68,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         capsuleCollider = GetComponent<CapsuleCollider>();
         myRigid = GetComponent<Rigidbody>();
-        // animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
         applySpeed = walkSpeed;
         riggingManager = GetComponent<RiggingManager>();
         originPosY = theCamera.transform.localPosition.y;
@@ -167,7 +169,7 @@ public class PlayerController : MonoBehaviour
         if (isSit)
             Sit();
         myRigid.velocity = transform.up * jumpForce;
-        // animator.SetTrigger("Jump");
+        animator.SetTrigger("Jump");
     }
 
     private void TryRun()
@@ -232,9 +234,9 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateAnimator()
     {
-        // animator.SetBool("Walk", isWalk);
-        // animator.SetBool("Run", isRun);
-        // animator.SetBool("isWalkBackwards", isWalkBackwards);
+        animator.SetBool("Walk", isWalk);
+        animator.SetBool("Run", isRun);
+        animator.SetBool("isWalkBackwards", isWalkBackwards);
     }
 
     private void CharacterRotation()
