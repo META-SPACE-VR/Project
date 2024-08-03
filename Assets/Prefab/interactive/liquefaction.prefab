@@ -139,6 +139,7 @@ Transform:
   - {fileID: 6404901086765587994}
   - {fileID: 3013602656197107322}
   - {fileID: 841657935718935770}
+  - {fileID: 4436623608626118464}
   m_Father: {fileID: 4636997766092454628}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313203736983928635
@@ -268,6 +269,7 @@ MonoBehaviour:
   Type: 2
   Name: "\uC735\uD574 \uC7A5\uCE58 \uD328\uB110"
   Icon: {fileID: 0}
+  focusCamera: {fileID: 0}
   putItem: {fileID: 0}
 --- !u!1 &1367138033881443094
 GameObject:
@@ -299,11 +301,11 @@ Transform:
   m_GameObject: {fileID: 1367138033881443094}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.012493124, y: 2.04, z: -0.030422179}
-  m_LocalScale: {x: 2.8, y: 2.8, z: 2.8}
+  m_LocalPosition: {x: 0.019230636, y: -0.5594997, z: -0.023996012}
+  m_LocalScale: {x: 0.21538456, y: 0.1866666, z: 0.15342464}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 841657935718935770}
+  m_Father: {fileID: 9188065491040571211}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2882447422322047461
 MeshFilter:
@@ -392,6 +394,7 @@ MonoBehaviour:
   Type: 0
   Name: "\uC561\uD654 \uC0B0\uC18C"
   Icon: {fileID: 21300000, guid: bb57f7fab2f3fc74aa730c2400df7120, type: 3}
+  focusCamera: {fileID: 0}
   putItem: {fileID: 0}
 --- !u!54 &2439501634430182822
 Rigidbody:
@@ -454,7 +457,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1296045749746925078}
-  - {fileID: 4436623608626118464}
   m_Father: {fileID: 9188065491040571211}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7943617758385572284
@@ -526,6 +528,7 @@ MonoBehaviour:
   Type: 1
   Name: "\uC735\uD574 \uC7A5\uCE58"
   Icon: {fileID: 0}
+  focusCamera: {fileID: 0}
   putItem: {fileID: 0}
 --- !u!65 &7162336430575303859
 BoxCollider:
