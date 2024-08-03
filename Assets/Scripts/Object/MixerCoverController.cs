@@ -7,20 +7,29 @@ public class MixerCoverController : MonoBehaviour
     public bool isClosed = false;
     public Transform leftCover;
     public Transform rightCover;
-    public float distance = 4.5f;
+    public Vector3 distance = new Vector3(0, 0, -0.5f);
 
     private readonly float range = 5.0f;
+    private Camera mainCamera;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     private void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && Camera.main != null)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+            Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
+
+            Ray ray = new Ray(controllerPosition, controllerForward);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, range))
             {
-                if (hit.transform == transform)
+                if (hit.transform == leftCover || hit.transform == rightCover)
                 {
                     ToggleDoor();
                 }
@@ -33,16 +42,13 @@ public class MixerCoverController : MonoBehaviour
         isClosed = !isClosed;
         if (isClosed)
         {
-            // 왼쪽, 오른쪽 문 이동
-            leftCover.Translate(distance, 0, 0);
-            rightCover.Translate(-distance, 0, 0);
+            leftCover.position += distance;
+            rightCover.position -= distance;
         }
         else
         {
-            // 왼쪽, 오른쪽 문 이동
-            leftCover.Translate(-distance, 0, 0);
-            rightCover.Translate(distance, 0, 0);
-
+            leftCover.position -= distance;
+            rightCover.position += distance;
         }
     }
 }
