@@ -16,9 +16,12 @@ public class MixerButtonController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Click"))
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
-            Ray ray = focusCamera.ScreenPointToRay(Input.mousePosition);
+            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+            Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
+
+            Ray ray = new Ray(controllerPosition, controllerForward);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit))

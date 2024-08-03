@@ -13,6 +13,8 @@ public class Interaction : MonoBehaviour
     public Camera mainCamera; // 카메라 참조
     public Camera zoomItemCamera; // 아이템 자세히 보기 카메라
 
+    public float thumbstickThreshold = 0.1f; // VR Thumbstick의 입력 감지 임계값
+
     private float range = 5.0f; // 상호작용 범위
     private InteractiveObject interactiveObject = null; // 현재 상호작용 할 수 있는 물체
     private GameObject putItem;  // Putable Object 에 올려놓은 아이템
@@ -23,6 +25,9 @@ public class Interaction : MonoBehaviour
     private bool isItemPut = false; // Putable Object 와 상호작용 여부
     private bool isFocused = false; // Zoomable Object 포커스 여부
     private int selectedItemIndex = 0; // 현재 선택중인 아이템의 인벤토리 내 인덱스
+
+    private Vector2 previousThumbstickInput; // VR 이전 Thumbstick 입력 상태
+    private bool isInputProcessed; // VR 입력이 처리되었는지 여부
 
 
     private void Start()
@@ -37,11 +42,6 @@ public class Interaction : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Button2"))
-        {
-            ToggleInventory();
-        }
-
         if (isFocused)
         {
             HandleFocusInput();
@@ -67,7 +67,10 @@ public class Interaction : MonoBehaviour
     // Input Handler
     private void HandleNomalInput()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+        Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
+
+        Ray ray = new Ray(controllerPosition, controllerForward);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, range))
@@ -87,8 +90,9 @@ public class Interaction : MonoBehaviour
         {
             MouseExit();
         }
-
-        if (Input.GetButtonDown("Click") && interactiveObject)
+        
+        // 물체 상호작용 (RT)
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && interactiveObject)
         {
             if (interactiveObject.Type == ObjectType.Collectable)
             {
@@ -99,29 +103,53 @@ public class Interaction : MonoBehaviour
                 ToggleFocusOnObject();
             }
         }
+
+        // 인벤토리 열기 (Y)
+        if (OVRInput.GetDown(OVRInput.RawButton.Y))
+        {
+            ToggleInventory();
+        }
     }
 
     private void HandleInventoryInput()
     {
-        if (Input.GetButtonDown("Horizontal"))
+        // 아이템 선택(LS)
+        Vector2 currentThumbstickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+
+        if (Mathf.Abs(currentThumbstickInput.x) > thumbstickThreshold)
         {
-            float horizontalInput = Input.GetAxis("Horizontal");
-            if (horizontalInput < 0)
+            if (currentThumbstickInput.x != previousThumbstickInput.x)
             {
-                SelectPreviousItem();
-            }
-            else if (horizontalInput > 0)
-            {
-                SelectNextItem();
+                if (!isInputProcessed)
+                {
+                    if (currentThumbstickInput.x < 0)
+                    {
+                        SelectPreviousItem();
+                    }
+                    else if (currentThumbstickInput.x > 0)
+                    {
+                        SelectNextItem();
+                    }
+
+                    isInputProcessed = true;
+                }
             }
         }
+        else
+        {
+            isInputProcessed = false;
+        }
 
-        if (Input.GetButtonDown("Click"))
+        previousThumbstickInput = currentThumbstickInput;
+
+        // 아이템 픽업(A)
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
             PickSelectedItem();
         }
 
-        if (Input.GetButtonDown("Cancel"))
+        // 돌아가기 (B)
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             CloseInventory();
         }
@@ -129,7 +157,11 @@ public class Interaction : MonoBehaviour
 
     private void HandleItemPickedInput()
     {
-        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+        // 아이템 놓기 미리보기
+        Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+        Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
+
+        Ray ray = new Ray(controllerPosition, controllerForward);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, range))
@@ -150,12 +182,14 @@ public class Interaction : MonoBehaviour
             PreviewCancel();
         }
 
-        if (Input.GetButtonDown("Button1"))
+        // 아이템 자세히 보기(A)
+        if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
             TogglePickedItemZoom();
         }
 
-        if (Input.GetButtonDown("Click"))
+        // 아이템 내려놓기(RT)
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
         {
             if (isItemPut)
             {
@@ -167,7 +201,8 @@ public class Interaction : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Cancel"))
+        // 아이템 픽업 취소(B)
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             DeselectItem();
         }
@@ -175,7 +210,8 @@ public class Interaction : MonoBehaviour
 
     private void HandleZoomInput()
     {
-        if (Input.GetButtonDown("Cancel"))
+        // 아이템 자세히 보기 취소(B)
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             TogglePickedItemZoom();
         }
@@ -183,7 +219,8 @@ public class Interaction : MonoBehaviour
 
     private void HandleFocusInput()
     {
-        if (Input.GetButtonDown("Cancel"))
+        // 자세히 보기 취소(B)
+        if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             ToggleFocusOnObject();
         }

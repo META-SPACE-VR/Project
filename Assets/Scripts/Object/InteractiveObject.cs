@@ -23,7 +23,10 @@ public class InteractiveObject : MonoBehaviour
     public Camera focusCamera;
 
     // Zoomed
+    public Transform rightController; // 나중에 넣어야 함
     private float rotationSpeed = 500.0f;
+    private bool isHolding = false;
+    private Vector3 previousRightPosition;
 
     // Putable
     public GameObject putItem;
@@ -35,6 +38,8 @@ public class InteractiveObject : MonoBehaviour
 
     private void Update()
     {
+
+
         if (Type == ObjectType.Zoomed)
         {
             ZoomedController();
@@ -43,11 +48,24 @@ public class InteractiveObject : MonoBehaviour
 
     private void ZoomedController()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        bool rightTriggerPressed = OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger);
+        bool rightGripPressed = OVRInput.Get(OVRInput.Button.SecondaryHandTrigger);
 
-        transform.Rotate(Vector3.down, mouseX * rotationSpeed * Time.deltaTime, Space.World);
-        transform.Rotate(Vector3.right, mouseY * rotationSpeed * Time.deltaTime, Space.World);
+        isHolding = (rightTriggerPressed && rightGripPressed);
+
+        if (isHolding)
+        {
+            Vector3 currentRightPosition = rightController.position;
+
+            Vector3 rightMovement = currentRightPosition - previousRightPosition;
+
+            Vector3 rotationAxis = rightMovement.normalized;
+            float rotationAngle = Vector3.Magnitude(rightMovement) * rotationSpeed;
+
+            transform.Rotate(rotationAxis, rotationAngle, Space.World);
+
+            previousRightPosition = currentRightPosition;
+        }
     }
 
     public void UpdatePutItem(GameObject obj)

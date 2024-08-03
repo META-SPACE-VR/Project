@@ -16,9 +16,12 @@ public class LiquefactionDoorController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Click") && Camera.main != null)
+        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && Camera.main != null)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+            Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
+
+            Ray ray = new Ray(controllerPosition, controllerForward);
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, range))
