@@ -15,7 +15,7 @@ public class LiquefactionButtonController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Click"))
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = focusCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;

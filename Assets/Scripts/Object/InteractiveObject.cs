@@ -19,9 +19,6 @@ public class InteractiveObject : MonoBehaviour
     public string Name;
     public Sprite Icon;
 
-    // Zoomable
-    public Camera focusCamera;
-
     // Zoomed
     private float rotationSpeed = 500.0f;
 

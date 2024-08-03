@@ -73,7 +73,7 @@ public class Interaction : MonoBehaviour
         if (Physics.Raycast(ray, out hit, range))
         {
             InteractiveObject obj = hit.collider.GetComponent<InteractiveObject>();
-            if (obj && (obj.Type == ObjectType.Collectable || obj.Type == ObjectType.Zoomable) && !isItemZoomed)
+            if (obj && (obj.Type == ObjectType.Collectable || obj.Type == ObjectType.Zoomable))
             {
                 interactiveObject = obj;
                 MouseEnter();
@@ -217,25 +217,22 @@ public class Interaction : MonoBehaviour
     private void ToggleFocusOnObject()
     {
         isFocused = !isFocused;
-        Camera focusCamera = interactiveObject.focusCamera;
+        Camera focusCamera = interactiveObject.GetComponentInChildren<Camera>();
         if (isFocused)
         {
-            interactionText.gameObject.SetActive(false);
-            focusCamera.gameObject.SetActive(true);
-            focusCamera.enabled = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
             playerController.EnterInteractionMode();
             mainCamera.enabled = false;
+            focusCamera.enabled = true;
         }
         else
         {
-            mainCamera.enabled = true;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
             playerController.ExitInteractionMode();
+            mainCamera.enabled = true;
             focusCamera.enabled = false;
-            focusCamera.gameObject.SetActive(false);
         } 
     }
 
