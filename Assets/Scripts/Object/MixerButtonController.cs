@@ -16,7 +16,7 @@ public class MixerButtonController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("Click"))
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = focusCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -33,21 +33,13 @@ public class MixerButtonController : MonoBehaviour
 
     private void CheckValidate()
     {
-        if (cover.isClosed && leftInput.putItem)
+        if (cover.isClosed)
         {
-            if (leftInput.putItem.name == "Naphthalene" && rightInput.putItem.name == "Dodecane")
+            if ((leftInput.putItem.name == "Naphthalene" && rightInput.putItem.name == "Dodecane") || (leftInput.putItem.name == "Dodecane" && rightInput.putItem.name == "Naphthalene"))
             {
                 MixComplete(Kerosene);
             }
-            else if (leftInput.putItem.name == "Dodecane" && rightInput.putItem.name == "Naphthalene")
-            {
-                MixComplete(Kerosene);
-            }
-            else if (leftInput.putItem.name == "Kerosene" && rightInput.putItem.name == "LOx")
-            {
-                MixComplete(RocketFuel);
-            }
-            else if (leftInput.putItem.name == "LOx" && rightInput.putItem.name == "Kerosene")
+            else if ((leftInput.putItem.name == "Kerosene" && rightInput.putItem.name == "LOx") || (leftInput.putItem.name == "LOx" && rightInput.putItem.name == "Kerosene"))
             {
                 MixComplete(RocketFuel);
             }
@@ -64,25 +56,19 @@ public class MixerButtonController : MonoBehaviour
 
     private void MixComplete(GameObject result)
     {
-        Debug.Log("Mixed");
         Alert.material.color = Color.green;
-
+        leftInput.UpdatePutItem(null);
+        rightInput.UpdatePutItem(null);
         if (leftTransform.childCount > 0)
         {
-            int leftItemIndex = leftTransform.childCount - 1;
-            Transform leftPutItem = leftTransform.GetChild(leftItemIndex);
-            Destroy(leftPutItem.gameObject);
+            Transform leftPutItem = leftTransform.GetChild(0);
+            Destroy(leftPutItem);
         }
-        leftInput.UpdatePutItem(null);
-
         if (rightTransform.childCount > 0)
         {
-            int rightItemIndex = rightTransform.childCount - 1;
-            Transform rightPutItem = rightTransform.GetChild(rightItemIndex);
-            Destroy(rightPutItem.gameObject);
+            Transform rightPutItem = leftTransform.GetChild(0);
+            Destroy(rightPutItem);
         }
-        rightInput.UpdatePutItem(null);
-
         result.SetActive(true);
     }
 }
