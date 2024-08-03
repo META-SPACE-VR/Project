@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody myRigid;
 
     // 애니메이터 컴포넌트
-    // private Animator animator;
+    private Animator animator;
 
     // RiggingManager 참조 추가
     private RiggingManager riggingManager;
