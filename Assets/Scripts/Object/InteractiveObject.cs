@@ -23,7 +23,7 @@ public class InteractiveObject : MonoBehaviour
     public Camera focusCamera;
 
     // Zoomed
-    public Transform rightController; // 나중에 넣어야 함
+    public Transform rightController;
     private float rotationSpeed = 500.0f;
     private bool isHolding = false;
     private Vector3 previousRightPosition;

@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
-    public List<InteractiveObject> initialItems;
+    public List<Collectable> initialItems;
     public GameObject[] slots;
-    public Dictionary<int, InteractiveObject> interactiveObjects;
+    public Dictionary<int, Collectable> collectables;
     private GameObject pickedItemPosition;
     private GameObject pickedItem;
     private GameObject zoomedItemPosition;
@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        interactiveObjects = new Dictionary<int, InteractiveObject>();
+        collectables = new Dictionary<int, Collectable>();
         pickedItemPosition = GameObject.Find("PickedItemPosition");
         pickedItemPosition.SetActive(false);
         zoomedItemPosition = GameObject.Find("ZoomedItemPosition");
@@ -24,14 +24,13 @@ public class InventoryManager : MonoBehaviour
 
         for (int i = 0; i < slots.Length; i++) 
         {
-            // 초기 설정: 아이템이 있을 경우 활성화, 없을 경우 비활성화
             Image itemImage = slots[i].transform.Find("Item").GetComponent<Image>();
             if (i < initialItems.Count)
             {
-                InteractiveObject item = initialItems[i];
+                Collectable item = initialItems[i];
                 itemImage.sprite = item.Icon;
                 itemImage.enabled = true;
-                interactiveObjects[i] = item;
+                collectables[i] = item;
             }
             else
             {
@@ -41,7 +40,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void AddItem(InteractiveObject item, GameObject obj)
+    public void AddItem(Collectable item, GameObject obj)
     {
         bool itemAdded = false;
 
@@ -51,7 +50,7 @@ public class InventoryManager : MonoBehaviour
             if(itemImage.sprite == null)
             {
                 itemImage.sprite = item.Icon;
-                interactiveObjects[i] = item;
+                collectables[i] = item;
                 itemImage.enabled = true;
                 itemAdded = true;
                 break;
@@ -77,9 +76,9 @@ public class InventoryManager : MonoBehaviour
             itemImage.sprite = null;
             itemImage.enabled = false;
 
-            if (interactiveObjects.ContainsKey(index))
+            if (collectables.ContainsKey(index))
             {
-                interactiveObjects.Remove(index);
+                collectables.Remove(index);
             }
 
             for (int i = index; i < slots.Length - 1; i++)
@@ -92,13 +91,13 @@ public class InventoryManager : MonoBehaviour
                     currentItemImage.sprite = nextItemImage.sprite;
                     currentItemImage.enabled = true;
                     
-                    if (interactiveObjects.ContainsKey(i + 1))
+                    if (collectables.ContainsKey(i + 1))
                     {
-                        interactiveObjects[i] = interactiveObjects[i + 1];
+                        collectables[i] = collectables[i + 1];
                     }
                     else
                     {
-                        interactiveObjects.Remove(i);
+                        collectables.Remove(i);
                         break;
                     }
                 }
@@ -106,7 +105,7 @@ public class InventoryManager : MonoBehaviour
                 {
                     currentItemImage.sprite = null;
                     currentItemImage.enabled = false;
-                    interactiveObjects.Remove(i);
+                    collectables.Remove(i);
                     break;
                 }
             }
@@ -114,7 +113,7 @@ public class InventoryManager : MonoBehaviour
             Image lastItemImage = slots[^1].transform.Find("Item").GetComponent<Image>();
             lastItemImage.sprite = null;
             lastItemImage.enabled = false;
-            interactiveObjects.Remove(slots.Length - 1);
+            collectables.Remove(slots.Length - 1);
         }
     }
 
@@ -126,7 +125,7 @@ public class InventoryManager : MonoBehaviour
             return;
         }
 
-        InteractiveObject prefab = interactiveObjects[index];
+        Collectable prefab = collectables[index];
 
         if (prefab == null)
         {
@@ -134,15 +133,15 @@ public class InventoryManager : MonoBehaviour
             return;
         }
 
-        if (pickedItem != null) // 이미 있다면 삭제
+        if (pickedItem != null)
         {
             Destroy(pickedItem);
         }
 
-        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);  // 생성
+        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);  
         pickedItem.transform.SetPositionAndRotation(pickedItemPosition.transform.position, Quaternion.identity);
-        pickedItem.name = "pickedItem";                                             // 이름 지정
-        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();                        // 기타 속성 제거
+        pickedItem.name = "pickedItem";                                            
+        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();                       
         Destroy(rb);
         CollectableObject collectable = pickedItem.GetComponent<CollectableObject>();
         Destroy(collectable);
@@ -166,7 +165,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (index >= 0 && index < slots.Length)
         {
-            InteractiveObject dropItem = interactiveObjects[index];
+            Collectable dropItem = collectables[index];
             
             if (dropItem != null)
             {
@@ -189,7 +188,7 @@ public class InventoryManager : MonoBehaviour
             return;
         }
 
-        InteractiveObject prefab = interactiveObjects[index];
+        Collectable prefab = collectables[index];
 
         if (prefab == null)
         {
@@ -205,7 +204,7 @@ public class InventoryManager : MonoBehaviour
         zoomedItem = Instantiate(prefab.gameObject, zoomedItemPosition.transform);
         zoomedItem.transform.SetPositionAndRotation(zoomedItemPosition.transform.position, Quaternion.identity);
         zoomedItem.name = "zoomedItem";
-        Rigidbody rb = zoomedItem.GetComponent<Rigidbody>();                        // 기타 속성 제거, 변경
+        Rigidbody rb = zoomedItem.GetComponent<Rigidbody>();                      
         Destroy(rb);
         Collider[] colliders = zoomedItem.GetComponents<Collider>();
         foreach (Collider collider in colliders)
@@ -229,7 +228,7 @@ public class InventoryManager : MonoBehaviour
     {
         if (index >= 0 && index < slots.Length)
         {
-            InteractiveObject item = interactiveObjects[index];
+            Collectable item = collectables[index];
 
             if (item != null)
             {   
@@ -240,13 +239,13 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public InteractiveObject GetItemByIndex(int index)
+    public Collectable GetItemByIndex(int index)
     {
-        return interactiveObjects[index];
+        return collectables[index];
     }
 
     public int GetItemCount()
     {
-        return interactiveObjects.Count;
+        return collectables.Count;
     }
 }

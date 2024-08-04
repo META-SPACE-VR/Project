@@ -248,7 +248,7 @@ public class Interaction : MonoBehaviour
 
     private void CollectObject()
     {
-        inventoryManager.AddItem(interactiveObject, interactiveObject.gameObject);
+        // inventoryManager.AddItem(interactiveObject, interactiveObject.gameObject);
     }
 
     private void ToggleFocusOnObject()
@@ -360,7 +360,7 @@ public class Interaction : MonoBehaviour
 
     private void SelectItem(int index)
     {
-        interactiveObject = inventoryManager.interactiveObjects[index];
+        // interactiveObject = inventoryManager.interactiveObjects[index];
         UpdateInteractionText();
     }
 
@@ -401,6 +401,7 @@ public class Interaction : MonoBehaviour
 
     private void PreviewItemPut()
     {
+        /* 
         if (isItemPut)
         {
             return;
@@ -424,6 +425,7 @@ public class Interaction : MonoBehaviour
         // 텍스트 UI
         interactionText.text = "아이템 놓기 (E)";
         interactionText.gameObject.SetActive(true);
+        */
     }
 
     private void PreviewCancel()
