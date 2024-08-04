@@ -9,12 +9,13 @@ public class MachineStart : MonoBehaviour
     public float wheelDistance;
     public GameObject wheelchair;
     public Animator machineAnimator;
+    public OVRInput.Button interactionButton = OVRInput.Button.Three;
 
     // Update is called once per frame
     void Update()
     {
         // 'e' 키를 눌렀을 때 onMachineStart 메서드 호출
-        if (Input.GetKeyDown(KeyCode.E))
+        if (OVRInput.GetDown(interactionButton))
         {
             onMachineStart();
         }

@@ -26,7 +26,6 @@ public class ExaminationPanel : MonoBehaviour
         {
             resultPanel.SetActive(false); // Initially hide the result panel
         }
-
     }
 
     void Update()
@@ -59,9 +58,8 @@ public class ExaminationPanel : MonoBehaviour
             // Exit interaction in TriggerArea
             if (triggerArea != null)
             {
-                triggerArea.ExitInteraction();
+                triggerArea.ExitInteraction(); // Call ExitInteraction to hide other UI elements
             }
-
         }
         else
         {

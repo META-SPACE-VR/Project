@@ -16,7 +16,7 @@ public class WheelchairController : MonoBehaviour
     private Transform originalParent;
 
     private float originalPlayerMoveSpeed;
-    public OVRInput.Button interactionButton = OVRInput.Button.One;
+    public OVRInput.Button interactionButton = OVRInput.Button.Two;
 
     void Start()
     {
