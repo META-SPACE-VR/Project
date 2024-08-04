@@ -13,6 +13,7 @@ public class SurgeryController : MonoBehaviour
     public Camera surgeryCamera; // 카메라 참조
     public GameObject[] bloodObjects; // 혈액 오브젝트 배열
     public GameObject bandageObject; // 붕대 오브젝트 참조
+    public TriggerArea triggerArea; // TriggerArea 참조 추가
 
     private int currentBloodIndex = 0; // 현재 비활성화할 혈액 오브젝트의 인덱스
 
@@ -58,18 +59,24 @@ public class SurgeryController : MonoBehaviour
         // 붕대 오브젝트 활성화
         bandageObject.SetActive(true);
 
-        // 카메라를 왼쪽으로 0.023만큼 이동
+        // 카메라를 왼쪽으로 0.03만큼 이동
         Vector3 newPosition = surgeryCamera.transform.position;
         newPosition.x -= 0.03f;
         surgeryCamera.transform.position = newPosition;
 
         // BleedStopBtn 버튼 비활성화
         BleedStopBtn.gameObject.SetActive(false);
+
+        // TriggerArea의 ExitInteraction 호출
+        if (triggerArea != null)
+        {
+            triggerArea.ExitInteraction(); // 상호작용 종료
+        }
     }
 
     void OnCutButtonClicked()
     {
-        // 카메라를 오른쪽으로 0.023만큼 이동
+        // 카메라를 오른쪽으로 0.03만큼 이동
         Vector3 newPosition = surgeryCamera.transform.position;
         newPosition.x += 0.03f;
         surgeryCamera.transform.position = newPosition;

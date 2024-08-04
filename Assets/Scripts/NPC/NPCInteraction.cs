@@ -19,7 +19,7 @@ public class NPCInteraction : MonoBehaviour
     private bool isInteracting = false;
     private int dialogueStep = 0;
     public Animator npcAnimator;
-    public OVRInput.Button interactionButton = OVRInput.Button.One;
+    public OVRInput.Button interactionButton = OVRInput.Button.Two;
 
     private string[] dialogueLines = new string[]
     {
