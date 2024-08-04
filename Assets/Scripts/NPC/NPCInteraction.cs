@@ -12,32 +12,43 @@ public class NPCInteraction : MonoBehaviour
     public GameObject Inventory; // 인벤토리 숨기기
     public Transform sitArea; // Reference to the sit area on the wheelchair
     public Button sitWheelChairBtn; // 휠체어 태우기 버튼
+    public Button continueDialogueBtn; // 대화 계속하기 버튼
     public float interactionDistance; // Distance to check if the wheelchair is nearby
     public bool isSittingInWheelchair = false;
     private bool playerNearby = false;
     private bool isInteracting = false;
     private int dialogueStep = 0;
     public Animator npcAnimator;
+    public OVRInput.Button interactionButton = OVRInput.Button.One;
 
     private string[] dialogueLines = new string[]
     {
-        "Help!",
-        "I don't think I can move. Please, find something to carry me."
+        "도와주세요!",
+        "폭발물에 맞아서 움직일 수가 없어요..혹시 탈 것좀 가져다 주실수 있을까요..?"
     };
 
     void Start()
     {
         sitWheelChairBtn.onClick.AddListener(sitWheelChairBtnClick);
+        continueDialogueBtn.onClick.AddListener(AdvanceDialogueOrEnd); // 대화 계속하기 버튼 클릭 리스너 추가
+        continueDialogueBtn.gameObject.SetActive(false); // 시작 시 버튼 비활성화
         dialoguePanel.SetActive(false); // Initially hide the dialogue panel
-        AddEventTriggerListener(dialoguePanel, EventTriggerType.PointerClick, OnDialoguePanelClick);
     }
 
     void Update()
     {
-        if (playerNearby && Input.GetKeyDown(KeyCode.E) && !isInteracting)
+        if (playerNearby && OVRInput.GetDown(interactionButton))
         {
-            StartDialogue();
+            if (!isInteracting)
+            {
+                StartDialogue();
+            }
+            else
+            {
+                AdvanceDialogueOrEnd();
+            }
         }
+
         if (IsWheelchairNearby() && playerNearby && !isSittingInWheelchair)
         {
             sitWheelChairBtn.gameObject.SetActive(true);
@@ -71,6 +82,7 @@ public class NPCInteraction : MonoBehaviour
         isInteracting = true;
         dialogueStep = 0;
         dialoguePanel.SetActive(true);
+        continueDialogueBtn.gameObject.SetActive(true); // 대화 계속하기 버튼 활성화
         Inventory.SetActive(false); // Hide the inventory during the dialogue
         dialogueText.text = dialogueLines[dialogueStep];
     }
@@ -92,8 +104,21 @@ public class NPCInteraction : MonoBehaviour
     {
         isInteracting = false;
         dialoguePanel.SetActive(false);
+        continueDialogueBtn.gameObject.SetActive(false); // 대화 계속하기 버튼 비활성화
         Inventory.SetActive(true); // Show the inventory after the dialogue ends
         Debug.Log("Find something to carry the NPC");
+    }
+
+    private void AdvanceDialogueOrEnd()
+    {
+        if (dialogueStep < dialogueLines.Length - 1)
+        {
+            AdvanceDialogue();
+        }
+        else
+        {
+            EndDialogue();
+        }
     }
 
     private void sitWheelChairBtnClick()
@@ -136,7 +161,7 @@ public class NPCInteraction : MonoBehaviour
     {
         if (isInteracting)
         {
-            AdvanceDialogue();
+            AdvanceDialogueOrEnd();
         }
     }
 

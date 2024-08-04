@@ -16,6 +16,7 @@ public class WheelchairController : MonoBehaviour
     private Transform originalParent;
 
     private float originalPlayerMoveSpeed;
+    public OVRInput.Button interactionButton = OVRInput.Button.One;
 
     void Start()
     {
@@ -47,7 +48,7 @@ public class WheelchairController : MonoBehaviour
 
     void Update()
     {
-        if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
+        if (isPlayerInRange && OVRInput.GetDown(interactionButton))
         {
             if (isInteracting)
             {
