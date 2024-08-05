@@ -185,7 +185,7 @@ public class InventoryManager : MonoBehaviour
         pickedItemPosition.SetActive(true);
     }
 
-    public void PutItem(Transform putItemPosition)
+    public Collectable PutItem(Transform putItemPosition)
     {
         
         Collectable obj = collectables[pickedItemIndex];
@@ -201,6 +201,8 @@ public class InventoryManager : MonoBehaviour
 
         DestroyItem(pickedItemIndex);
         DeselectItem();
+
+        return putItem.GetComponent<Collectable>();
     }
 
     public void DropItem(int index, Vector3 dropPosition)
