@@ -42,20 +42,30 @@ public class LobbyUI : MonoBehaviour, IDisabledUI
     // 이 메소드는 UI를 설정할 때 호출됩니다.
     public void Setup()
     {
+
+        Debug.Log("아오 진짜 개열받네");
         if (IsSubscribed) return; // 이미 구독된 경우, 중복 구독을 방지합니다.
 
         // 플레이어가 방에 참여하거나 나갈 때 호출될 메소드를 설정합니다.
         RoomPlayer.PlayerJoined += AddPlayer;
         RoomPlayer.PlayerLeft += RemovePlayer;
 
+
+        
         // 플레이어의 상태가 변경될 때 호출될 메소드를 설정합니다.
         RoomPlayer.PlayerChanged += EnsureAllPlayersReady;
+        
 
         // 준비 완료 버튼에 클릭 리스너를 추가합니다.
         readyUp.onClick.AddListener(ReadyUpListener);
 
         IsSubscribed = true; // 구독 상태를 설정합니다.
     }
+
+    // void DebugCheck() 
+    // {
+    //     Debug.Log("체크를해보자고");
+    // }
 
     // 게임 오브젝트가 파괴될 때 호출되는 메소드
     private void OnDestroy()
@@ -132,6 +142,7 @@ public class LobbyUI : MonoBehaviour, IDisabledUI
             // 선택된 트랙의 씬을 로드합니다.
             // int scene = ResourceManager.Instance.tracks[GameManager.Instance.TrackId].buildIndex;
             int scene = 1; // 임시
+            Debug.Log("열받노");
             LevelManager.LoadTrack(scene);
         }
     }

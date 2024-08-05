@@ -44,29 +44,42 @@ public class Map : NetworkBehaviour
 
 	public void SpawnPlayer(NetworkRunner runner, RoomPlayer player)
 	{
-		
-        Debug.Log("여기 들어왔니");
-        var index = RoomPlayer.Players.IndexOf(player);
+		if (player.IsSpawned())
+		{
+			Debug.Log($"플레이어 {player.Username}가 이미 스폰되었습니다.");
+			return;
+		}
+
+		Debug.Log($"플레이어 {player.Username} 스폰 시도");
+
+		var index = RoomPlayer.Players.IndexOf(player);
+		if (index < 0 || index >= spawnpoints.Length)
+		{
+			Debug.LogError($"유효하지 않은 스폰 포인트 인덱스: {index}");
+			return;
+		}
+
 		var point = spawnpoints[index];
+		var prefab = playerPrefab;
 
-        var prefab = playerPrefab;
-		// var prefabId = player.KartId;
-		// var prefab = ResourceManager.Instance.kartDefinitions[prefabId].prefab;
+		Debug.Log($"{player.Username}를 위치 {point.position}에 스폰 중");
 
-		// Spawn player
-		var entity = runner.Spawn(
+		var playerObject = runner.Spawn(
 			prefab,
 			point.position,
 			point.rotation,
 			player.Object.InputAuthority
 		);
 
-		// entity.Controller.RoomUser = player;
-		player.GameState = RoomPlayer.EGameState.GameCutscene;
-		// player.Kart = entity.Controller;
-
-		// Debug.Log($"Spawning kart for {player.Username} as {entity.name}");
-		// entity.transform.name = $"Kart ({player.Username})";
+		if (playerObject != null)
+		{
+			player.PlayerObject = playerObject;
+			Debug.Log($"{player.Username} 스폰 성공");
+		}
+		else
+		{
+			Debug.LogError($"{player.Username} 스폰 실패");
+		}
 	}
 
 	// private void InitCheckpoints()

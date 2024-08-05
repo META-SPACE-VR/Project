@@ -30,13 +30,14 @@ namespace Managers
         // 특정 씬을 로드하는 메소드
         public static void LoadTrack(int sceneIndex)
         {
+            Debug.Log("뒤질래");
             Instance.Runner.LoadScene(SceneRef.FromIndex(sceneIndex));  // 지정된 씬을 로드함
         }
 
         // 씬 로딩 과정의 코루틴
         protected override IEnumerator LoadSceneCoroutine(SceneRef sceneRef, NetworkLoadSceneParameters sceneParams)
         {
-            Debug.Log($"Loading scene {sceneRef}");  // 현재 로드 중인 씬의 정보를 로그에 남김
+            Debug.Log($"Loading scene {sceneRef} asdfasdasf");  // 현재 로드 중인 씬의 정보를 로그에 남김
 
             PreLoadScene(sceneRef.AsIndex);  // 씬 로드 전에 실행할 작업
             
@@ -50,10 +51,13 @@ namespace Managers
             {
                 if (Runner.GameMode == GameMode.Host)  // 현재 게임 모드가 호스트일 경우
                 {
-                    foreach (var player in RoomPlayer.Players)
+                    var playersArray = RoomPlayer.Players.ToArray();
+                    Debug.Log(playersArray.Length);
+
+                    foreach (var player in playersArray)
                     {
                         player.GameState = RoomPlayer.EGameState.GameCutscene;  // 플레이어의 게임 상태를 컷씬으로 변경
-                        // GameManager.CurrentMap.SpawnPlayer(Runner, player);  // 플레이어를 트랙에 스폰
+                        GameManager.CurrentMap.SpawnPlayer(Runner, player);  // 플레이어를 트랙에 스폰
                     }
                 }
             }
