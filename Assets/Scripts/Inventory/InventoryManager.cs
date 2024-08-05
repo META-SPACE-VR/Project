@@ -140,17 +140,14 @@ public class InventoryManager : MonoBehaviour
             Destroy(pickedItem);
         }
 
-        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);  
+        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);
         pickedItem.transform.SetPositionAndRotation(pickedItemPosition.transform.position, Quaternion.identity);
-        pickedItem.name = "pickedItem";                                            
-        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();                       
-        Collectable collectable = pickedItem.GetComponent<Collectable>();
+        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();
         InteractableUnityEventWrapper IUEW = pickedItem.GetComponent<InteractableUnityEventWrapper>();
         ColliderSurface colliderSurface = pickedItem.GetComponent<ColliderSurface>();
         RayInteractable rayInteractable = pickedItem.GetComponent<RayInteractable>();
         Collider[] colliders = pickedItem.GetComponents<Collider>();
         Destroy(rb);
-        Destroy(collectable);
         Destroy(IUEW);
         Destroy(colliderSurface);
         Destroy(rayInteractable);
