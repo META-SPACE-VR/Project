@@ -11,7 +11,7 @@ public class Map : NetworkBehaviour
 	public Transform[] spawnpoints;
 	public string music = "";
 
-    [SerializeField] private GameObject playerPrefab; 
+    // [SerializeField] private GameObject playerPrefab; 
 
 	private void Awake()
 	{
@@ -60,26 +60,26 @@ public class Map : NetworkBehaviour
 		}
 
 		var point = spawnpoints[index];
-		var prefab = playerPrefab;
+		// var prefab = playerPrefab;
 
 		Debug.Log($"{player.Username}를 위치 {point.position}에 스폰 중");
 
-		var playerObject = runner.Spawn(
-			prefab,
-			point.position,
-			point.rotation,
-			player.Object.InputAuthority
-		);
+		// var playerObject = runner.Spawn(
+		// 	prefab,
+		// 	point.position,
+		// 	point.rotation,
+		// 	player.Object.InputAuthority
+		// );
 
-		if (playerObject != null)
-		{
-			player.PlayerObject = playerObject;
-			Debug.Log($"{player.Username} 스폰 성공");
-		}
-		else
-		{
-			Debug.LogError($"{player.Username} 스폰 실패");
-		}
+		// if (playerObject != null)
+		// {
+		// 	player.PlayerObject = playerObject;
+		// 	Debug.Log($"{player.Username} 스폰 성공");
+		// }
+		// else
+		// {
+		// 	Debug.LogError($"{player.Username} 스폰 실패");
+		// }
 	}
 
 	// private void InitCheckpoints()
