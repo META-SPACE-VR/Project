@@ -38,10 +38,16 @@ public class OVRPlayerControllerWithAnimation : MonoBehaviour
         Quaternion playerRotation = ovrPlayerController.transform.rotation;
         avatarTransform.rotation = playerRotation;
 
-        if (inventoryManager.pickedItemIndex != -1 && OVRInput.GetDown(OVRInput.RawButton.B))
+        // 아이템 버리기 (A)
+        if (inventoryManager.pickedItemIndex != -1 && OVRInput.GetDown(OVRInput.RawButton.A))
         {
             Vector3 dropPosition = avatarTransform.position + avatarTransform.forward * 2f + Vector3.up * 2.5f;
             inventoryManager.DropItem(inventoryManager.pickedItemIndex, dropPosition);
+        }
+        // 아이템 선택 취소 (B)
+        if (inventoryManager.pickedItemIndex != -1 && OVRInput.GetDown(OVRInput.RawButton.B))
+        {
+            inventoryManager.DeselectItem();
         }
     }
 }

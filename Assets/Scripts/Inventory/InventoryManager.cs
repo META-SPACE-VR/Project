@@ -220,7 +220,7 @@ public class InventoryManager : MonoBehaviour
                 rb.isKinematic = false;
 
                 RemoveItem(index);
-                pickedItemIndex = -1;
+                DeselectItem();
             }
         }
     }
