@@ -4,53 +4,24 @@ using UnityEngine;
 
 public class MixerButtonController : MonoBehaviour
 {
-    public InteractiveObject leftInput;
-    public InteractiveObject rightInput;
-    public Transform leftTransform;
-    public Transform rightTransform;
+    public Putable leftInput;
+    public Putable rightInput;
+    public Transform leftPutItemPosition;
+    public Transform rightPutItemPosition;
     public GameObject Kerosene;
     public GameObject RocketFuel;
     public MixerCoverController cover;
     public Renderer Alert;
-    public Camera focusCamera;
 
-    private void Update()
+    public void CheckValidate()
     {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        if (cover.isClosed)
         {
-            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
-
-            Ray ray = new Ray(controllerPosition, controllerForward);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.transform == transform)
-                {
-                    CheckValidate();
-                }
-            }
-        }
-    }
-
-    private void CheckValidate()
-    {
-        if (cover.isClosed && leftInput.putItem)
-        {
-            if (leftInput.putItem.name == "Naphthalene" && rightInput.putItem.name == "Dodecane")
+            if ((leftInput.putItem.Name == "분자 6" && rightInput.putItem.Name == "분자 3") || (leftInput.putItem.Name == "분자 3" && rightInput.putItem.Name == "분자 6"))
             {
                 MixComplete(Kerosene);
             }
-            else if (leftInput.putItem.name == "Dodecane" && rightInput.putItem.name == "Naphthalene")
-            {
-                MixComplete(Kerosene);
-            }
-            else if (leftInput.putItem.name == "Kerosene" && rightInput.putItem.name == "LOx")
-            {
-                MixComplete(RocketFuel);
-            }
-            else if (leftInput.putItem.name == "LOx" && rightInput.putItem.name == "Kerosene")
+            else if ((leftInput.putItem.Name == "등유" && rightInput.putItem.Name == "액화 산소") || (leftInput.putItem.Name == "액화 산소" && rightInput.putItem.Name == "등유"))
             {
                 MixComplete(RocketFuel);
             }
@@ -67,24 +38,23 @@ public class MixerButtonController : MonoBehaviour
 
     private void MixComplete(GameObject result)
     {
-        Debug.Log("Mixed");
         Alert.material.color = Color.green;
 
-        if (leftTransform.childCount > 0)
+        if (leftPutItemPosition.childCount > 0)
         {
-            int leftItemIndex = leftTransform.childCount - 1;
-            Transform leftPutItem = leftTransform.GetChild(leftItemIndex);
+            int leftItemIndex = leftPutItemPosition.childCount - 1;
+            Transform leftPutItem = leftPutItemPosition.GetChild(leftItemIndex);
             Destroy(leftPutItem.gameObject);
         }
-        leftInput.UpdatePutItem(null);
+        leftInput.RemovePutItem();
 
-        if (rightTransform.childCount > 0)
+        if (rightPutItemPosition.childCount > 0)
         {
-            int rightItemIndex = rightTransform.childCount - 1;
-            Transform rightPutItem = rightTransform.GetChild(rightItemIndex);
+            int rightItemIndex = rightPutItemPosition.childCount - 1;
+            Transform rightPutItem = rightPutItemPosition.GetChild(rightItemIndex);
             Destroy(rightPutItem.gameObject);
         }
-        rightInput.UpdatePutItem(null);
+        leftInput.RemovePutItem();
 
         result.SetActive(true);
     }
