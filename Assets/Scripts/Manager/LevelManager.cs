@@ -11,7 +11,7 @@ namespace Managers
     {
         // 씬의 번호를 상수로 정의
         public const int LAUNCH_SCENE = 0;  // 게임 시작 씬
-        public const int LOBBY_SCENE = 1;   // 대기실 씬
+        public const int LOBBY_SCENE = 0;   // 대기실 씬
         
         // UI 화면과 페이더(화면 전환 효과) 변수
         [SerializeField] private UIScreen _dummyScreen;  // 더미 화면 (게임 중에 빈 화면을 보여줌)

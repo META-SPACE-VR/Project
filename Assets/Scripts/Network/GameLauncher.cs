@@ -42,7 +42,7 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
 		DontDestroyOnLoad(gameObject);
 
-		SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
+		// SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
 	}
 
 	public void SetCreateLobby() => _gameMode = GameMode.Host;
@@ -90,7 +90,7 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
 		if (status == ConnectionStatus.Disconnected || status == ConnectionStatus.Failed)
 		{
-			SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
+			// SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
 			UIScreen.BackToInitial();
 		}
 	}
