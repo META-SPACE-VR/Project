@@ -13,12 +13,23 @@ public enum ObjectType
 
 public class InteractiveObject : MonoBehaviour
 {
+    // Common
     public GameObject Prefab;
     public ObjectType Type;
     public string Name;
     public Sprite Icon;
 
-    public float rotationSpeed = 500.0f;
+    // Zoomable
+    public Camera focusCamera;
+
+    // Zoomed
+    public Transform rightController;
+    private float rotationSpeed = 500.0f;
+    private bool isHolding = false;
+    private Vector3 previousRightPosition;
+
+    // Putable
+    public GameObject putItem;
 
     private void Awake()
     {
@@ -27,13 +38,38 @@ public class InteractiveObject : MonoBehaviour
 
     private void Update()
     {
+
+
         if (Type == ObjectType.Zoomed)
         {
-            float mouseX = Input.GetAxis("Mouse X");
-            float mouseY = Input.GetAxis("Mouse Y");
-
-            transform.Rotate(Vector3.down, mouseX * rotationSpeed * Time.deltaTime, Space.World);
-            transform.Rotate(Vector3.right, mouseY * rotationSpeed * Time.deltaTime, Space.World);
+            ZoomedController();
         }
+    }
+
+    private void ZoomedController()
+    {
+        bool rightTriggerPressed = OVRInput.Get(OVRInput.Button.SecondaryIndexTrigger);
+        bool rightGripPressed = OVRInput.Get(OVRInput.Button.SecondaryHandTrigger);
+
+        isHolding = (rightTriggerPressed && rightGripPressed);
+
+        if (isHolding)
+        {
+            Vector3 currentRightPosition = rightController.position;
+
+            Vector3 rightMovement = currentRightPosition - previousRightPosition;
+
+            Vector3 rotationAxis = rightMovement.normalized;
+            float rotationAngle = Vector3.Magnitude(rightMovement) * rotationSpeed;
+
+            transform.Rotate(rotationAxis, rotationAngle, Space.World);
+
+            previousRightPosition = currentRightPosition;
+        }
+    }
+
+    public void UpdatePutItem(GameObject obj)
+    {
+        putItem = obj;
     }
 }
