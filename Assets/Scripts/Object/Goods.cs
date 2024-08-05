@@ -28,8 +28,8 @@ public class Goods : MonoBehaviour
 
     private void SpawnFood() {
         // 우주식량 스폰 
-        GameObject spawnedFood = Instantiate(spaceFood, transform.position + Vector3.up * 4f, Quaternion.identity);
-        Rigidbody foodRigid = spawnedFood.GetComponent<Rigidbody>();
+        spaceFood.SetActive(true);
+        Rigidbody foodRigid = spaceFood.GetComponent<Rigidbody>();
 
         // 식량이 날아갈 방향 계산
         Vector3 direction = playerInRange.transform.position - transform.position;
