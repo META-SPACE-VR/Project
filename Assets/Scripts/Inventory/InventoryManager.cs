@@ -1,3 +1,5 @@
+using Oculus.Interaction;
+using Oculus.Interaction.Surfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal.Profiling.Memory.Experimental;
@@ -142,10 +144,16 @@ public class InventoryManager : MonoBehaviour
         pickedItem.transform.SetPositionAndRotation(pickedItemPosition.transform.position, Quaternion.identity);
         pickedItem.name = "pickedItem";                                            
         Rigidbody rb = pickedItem.GetComponent<Rigidbody>();                       
-        Destroy(rb);
-        CollectableObject collectable = pickedItem.GetComponent<CollectableObject>();
-        Destroy(collectable);
+        Collectable collectable = pickedItem.GetComponent<Collectable>();
+        InteractableUnityEventWrapper IUEW = pickedItem.GetComponent<InteractableUnityEventWrapper>();
+        ColliderSurface colliderSurface = pickedItem.GetComponent<ColliderSurface>();
+        RayInteractable rayInteractable = pickedItem.GetComponent<RayInteractable>();
         Collider[] colliders = pickedItem.GetComponents<Collider>();
+        Destroy(rb);
+        Destroy(collectable);
+        Destroy(IUEW);
+        Destroy(colliderSurface);
+        Destroy(rayInteractable);
         foreach (Collider collider in colliders)
         {
             Destroy(collider);
