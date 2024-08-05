@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5153306522640664165}
-  Name: "\uBA54\uBAA8"
+  Name: "\uBA54\uBAA8 2"
   Icon: {fileID: 21300000, guid: f8415d1f77b62d240860ce82998666e7, type: 3}
   guideText: {fileID: 0}
   InventoryManager: {fileID: 0}

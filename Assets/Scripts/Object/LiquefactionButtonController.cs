@@ -14,7 +14,8 @@ public class LiquefactionButtonController : MonoBehaviour
 
     public void CheckValidate()
     {
-        if (door.isClosed && pressureDial.currentNumber == 5 && temperatureDial.currentNumber == 6 && input.putItem.name == "Oxygen")
+        Debug.Log("버튼 눌림");
+        if (door.isClosed && pressureDial.currentNumber == 5 && temperatureDial.currentNumber == 6 && input.putItem.Name == "분자 7")
         {
             Alert.material.color = Color.green;
             ingredient.SetActive(false);

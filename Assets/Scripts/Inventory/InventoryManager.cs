@@ -197,8 +197,10 @@ public class InventoryManager : MonoBehaviour
         Rigidbody rb = putItem.GetComponent<Rigidbody>();
         rb.isKinematic = true;
 
+        putItem.SetActive(true);
+
         DestroyItem(pickedItemIndex);
-        pickedItemIndex = -1;
+        DeselectItem();
     }
 
     public void DropItem(int index, Vector3 dropPosition)
