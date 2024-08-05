@@ -5,88 +5,53 @@ using UnityEngine;
 
 public class LabScreenController : MonoBehaviour
 {
-    public GameObject password;
+    public string answer;
+    public TextMeshProUGUI password;
     public GameObject keyboard;
-    public TextMeshProUGUI showText;
-    public Camera focusCamera;
+    public Renderer screen;
     public Material labPasswordSuccessMaterial;
 
-    private float range = 5.0f;
     private string code = "";
-    private Transform[] codeIndicators;
 
-    private void Start()
+    public void InputKey(string keyName)
     {
-        codeIndicators = new Transform[password.transform.childCount];
-        for (int i = 0; i < codeIndicators.Length; i++)
+        if (code.Length < answer.Length)
         {
-            codeIndicators[i] = password.transform.GetChild(i);
-            codeIndicators[i].gameObject.SetActive(false);
+            code += keyName;
+            password.text = code;
         }
     }
 
-    private void Update()
+    public void BackspaceKey()
     {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        if (code.Length > 0)
         {
-            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
+            code = code.Substring(0, code.Length - 1);
+            password.text = code;
+        }
+    }
 
-            Ray ray = new Ray(controllerPosition, controllerForward);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, range))
-            {
-                GameObject key = hit.collider.gameObject;
-
-                if (key != null && key.transform.IsChildOf(keyboard.transform))
-                {
-                    string pressedKeyName = key.name;
-
-                    if (pressedKeyName == "BS" && code.Length > 0) // 백스패이스 로직
-                    {
-                        code = code.Substring(0, code.Length - 1);
-                        codeIndicators[code.Length].gameObject.SetActive(false);
-                    }
-                    else if (pressedKeyName == "ET") // 엔터 로직
-                    {
-                        if (code == "DATA")
-                        {
-                            Renderer renderer = GetComponent<Renderer>();
-                            if (renderer != null)
-                            {
-                                renderer.material = labPasswordSuccessMaterial;
-                                password.SetActive(false);
-                                keyboard.SetActive(false);
-                            }
-                            else
-                            {
-                                StartCoroutine(ShowWrongPasswordMessage());
-                            }
-                        }
-                    }
-                    else // 나머지 키 로직
-                    {
-                        if (code.Length < 4)
-                        {
-                            code += pressedKeyName;
-                            codeIndicators[code.Length - 1].gameObject.SetActive(true);
-                        }
-                    }
-                }
-            }
+    public void EnterKey()
+    {
+        if (code == answer)
+        {
+            screen.material = labPasswordSuccessMaterial;
+            password.gameObject.SetActive(false);
+            keyboard.SetActive(false);
+        }
+        else
+        {
+            StartCoroutine(ShowWrongPasswordMessage());
         }
     }
 
     private IEnumerator ShowWrongPasswordMessage()
     {
-        showText.text = "패스워드가 틀렸습니다";
-        yield return new WaitForSeconds(1);
-        showText.text = "";
+        password.text = "패스워드가 틀렸습니다";
+        password.color = Color.red;
+        yield return new WaitForSeconds(0.5f);
+        password.text = "";
+        password.color = Color.black;
         code = "";
-        foreach (Transform indicator in codeIndicators)
-        {
-            indicator.gameObject.SetActive(false);
-        }
     }
 }

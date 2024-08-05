@@ -11,8 +11,11 @@ public class InventoryManager : MonoBehaviour
     public List<Collectable> initialItems;
     public GameObject[] slots;
     public Dictionary<int, Collectable> collectables;
-    private GameObject pickedItemPosition;
+
+    public int pickedItemIndex = -1;
+    public GameObject pickedItemPosition;
     private GameObject pickedItem;
+
     private GameObject zoomedItemPosition;
     private GameObject zoomedItem;
 
@@ -126,7 +129,7 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError("Index Error: Inventory Manager Pick Item Index Error.");
             return;
         }
-
+        // 프리팹 가져오기
         Collectable prefab = collectables[index];
 
         if (prefab == null)
@@ -134,19 +137,22 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError("Reference Error: Inventory Manager Pick Item Prefab is Null.");
             return;
         }
-
+        // 기존 아이템 삭제
         if (pickedItem != null)
         {
             Destroy(pickedItem);
         }
-
+        // 생성
         pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);
         pickedItem.transform.SetPositionAndRotation(pickedItemPosition.transform.position, Quaternion.identity);
+        pickedItem.name = prefab.name;
+        // 속성 제거
         Rigidbody rb = pickedItem.GetComponent<Rigidbody>();
         InteractableUnityEventWrapper IUEW = pickedItem.GetComponent<InteractableUnityEventWrapper>();
         ColliderSurface colliderSurface = pickedItem.GetComponent<ColliderSurface>();
         RayInteractable rayInteractable = pickedItem.GetComponent<RayInteractable>();
         Collider[] colliders = pickedItem.GetComponents<Collider>();
+
         Destroy(rb);
         Destroy(IUEW);
         Destroy(colliderSurface);
@@ -155,15 +161,26 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(collider);
         }
-
+        // 활성화
+        pickedItemIndex = index;
         pickedItem.SetActive(true);
         pickedItemPosition.SetActive(true);
     }
 
-    public void DeselectItem()
+    public void PutItem(Transform putItemPosition)
     {
-        Destroy(pickedItem);
-        pickedItemPosition.SetActive(false);
+        
+        Collectable obj = collectables[pickedItemIndex];
+        
+        GameObject putItem = Instantiate(obj.gameObject, putItemPosition);
+        putItem.transform.SetPositionAndRotation(putItemPosition.position, Quaternion.identity);
+        putItem.name = obj.name;
+
+        Rigidbody rb = putItem.GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+
+        DestroyItem(pickedItemIndex);
+        pickedItemIndex = -1;
     }
 
     public void DropItem(int index, Vector3 dropPosition)
@@ -179,6 +196,29 @@ public class InventoryManager : MonoBehaviour
                 dropItem.transform.position = dropPosition;
                 Rigidbody rb = dropItem.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
+
+                RemoveItem(index);
+                pickedItemIndex = -1;
+            }
+        }
+    }
+
+    public void DeselectItem()
+    {
+        pickedItemIndex = -1;
+        Destroy(pickedItem);
+        pickedItemPosition.SetActive(false);
+    }
+
+    public void DestroyItem(int index)
+    {
+        if (index >= 0 && index < slots.Length)
+        {
+            Collectable item = collectables[index];
+
+            if (item != null)
+            {   
+                Destroy(item.gameObject);
 
                 RemoveItem(index);
             }
@@ -227,21 +267,6 @@ public class InventoryManager : MonoBehaviour
     {
         Destroy(zoomedItem);
         zoomedItemPosition.SetActive(false);
-    }
-
-    public void DestroyItem(int index)
-    {
-        if (index >= 0 && index < slots.Length)
-        {
-            Collectable item = collectables[index];
-
-            if (item != null)
-            {   
-                Destroy(item.gameObject);
-
-                RemoveItem(index);
-            }
-        }
     }
 
     public Collectable GetItemByIndex(int index)
