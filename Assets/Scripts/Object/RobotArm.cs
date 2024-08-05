@@ -55,7 +55,7 @@ public class RobotArm : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
         // isMoving이 true면 로봇팔 이동 시도
         if(isMoving) {
             Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (curPosInPuzzle.y - 2.5f)) + offset1;
@@ -124,9 +124,8 @@ public class RobotArm : MonoBehaviour
                     if(Physics.Raycast(lightPoint.position, -1 * transform.up, out RaycastHit hit)) {
                         if(hit.collider.CompareTag("Container")) {
                             selectedContainer = hit.collider.gameObject;
-
-                            Transform attachPoint = transform.GetChild(1);
-                            offset2 = hit.collider.transform.position - attachPoint.position;
+                            
+                            offset2 = hit.collider.transform.localPosition - transform.localPosition;
                             offset2.y = 0;
 
                             if(offset2 == Vector3.zero) {

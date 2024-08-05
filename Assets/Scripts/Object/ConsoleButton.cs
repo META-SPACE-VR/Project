@@ -8,8 +8,6 @@ public class ConsoleButton : MonoBehaviour
     [SerializeField]
     MoveType buttonMoveType;
 
-    public UnityEvent onPress;
-    public UnityEvent onRelease;
     GameObject presser;
     bool isPressed;
 
@@ -26,7 +24,6 @@ public class ConsoleButton : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if(!isPressed) {
             presser = other.gameObject;
-            onPress.Invoke();
             isPressed = true;
         }
     }
@@ -34,7 +31,6 @@ public class ConsoleButton : MonoBehaviour
     private void OnTriggerExit(Collider other) {
         Debug.Log(other.gameObject.name);
         if(other.gameObject == presser) {
-            onRelease.Invoke();
             isPressed = false;
         }
     }
