@@ -143,9 +143,12 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 		Debug.Log($"Player {player} Joined!");
 		if (runner.IsServer)
 		{
+			Vector3 pos = Vector3.zero;
+			// Vector3 pos = GameManager.Instance.mapData.GetSpawnPosition(player.AsIndex);
+
 			if(_gameMode==GameMode.Host)
-				runner.Spawn(_gameManagerPrefab, Vector3.zero, Quaternion.identity);
-			var roomPlayer = runner.Spawn(_roomPlayerPrefab, Vector3.zero, Quaternion.identity, player);
+				runner.Spawn(_gameManagerPrefab, pos, Quaternion.identity);
+			var roomPlayer = runner.Spawn(_roomPlayerPrefab, pos, Quaternion.identity, player);
 			roomPlayer.GameState = RoomPlayer.EGameState.Lobby;
 		}
 		SetConnectionStatus(ConnectionStatus.Connected);
