@@ -951,24 +951,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonMoveType: 3
-  onPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3007467191439621384}
-        m_TargetAssemblyTypeName: RobotArm, Assembly-CSharp
-        m_MethodName: MoveDown
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRelease:
-    m_PersistentCalls:
-      m_Calls: []
   onMaterial: {fileID: 2100000, guid: c8c877c1f21d14744954a8359e9343b9, type: 2}
   offMaterial: {fileID: 2100000, guid: a2941f33e592d9c4a894385677797b63, type: 2}
 --- !u!1 &1149551091782213340
@@ -1003,8 +985,8 @@ Transform:
   - {fileID: 1048570539280423091}
   - {fileID: 7704657659919788253}
   - {fileID: 3732318636025414205}
-  - {fileID: 637154566026945091}
   - {fileID: 6798341773303809411}
+  - {fileID: 637154566026945091}
   - {fileID: 3258104086428356558}
   - {fileID: 6278938323844233559}
   - {fileID: 3434996656575877039}
@@ -1374,24 +1356,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonMoveType: 0
-  onPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3007467191439621384}
-        m_TargetAssemblyTypeName: RobotArm, Assembly-CSharp
-        m_MethodName: MoveLeft
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRelease:
-    m_PersistentCalls:
-      m_Calls: []
   onMaterial: {fileID: 2100000, guid: c8c877c1f21d14744954a8359e9343b9, type: 2}
   offMaterial: {fileID: 2100000, guid: a2941f33e592d9c4a894385677797b63, type: 2}
 --- !u!1 &1383674045925292449
@@ -2452,24 +2416,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonMoveType: 4
-  onPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3007467191439621384}
-        m_TargetAssemblyTypeName: RobotArm, Assembly-CSharp
-        m_MethodName: MoveAttach
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRelease:
-    m_PersistentCalls:
-      m_Calls: []
   onMaterial: {fileID: 2100000, guid: c8c877c1f21d14744954a8359e9343b9, type: 2}
   offMaterial: {fileID: 2100000, guid: a2941f33e592d9c4a894385677797b63, type: 2}
 --- !u!1 &1957476004980230711
@@ -4528,24 +4474,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonMoveType: 2
-  onPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3007467191439621384}
-        m_TargetAssemblyTypeName: RobotArm, Assembly-CSharp
-        m_MethodName: MoveUp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRelease:
-    m_PersistentCalls:
-      m_Calls: []
   onMaterial: {fileID: 2100000, guid: c8c877c1f21d14744954a8359e9343b9, type: 2}
   offMaterial: {fileID: 2100000, guid: a2941f33e592d9c4a894385677797b63, type: 2}
 --- !u!1 &3273404835745975029
@@ -6715,8 +6643,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8e8bbaec0c918469a196e38669fa67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceFood: {fileID: 0}
   interactionPrompt: {fileID: 3203082256486474115}
-  food: {fileID: 8778154805400542285, guid: 489a03a6fa6151848a21c3e791dd16a9, type: 3}
 --- !u!1 &5190055494601084157
 GameObject:
   m_ObjectHideFlags: 0
@@ -7585,24 +7513,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buttonMoveType: 1
-  onPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3007467191439621384}
-        m_TargetAssemblyTypeName: RobotArm, Assembly-CSharp
-        m_MethodName: MoveRight
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRelease:
-    m_PersistentCalls:
-      m_Calls: []
   onMaterial: {fileID: 2100000, guid: c8c877c1f21d14744954a8359e9343b9, type: 2}
   offMaterial: {fileID: 2100000, guid: a2941f33e592d9c4a894385677797b63, type: 2}
 --- !u!1 &5952810753168396141
@@ -8491,8 +8401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8e8bbaec0c918469a196e38669fa67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spaceFood: {fileID: 0}
   interactionPrompt: {fileID: 3203082256486474115}
-  food: {fileID: 7439110422508331433, guid: 3dae1f57e6a9ff842a473e6e645d83e4, type: 3}
 --- !u!1 &7134497080020137300
 GameObject:
   m_ObjectHideFlags: 0
@@ -12241,6 +12151,8 @@ MonoBehaviour:
   unitLength: 5.36
   moveTime: 0.5
   attachPoint: {fileID: 8120320241924873474}
+  attachSound: {fileID: 0}
+  detachSound: {fileID: 0}
   lightPoint: {fileID: 3498843069986004850}
   containerPuzzle: {fileID: 6982466223158841172}
   moveStarted:

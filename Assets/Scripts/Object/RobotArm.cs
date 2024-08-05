@@ -124,9 +124,8 @@ public class RobotArm : MonoBehaviour
                     if(Physics.Raycast(lightPoint.position, -1 * transform.up, out RaycastHit hit)) {
                         if(hit.collider.CompareTag("Container")) {
                             selectedContainer = hit.collider.gameObject;
-
-                            Transform attachPoint = transform.GetChild(1);
-                            offset2 = hit.collider.transform.position - attachPoint.position;
+                            
+                            offset2 = hit.collider.transform.localPosition - transform.localPosition;
                             offset2.y = 0;
 
                             if(offset2 == Vector3.zero) {
