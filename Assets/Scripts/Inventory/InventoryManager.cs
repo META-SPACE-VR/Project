@@ -1,3 +1,5 @@
+using Oculus.Interaction;
+using Oculus.Interaction.Surfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +10,11 @@ public class InventoryManager : MonoBehaviour
     public List<Collectable> initialItems;
     public GameObject[] slots;
     public Dictionary<int, Collectable> collectables;
-    private GameObject pickedItemPosition;
+
+    public int pickedItemIndex = -1;
+    public GameObject pickedItemPosition;
     private GameObject pickedItem;
+
     private GameObject zoomedItemPosition;
     private GameObject zoomedItem;
 
@@ -116,6 +121,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void RemoveItemByName(string itemName)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            Image itemImage = slots[i].transform.Find("Item").GetComponent<Image>();
+            if (itemImage.sprite != null && itemImage.sprite.name == itemName)
+            {
+                itemImage.sprite = null;
+                itemImage.enabled = false;
+                if (collectables.ContainsKey(i))
+                {
+                    collectables.Remove(i);
+                }
+                break;
+            }
+        }
+    }
+
     public void PickItem(int index)
     {
         if (index < 0 || index >= slots.Length)
@@ -123,7 +146,7 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError("Index Error: Inventory Manager Pick Item Index Error.");
             return;
         }
-
+        // 프리팹 가져오기
         Collectable prefab = collectables[index];
 
         if (prefab == null)
@@ -131,33 +154,52 @@ public class InventoryManager : MonoBehaviour
             Debug.LogError("Reference Error: Inventory Manager Pick Item Prefab is Null.");
             return;
         }
-
+        // 기존 아이템 삭제
         if (pickedItem != null)
         {
             Destroy(pickedItem);
         }
-
-        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);  
+        // 생성
+        pickedItem = Instantiate(prefab.gameObject, pickedItemPosition.transform);
         pickedItem.transform.SetPositionAndRotation(pickedItemPosition.transform.position, Quaternion.identity);
-        pickedItem.name = "pickedItem";                                            
-        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();                       
-        Destroy(rb);
-        CollectableObject collectable = pickedItem.GetComponent<CollectableObject>();
-        Destroy(collectable);
+        pickedItem.name = prefab.name;
+        // 속성 제거
+        Rigidbody rb = pickedItem.GetComponent<Rigidbody>();
+        InteractableUnityEventWrapper IUEW = pickedItem.GetComponent<InteractableUnityEventWrapper>();
+        ColliderSurface colliderSurface = pickedItem.GetComponent<ColliderSurface>();
+        RayInteractable rayInteractable = pickedItem.GetComponent<RayInteractable>();
         Collider[] colliders = pickedItem.GetComponents<Collider>();
+
+        Destroy(rb);
+        Destroy(IUEW);
+        Destroy(colliderSurface);
+        Destroy(rayInteractable);
         foreach (Collider collider in colliders)
         {
             Destroy(collider);
         }
-
+        // 활성화
+        pickedItemIndex = index;
         pickedItem.SetActive(true);
         pickedItemPosition.SetActive(true);
     }
 
-    public void DeselectItem()
+    public void PutItem(Transform putItemPosition)
     {
-        Destroy(pickedItem);
-        pickedItemPosition.SetActive(false);
+        
+        Collectable obj = collectables[pickedItemIndex];
+        
+        GameObject putItem = Instantiate(obj.gameObject, putItemPosition);
+        putItem.transform.SetPositionAndRotation(putItemPosition.position, Quaternion.identity);
+        putItem.name = obj.name;
+
+        Rigidbody rb = putItem.GetComponent<Rigidbody>();
+        rb.isKinematic = true;
+
+        putItem.SetActive(true);
+
+        DestroyItem(pickedItemIndex);
+        DeselectItem();
     }
 
     public void DropItem(int index, Vector3 dropPosition)
@@ -173,6 +215,29 @@ public class InventoryManager : MonoBehaviour
                 dropItem.transform.position = dropPosition;
                 Rigidbody rb = dropItem.GetComponent<Rigidbody>();
                 rb.isKinematic = false;
+
+                RemoveItem(index);
+                pickedItemIndex = -1;
+            }
+        }
+    }
+
+    public void DeselectItem()
+    {
+        pickedItemIndex = -1;
+        Destroy(pickedItem);
+        pickedItemPosition.SetActive(false);
+    }
+
+    public void DestroyItem(int index)
+    {
+        if (index >= 0 && index < slots.Length)
+        {
+            Collectable item = collectables[index];
+
+            if (item != null)
+            {   
+                Destroy(item.gameObject);
 
                 RemoveItem(index);
             }
@@ -221,21 +286,6 @@ public class InventoryManager : MonoBehaviour
     {
         Destroy(zoomedItem);
         zoomedItemPosition.SetActive(false);
-    }
-
-    public void DestroyItem(int index)
-    {
-        if (index >= 0 && index < slots.Length)
-        {
-            Collectable item = collectables[index];
-
-            if (item != null)
-            {   
-                Destroy(item.gameObject);
-
-                RemoveItem(index);
-            }
-        }
     }
 
     public Collectable GetItemByIndex(int index)

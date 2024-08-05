@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Prefab: {fileID: 1215585217687478334}
-  Name: "\uBD84\uC790"
+  Name: "\uBD84\uC790 5"
   Icon: {fileID: 21300000, guid: c07fd7c48be075c41a3beb4924b10358, type: 3}
   guideText: {fileID: 0}
   InventoryManager: {fileID: 0}

@@ -4,38 +4,18 @@ using UnityEngine;
 
 public class LiquefactionButtonController : MonoBehaviour
 {
-    public Camera focusCamera;
     public LiquefactionDoorController door;
     public DialController pressureDial;
     public DialController temperatureDial;
-    public InteractiveObject input;
+    public Putable input;
     public Renderer Alert;
     public GameObject ingredient;
     public GameObject result;
 
-    private void Update()
+    public void CheckValidate()
     {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
-        {
-            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
-
-            Ray ray = new Ray(controllerPosition, controllerForward);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.transform == transform)
-                {
-                    CheckValidate();
-                }
-            }
-        }
-    }
-
-    private void CheckValidate()
-    {
-        if (door.isClosed && pressureDial.currentNumber == 5 && temperatureDial.currentNumber == 6 && input.putItem.name == "Oxygen")
+        Debug.Log("버튼 눌림");
+        if (door.isClosed && pressureDial.currentNumber == 5 && temperatureDial.currentNumber == 6 && input.putItem.Name == "분자 7")
         {
             Alert.material.color = Color.green;
             ingredient.SetActive(false);
