@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Theme.Primitives;
 
 public class Goods : MonoBehaviour
 {
@@ -15,12 +13,15 @@ public class Goods : MonoBehaviour
     [SerializeField]
     GameObject interactionPrompt; // Interaction prompt
 
+    [SerializeField]
+    OVRInput.Button interactionButton;
+
     void Awake() {
         interactionPrompt.SetActive(false);
     }
 
-    void Update() {
-        if(playerInRange && Input.GetKeyDown(KeyCode.E)) {
+    private void Update() {
+        if(playerInRange && OVRInput.GetDown(interactionButton)) {
             SpawnFood();
         }
     }
@@ -31,8 +32,7 @@ public class Goods : MonoBehaviour
         Rigidbody foodRigid = spawnedFood.GetComponent<Rigidbody>();
 
         // 식량이 날아갈 방향 계산
-        Transform playerCamera = playerInRange.transform.Find("Camera Offset").transform.Find("Main Camera");
-        Vector3 direction = playerCamera.transform.position - transform.position;
+        Vector3 direction = playerInRange.transform.position - transform.position;
         direction -= Vector3.up * direction.y;
         direction.Normalize();
         
