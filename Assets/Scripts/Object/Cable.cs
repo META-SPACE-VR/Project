@@ -1,9 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Oculus.Interaction;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class Cable : MonoBehaviour
 {   
@@ -21,7 +21,6 @@ public class Cable : MonoBehaviour
     public GameObject connectedHole2 { get; private set; }
 
     Rigidbody rigidBody;
-    XRGrabInteractable grabInteractable;
 
     [SerializeField]
     PanelManager panelManager;
@@ -32,12 +31,10 @@ public class Cable : MonoBehaviour
         connectedHole1 = null;
         connectedHole2 = null;
         rigidBody = GetComponent<Rigidbody>();
-        grabInteractable = GetComponent<XRGrabInteractable>();
 
         rigidBody.useGravity = true;
         rigidBody.isKinematic = false;
 
-        //---------------------------------------------------- Test ------------------------------------------------------------
         // Attach Point 주위에 구멍이 있는지 확인
         Collider[] hitCollider1 = Physics.OverlapSphere(attachPoint1.position, attachRadius, 1 << LayerMask.NameToLayer("Wire Hole"));
         foreach (Collider collider in hitCollider1) {
@@ -83,22 +80,18 @@ public class Cable : MonoBehaviour
         if(connectedHole1 && connectedHole2) {
             panelManager.ConnectPair(connectedHole1, connectedHole2);
         }
-        //---------------------------------------------------- Test ------------------------------------------------------------
-        
-        grabInteractable.selectEntered.AddListener(OnGrab);
-        grabInteractable.selectExited.AddListener(OnRelease);
     }
 
     // 케이블을 쥘 때 동작
-    void OnGrab(SelectEnterEventArgs args) {
+    public void OnGrab() {
         // 둘 다 연결되어 있던 상태라면
         if(connectedHole1 && connectedHole2) {
             panelManager.DisconnectPair(connectedHole1, connectedHole2);
         }
 
         // 연결 해제
-        if(connectedHole1) { connectedHole1 = null; connectedHole1.GetComponent<CableHole>().isConnected = false; }
-        if(connectedHole2) { connectedHole2 = null; connectedHole2.GetComponent<CableHole>().isConnected = false; }
+        if(connectedHole1) { connectedHole1.GetComponent<CableHole>().isConnected = false; connectedHole1 = null; }
+        if(connectedHole2) { connectedHole2.GetComponent<CableHole>().isConnected = false; connectedHole2 = null; }
 
         // 리지드 바디 세팅
         rigidBody.useGravity = true;
@@ -106,7 +99,7 @@ public class Cable : MonoBehaviour
     }
 
     // 케이블을 놓을 때 동작
-    void OnRelease(SelectExitEventArgs args) {
+    public void OnRelease() {
         // Attach Point 주위에 구멍이 있는지 확인
         Collider[] hitCollider1 = Physics.OverlapSphere(attachPoint1.position, attachRadius, 1 << LayerMask.NameToLayer("Wire Hole"));
         foreach (Collider collider in hitCollider1) {
