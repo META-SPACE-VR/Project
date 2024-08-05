@@ -40,4 +40,9 @@ public class Putable : MonoBehaviour
             guideText.gameObject.SetActive(false);
         }
     }
+
+    public void RemovePutItem()
+    {
+        putItem = null;
+    }
 }
