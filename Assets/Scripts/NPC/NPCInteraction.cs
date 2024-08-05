@@ -13,6 +13,7 @@ public class NPCInteraction : MonoBehaviour
     public Transform sitArea; // Reference to the sit area on the wheelchair
     public Button sitWheelChairBtn; // 휠체어 태우기 버튼
     public Button continueDialogueBtn; // 대화 계속하기 버튼
+    public Button giveItemButton; // 아이템 주기 버튼
     public float interactionDistance; // Distance to check if the wheelchair is nearby
     public bool isSittingInWheelchair = false;
     private bool playerNearby = false;
@@ -20,6 +21,8 @@ public class NPCInteraction : MonoBehaviour
     private int dialogueStep = 0;
     public Animator npcAnimator;
     public OVRInput.Button interactionButton = OVRInput.Button.Two;
+    public GameObject pickedItemPosition; // Picked item position reference
+    private InventoryManager inventoryManager; // 인벤토리 매니저 참조
 
     private string[] dialogueLines = new string[]
     {
@@ -33,6 +36,9 @@ public class NPCInteraction : MonoBehaviour
         continueDialogueBtn.onClick.AddListener(AdvanceDialogueOrEnd); // 대화 계속하기 버튼 클릭 리스너 추가
         continueDialogueBtn.gameObject.SetActive(false); // 시작 시 버튼 비활성화
         dialoguePanel.SetActive(false); // Initially hide the dialogue panel
+        giveItemButton.onClick.AddListener(OnGiveItemButtonClicked); // 아이템 주기 버튼 클릭 리스너 추가
+        giveItemButton.gameObject.SetActive(false); // 시작 시 버튼 비활성화
+        inventoryManager = FindObjectOfType<InventoryManager>(); // InventoryManager 찾기
     }
 
     void Update()
@@ -56,6 +62,29 @@ public class NPCInteraction : MonoBehaviour
         else
         {
             sitWheelChairBtn.gameObject.SetActive(false);
+        }
+
+        // NPC가 근처에 있고, 플레이어가 아이템을 들고 있을 때 아이템 주기 버튼 활성화
+        if (playerNearby && pickedItemPosition.transform.childCount > 0)
+        {
+            GameObject pickedItem = pickedItemPosition.transform.GetChild(0).gameObject;
+            string pickedItemName = pickedItem.name;
+            Debug.Log($"{pickedItemName}");
+
+            if (pickedItemName == "NSAIDs(Clone)" || pickedItemName == "연골보호제(Clone)")
+            {
+                string displayName = pickedItemName.Replace("(Clone)", "").Trim();
+                giveItemButton.gameObject.SetActive(true);
+                giveItemButton.GetComponentInChildren<TMP_Text>().text = $"{displayName} 투여하기";
+            }
+            else
+            {
+                giveItemButton.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            giveItemButton.gameObject.SetActive(false);
         }
     }
 
@@ -175,5 +204,32 @@ public class NPCInteraction : MonoBehaviour
         EventTrigger.Entry entry = new EventTrigger.Entry { eventID = type };
         entry.callback.AddListener(action);
         trigger.triggers.Add(entry);
+    }
+
+    private void OnGiveItemButtonClicked()
+    {
+        if (pickedItemPosition.transform.childCount > 0)
+        {
+            GameObject pickedItem = pickedItemPosition.transform.GetChild(0).gameObject;
+            string pickedItemName = pickedItem.name;
+
+            if (pickedItemName == "NSAIDs(Clone)" || pickedItemName == "연골보호제(Clone)")
+            {
+                Debug.Log($"{pickedItemName.Replace("(Clone)", "").Trim()} 투여 완료");
+                string itemName = pickedItemName.Replace("(Clone)", "").Trim();
+
+                // 인벤토리 매니저에서 해당 아이템 제거
+                if (itemName == "NSAIDs")
+                {
+                    inventoryManager.RemoveItemByName("NSAIDs");
+                }
+                else if (itemName == "연골보호제")
+                {
+                    inventoryManager.RemoveItemByName("Chondroprotective agents");
+                }
+
+                Destroy(pickedItem); // 아이템 오브젝트 삭제
+            }
+        }
     }
 }
