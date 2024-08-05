@@ -67,7 +67,7 @@ public class RoomPlayer : NetworkBehaviour
 
    	public override void Render()
 	{
-		foreach (var change in _changeDetector.DetectChanges(this))
+ 		foreach (var change in _changeDetector.DetectChanges(this))
 		{
 			switch (change)
 			{
