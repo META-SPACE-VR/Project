@@ -19,8 +19,8 @@ public class GameManager : NetworkBehaviour
     // 음성 매니저를 저장
     // public static VoiceManager vm { get; private set; }
 
-    // 게임 맵 데이터를 저장
-    public MapData mapData; 
+    public static Map CurrentMap { get; private set; }
+    public static bool IsPlaying => CurrentMap != null;
 
     // 게임 설정을 저장하고 변경될 때 렌더링 함수 호출
     // [Networked, OnChangedRender(nameof(GameSettingsChanged))]
@@ -98,5 +98,8 @@ public class GameManager : NetworkBehaviour
             }
         }
     }
-
+	public static void SetMap(Map map)
+	{
+		CurrentMap = map;
+	}
 }
