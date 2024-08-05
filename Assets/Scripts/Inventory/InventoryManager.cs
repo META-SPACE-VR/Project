@@ -119,6 +119,24 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void RemoveItemByName(string itemName)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            Image itemImage = slots[i].transform.Find("Item").GetComponent<Image>();
+            if (itemImage.sprite != null && itemImage.sprite.name == itemName)
+            {
+                itemImage.sprite = null;
+                itemImage.enabled = false;
+                if (collectables.ContainsKey(i))
+                {
+                    collectables.Remove(i);
+                }
+                break;
+            }
+        }
+    }
+
     public void PickItem(int index)
     {
         if (index < 0 || index >= slots.Length)
