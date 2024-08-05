@@ -20,7 +20,7 @@ public class OVRPlayerControllerWithAnimation : MonoBehaviour
                          Input.GetKey(KeyCode.RightShift);
 
         // 점프 버튼이 눌렸는지 확인
-        bool isJumping = OVRInput.GetDown(OVRInput.Button.One) ||
+        bool isJumping = OVRInput.GetDown(OVRInput.Button.Three) ||
                         Input.GetKey(KeyCode.Space); 
 
         // 애니메이터의 "Walk", "Run", 및 "Jump" 파라미터를 설정
