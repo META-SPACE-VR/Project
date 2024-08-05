@@ -142,7 +142,7 @@ public class InventoryManager : MonoBehaviour
 
     public void PickItem(int index)
     {
-        if (index < 0 || index >= slots.Length)
+        if (index < 0 || index >= collectables.Count)
         {
             Debug.LogError("Index Error: Inventory Manager Pick Item Index Error.");
             return;

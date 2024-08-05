@@ -7,11 +7,11 @@ using UnityEngine;
 public class EngineDoorController : MonoBehaviour
 {
     public Animator anim;
-    public EngineScreenController engineScreen;
+    public LabScreenController engineScreen;
 
     private void Update()
     {
-        if (engineScreen.isPasswordSucceed)
+        if (engineScreen.isSucceeded)
         {
             anim.SetBool("character_nearby", true);
         }

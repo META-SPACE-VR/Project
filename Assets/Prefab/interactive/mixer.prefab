@@ -1809,8 +1809,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftInput: {fileID: 8339270354515860441}
   rightInput: {fileID: 909441724750675021}
-  leftPutItemPosition: {fileID: 0}
-  rightPutItemPosition: {fileID: 0}
+  leftPutItemPosition: {fileID: 8666408431462457137}
+  rightPutItemPosition: {fileID: 6653632825391261922}
   Kerosene: {fileID: 1709557925367384458}
   RocketFuel: {fileID: 317494402441189830}
   cover: {fileID: 2951954737050579074}
@@ -3668,7 +3668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2140d2b457bea84881488302059889b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _collider: {fileID: 3805795969581181863}
+  _collider: {fileID: 2961466286113689982}
 --- !u!114 &719812504413296980
 MonoBehaviour:
   m_ObjectHideFlags: 0
