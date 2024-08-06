@@ -3353,6 +3353,37 @@ MonoBehaviour:
   resetHmdPoseByMiddleMouseButton: 1
   activateKeys: 3201000031010000
   pitchKeys: 3401000033010000
+--- !u!1 &6112621040648654195
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4438333631863317187}
+  m_Layer: 0
+  m_Name: FocusCameraPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4438333631863317187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6112621040648654195}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2679999, z: 0.5787}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1963102713336473486}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6389911780821068219
 GameObject:
   m_ObjectHideFlags: 0
@@ -3681,6 +3712,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _position: {x: -63.9, y: 18.4, z: 0}
   _size: {x: 38.2, y: 7.7, z: 1}
+--- !u!1 &7799456899990611538
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1234756665916796900}
+  m_Layer: 3
+  m_Name: MainCameraPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1234756665916796900
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7799456899990611538}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.48, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1963102713336473486}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8002356007137924386
 GameObject:
   m_ObjectHideFlags: 0
@@ -4721,6 +4783,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4891516635402444828}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1234756665916796900}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4438333631863317187}
     - targetCorrespondingSourceObject: {fileID: 6734931530170869177, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 921556397690869309}
@@ -5309,9 +5377,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8455160380430631007, guid: 025c06920162d7f4f80712af243f7653, type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 1683336279712978355}
+    - target: {fileID: 8455160380430631007, guid: 025c06920162d7f4f80712af243f7653, type: 3}
       propertyPath: pickedItemPosition
       value: 
       objectReference: {fileID: 5656203676269823419}
+    - target: {fileID: 8455160380430631007, guid: 025c06920162d7f4f80712af243f7653, type: 3}
+      propertyPath: zoomedItemPosition
+      value: 
+      objectReference: {fileID: 4438333631863317187}
+    - target: {fileID: 8455160380430631007, guid: 025c06920162d7f4f80712af243f7653, type: 3}
+      propertyPath: originalCameraPosition
+      value: 
+      objectReference: {fileID: 1234756665916796900}
     - target: {fileID: 9070644724968222412, guid: 025c06920162d7f4f80712af243f7653, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

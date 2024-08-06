@@ -15,16 +15,14 @@ public class InventoryManager : MonoBehaviour
     public GameObject pickedItemPosition;
     private GameObject pickedItem;
 
-    private GameObject zoomedItemPosition;
-    private GameObject zoomedItem;
+    public bool isItemZoomed = false;
+    public Transform zoomedItemPosition;
+    public Transform originalCameraPosition;
+    public Camera mainCamera;
 
     private void Start()
     {
         collectables = new Dictionary<int, Collectable>();
-        pickedItemPosition = GameObject.Find("PickedItemPosition");
-        pickedItemPosition.SetActive(false);
-        zoomedItemPosition = GameObject.Find("ZoomedItemPosition");
-        zoomedItemPosition.SetActive(false);
 
         for (int i = 0; i < slots.Length; i++) 
         {
@@ -246,48 +244,16 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    public void ZoomItem(int index)
+    public void ZoomItem()
     {
-        if (index < 0 || index >= slots.Length)
-        {
-            Debug.LogError("Index Error: Inventory Manager Zoom Item Index Error.");
-            return;
-        }
-
-        Collectable prefab = collectables[index];
-
-        if (prefab == null)
-        {
-            Debug.LogError("Reference Error: Inventory Manager Zoom Item Prefab is Null.");
-            return;
-        }
-
-        if (zoomedItem != null)
-        {
-            Destroy(zoomedItem);
-        }
-
-        zoomedItem = Instantiate(prefab.gameObject, zoomedItemPosition.transform);
-        zoomedItem.transform.SetPositionAndRotation(zoomedItemPosition.transform.position, Quaternion.identity);
-        zoomedItem.name = "zoomedItem";
-        Rigidbody rb = zoomedItem.GetComponent<Rigidbody>();                      
-        Destroy(rb);
-        Collider[] colliders = zoomedItem.GetComponents<Collider>();
-        foreach (Collider collider in colliders)
-        {
-            Destroy(collider);
-        }
-        // CollectableObject collectable = zoomedItem.GetComponent<CollectableObject>();
-
-        zoomedItem.SetActive(true);
-        zoomedItemPosition.SetActive(true);
-        // collectable.Type = ObjectType.Zoomed;
+        isItemZoomed = true;
+        mainCamera.transform.position = zoomedItemPosition.position;
     }
 
     public void UnzoomItem()
     {
-        Destroy(zoomedItem);
-        zoomedItemPosition.SetActive(false);
+        isItemZoomed = false;
+        mainCamera.transform.position = originalCameraPosition.position;
     }
 
     public Collectable GetItemByIndex(int index)
