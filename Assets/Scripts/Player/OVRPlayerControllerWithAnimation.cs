@@ -34,9 +34,9 @@ public class OVRPlayerControllerWithAnimation : MonoBehaviour
             ovrPlayerController.Jump(); // 점프 수행
         }
 
-        // 플레이어의 회전 값을 가져와서 아바타에 적용
-        Quaternion playerRotation = ovrPlayerController.transform.rotation;
-        avatarTransform.rotation = playerRotation;
+        // // 플레이어의 회전 값을 가져와서 아바타에 적용
+        // Quaternion playerRotation = ovrPlayerController.transform.rotation;
+        // avatarTransform.rotation = playerRotation;
 
         // 아이템 버리기 (A)
         if (inventoryManager.pickedItemIndex != -1 && OVRInput.GetDown(OVRInput.RawButton.A))
