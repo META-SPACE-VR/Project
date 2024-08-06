@@ -22,18 +22,18 @@ public class PlayerData : MonoBehaviour
     // 플레이어의 이름을 설정하고 UI에 표시 
     public void SetNickname(string nickname)
     {
-        // if (nicknameUI == null)
-        // {
-        //     // 닉네임 UI를 생성하고 위치를 설정
-        //     nicknameUI = Instantiate(
-        //         GameManager.rm.worldCanvasNicknamePrefab,
-        //         uiPoint.transform.position,
-        //         Quaternion.identity,
-        //         GameManager.im.nicknameHolder);
-        //     nicknameUI.target = uiPoint;
-        // }
-        // // 닉네임 UI에 이름을 설정
-        // nicknameUI.worldNicknameText.text = nickname;
+        if (nicknameUI == null)
+        {
+            // 닉네임 UI를 생성하고 위치를 설정
+            nicknameUI = Instantiate(
+                ResourceManager.Instance.worldCanvasNicknamePrefab,
+                uiPoint.transform.position,
+                Quaternion.identity,
+                InterfaceManager.Instance.nicknameHolder);
+            nicknameUI.target = uiPoint;
+        }
+        // 닉네임 UI에 이름을 설정
+        nicknameUI.worldNicknameText.text = nickname;
     }
 
     public void SetColour(Color col)

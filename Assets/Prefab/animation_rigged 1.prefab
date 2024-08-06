@@ -4671,7 +4671,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1025
   <SelectedObject>k__BackingField: {fileID: 0}
-  handTransform: {fileID: 0}
+  handTransform: {fileID: 6888356035136832851}
   holdingForce: 0.5
   heldObjectLayer: 0
   heldClamXRotation: 45
@@ -4770,11 +4770,11 @@ MonoBehaviour:
     _value: 0
   _GameState: 0
   _PlayerObject: {fileID: 0}
-  _Nickname:
+  _ColorIndex: 0
+  _Job:
     _length: 0
     _data:
       Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  _ColorIndex: 0
 --- !u!114 &-6619713289061488572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4788,7 +4788,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiPoint: {fileID: 2990486439273982253}
-  job: 
+  currentJob: 
 --- !u!114 &7471953374926046819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5243,5 +5243,10 @@ PrefabInstance:
 --- !u!4 &3364793161828098352 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8783264652906352539, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+  m_PrefabInstance: {fileID: 6293297961784258219}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &6888356035136832851 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 634464896685763576, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
   m_PrefabInstance: {fileID: 6293297961784258219}
   m_PrefabAsset: {fileID: 0}
