@@ -78,7 +78,7 @@ namespace HPlayer
             Interactable foundInteractable = null;
 
             // 손의 위치에서 월드 공간으로 레이캐스트 수행
-            Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+            Ray ray = new Ray(handTransform.position, handTransform.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hit, selectRange, selectLayer))
                 foundInteractable = hit.collider.GetComponent<Interactable>();
