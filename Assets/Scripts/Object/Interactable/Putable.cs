@@ -12,6 +12,16 @@ public class Putable : MonoBehaviour
     public Transform putItemPosition;
     public Collectable putItem;
 
+    public void InjectInventoryManager(InventoryManager manager)
+    {
+        inventoryManager = manager;
+    }
+
+    public void InjectGuideText(TextMeshProUGUI textMesh)
+    {
+        guideText = textMesh;
+    }
+
     public void ShowText()
     {
         if (inventoryManager.pickedItemIndex != -1)
