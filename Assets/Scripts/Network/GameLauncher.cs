@@ -19,6 +19,7 @@ public enum ConnectionStatus
 
 public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 {
+	// [SerializeField] private MapData mapData; 
 	[SerializeField] private GameManager _gameManagerPrefab;
 	[SerializeField] private RoomPlayer _roomPlayerPrefab;
 	[SerializeField] private DisconnectUI _disconnectUI;
@@ -41,7 +42,7 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
 		DontDestroyOnLoad(gameObject);
 
-		SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
+		// SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
 	}
 
 	public void SetCreateLobby() => _gameMode = GameMode.Host;
@@ -89,7 +90,7 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
 		if (status == ConnectionStatus.Disconnected || status == ConnectionStatus.Failed)
 		{
-			SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
+			// SceneManager.LoadScene(LevelManager.LOBBY_SCENE);
 			UIScreen.BackToInitial();
 		}
 	}
@@ -143,9 +144,13 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 		Debug.Log($"Player {player} Joined!");
 		if (runner.IsServer)
 		{
+			Vector3 pos = new(0,0,130);
+			// Vector3 pos = mapData.GetSpawnPosition(player.AsIndex);
+			// Vector3 pos = GameManager.Instance.mapData.GetSpawnPosition(player.AsIndex);
+
 			if(_gameMode==GameMode.Host)
 				runner.Spawn(_gameManagerPrefab, Vector3.zero, Quaternion.identity);
-			var roomPlayer = runner.Spawn(_roomPlayerPrefab, Vector3.zero, Quaternion.identity, player);
+			var roomPlayer = runner.Spawn(_roomPlayerPrefab, pos, Quaternion.identity, player);
 			roomPlayer.GameState = RoomPlayer.EGameState.Lobby;
 		}
 		SetConnectionStatus(ConnectionStatus.Connected);
