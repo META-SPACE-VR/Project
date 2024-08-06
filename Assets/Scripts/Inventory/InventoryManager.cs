@@ -7,14 +7,17 @@ using UnityEngine.UI;
 
 public class InventoryManager : MonoBehaviour
 {
+    [Header("Inventory Slot")]
     public List<Collectable> initialItems;
     public GameObject[] slots;
     public Dictionary<int, Collectable> collectables;
 
+    [Header("Item Pickup")]
     public int pickedItemIndex = -1;
     public GameObject pickedItemPosition;
     private GameObject pickedItem;
 
+    [Header("Item Zoom In")]
     public bool isItemZoomed = false;
     public Transform zoomedItemPosition;
     public Transform originalCameraPosition;
