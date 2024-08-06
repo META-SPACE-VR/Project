@@ -48,6 +48,12 @@ public class Timer : MonoBehaviour
         }
     }
 
+    // 타이머 멈추기 메서드
+    public void StopTimer()
+    {
+        isGameOver = true;
+    }
+
     // 제한 시간에 대한 남은 시간을 문자열로 반환
     public string GetTimeString()
     {
