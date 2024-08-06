@@ -31,6 +31,9 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
     private FusionObjectPoolRoot _pool;
 	private LevelManager _levelManager;
 
+	public GameObject Camera;
+	public GameObject OVR;
+
 	private void Start()
 	{
 		//Physics.autoSimulation = false;
@@ -50,6 +53,10 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 
 	public void JoinOrCreateLobby()
 	{
+		// 카메라 갈아타기
+		// Camera.SetActive(false);
+		// OVR.SetActive(false);
+
 		SetConnectionStatus(ConnectionStatus.Connecting);
 
 		if (_runner != null)
