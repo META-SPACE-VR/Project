@@ -6,6 +6,13 @@ public class OVRPlayerControllerWithAnimation : MonoBehaviour
     public Animator animator;  // Animator 참조
     public Transform avatarTransform;  // 아바타의 Transform 참조
     public InventoryManager inventoryManager; // 인벤토리 참조
+    public GameObject rig;
+
+    private void Start() {
+        rig.SetActive(true);
+        ovrPlayerController.enabled = true;
+        
+    }
 
     private void Update()
     {

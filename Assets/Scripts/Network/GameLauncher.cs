@@ -154,7 +154,7 @@ public class GameLauncher : MonoBehaviour, INetworkRunnerCallbacks
 			Vector3 pos = new(0,0,130);
 			// Vector3 pos = mapData.GetSpawnPosition(player.AsIndex);
 			// Vector3 pos = GameManager.Instance.mapData.GetSpawnPosition(player.AsIndex);
-
+			Camera.SetActive(false);
 			if(_gameMode==GameMode.Host)
 				runner.Spawn(_gameManagerPrefab, Vector3.zero, Quaternion.identity);
 			var roomPlayer = runner.Spawn(_roomPlayerPrefab, pos, Quaternion.identity, player);
