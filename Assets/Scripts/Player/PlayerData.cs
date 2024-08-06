@@ -11,6 +11,8 @@ public class PlayerData : MonoBehaviour
     public Transform uiPoint; // UI에서 플레이어의 이름을 표시할 위치
     WorldCanvasNickname nicknameUI; // 플레이어의 이름을 UI에 표시하는 컴포넌트
 
+    [SerializeField] private string job;
+
     private void Awake()
     {
         // RoomPlayer 컴포넌트를 가져옴 
@@ -18,19 +20,24 @@ public class PlayerData : MonoBehaviour
     }
 
     // 플레이어의 이름을 설정하고 UI에 표시 
-    public void SetUsername(string nickname)
+    public void SetNickname(string nickname)
     {
-        if (nicknameUI == null)
-        {
-            // 닉네임 UI를 생성하고 위치를 설정
-            nicknameUI = Instantiate(
-                GameManager.rm.worldCanvasNicknamePrefab,
-                uiPoint.transform.position,
-                Quaternion.identity,
-                GameManager.im.nicknameHolder);
-            nicknameUI.target = uiPoint;
-        }
-        // 닉네임 UI에 이름을 설정
-        nicknameUI.worldNicknameText.text = nickname;
+        // if (nicknameUI == null)
+        // {
+        //     // 닉네임 UI를 생성하고 위치를 설정
+        //     nicknameUI = Instantiate(
+        //         GameManager.rm.worldCanvasNicknamePrefab,
+        //         uiPoint.transform.position,
+        //         Quaternion.identity,
+        //         GameManager.im.nicknameHolder);
+        //     nicknameUI.target = uiPoint;
+        // }
+        // // 닉네임 UI에 이름을 설정
+        // nicknameUI.worldNicknameText.text = nickname;
+    }
+
+    public void SetColour(Color col)
+    {
+        job = ColorUtility.ToHtmlStringRGB(col);
     }
 }

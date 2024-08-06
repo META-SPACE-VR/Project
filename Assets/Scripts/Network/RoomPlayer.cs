@@ -18,9 +18,8 @@ public class RoomPlayer : NetworkBehaviour
 
     [Networked] public PlayerRef Ref { get; set; }
     [Networked] public byte Index { get; set; } 
-    [Networked] public byte ColorIndex { get; set; } //Job Index
     [Networked] public NetworkBool IsReady { get; set; }
-    [Networked] public NetworkString<_32> Username { get; set; }
+    [Networked] public NetworkString<_16> Username { get; set; }
     [Networked] public NetworkBool HasFinished { get; set; }
     [Networked] public EGameState GameState { get; set; }
     [Networked] public NetworkObject PlayerObject { get; set; }
@@ -31,11 +30,20 @@ public class RoomPlayer : NetworkBehaviour
     
     public static RoomPlayer Local;
 
+    
+    [Networked, OnChangedRender(nameof(NicknameChanged))]
+    public NetworkString<_16> Nickname { get; set; }
+    [Networked] public byte ColorIndex { get; set; } // Job Index
+    // [Networked, OnChangedRender(nameof(ColorChanged))]
+	// public byte ColorIndex { get; set; } //Job Index
+	public Color GetColor => GameManager.rm.playerColours[ColorIndex];
+
     public bool IsLeader => Object!=null && Object.IsValid && Object.HasStateAuthority;
 
     private ChangeDetector _changeDetector;
 
-    public void Server_Init(PlayerRef pRef, byte index, byte color) {
+    public void Server_Init(PlayerRef pRef, byte index, byte color) 
+    {
         Debug.Assert(Runner.IsServer);
         Ref = pRef;
         Index = index;
@@ -48,12 +56,21 @@ public class RoomPlayer : NetworkBehaviour
 
         _changeDetector = GetChangeDetector(ChangeDetector.Source.SimulationState);
 
+		// if (Object.HasStateAuthority)
+		// {
+        //     PlayerRegistry.Server_Add(Runner, Object.InputAuthority, this);
+		// }
+
         if (Object.HasInputAuthority)
         {
             Local = this;
             PlayerChanged?.Invoke(this);
             RPC_SetPlayerStats(ClientInfo.Username);
+            Rpc_SetNickname(PlayerPrefs.GetString("nickname"));
         }
+
+        NicknameChanged();
+        // ColorChanged();
 
         if (!Players.Contains(this))
         {
@@ -79,10 +96,33 @@ public class RoomPlayer : NetworkBehaviour
     }
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
-    private void RPC_SetPlayerStats(NetworkString<_32> username)
+    private void RPC_SetPlayerStats(NetworkString<_16> username)
     {
         Username = username;
     }
+
+	[Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+	void Rpc_SetNickname(string nick)
+	{
+		Nickname = nick;
+	}
+
+	// [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
+	// public void Rpc_SetColor(byte c)
+	// {
+	// 	if (PlayerRegistry.IsColorAvailable(c))
+	// 		ColorIndex = c;
+	// }
+
+	void NicknameChanged()
+	{
+		GetComponent<PlayerData>().SetNickname(Nickname.Value);
+	}
+	// void ColorChanged()
+	// {
+	// 	GetComponent<PlayerData>().SetColour(GetColor);
+	// }
+
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
     public void RPC_ChangeReadyState(NetworkBool state)

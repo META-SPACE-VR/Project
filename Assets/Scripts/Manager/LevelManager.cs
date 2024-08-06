@@ -30,7 +30,6 @@ namespace Managers
         // 특정 씬을 로드하는 메소드
         public static void LoadTrack(int sceneIndex)
         {
-            Debug.Log("뒤질래");
             Instance.Runner.LoadScene(SceneRef.FromIndex(sceneIndex));  // 지정된 씬을 로드함
         }
 
@@ -57,7 +56,7 @@ namespace Managers
                     foreach (var player in playersArray)
                     {
                         player.GameState = RoomPlayer.EGameState.GameCutscene;  // 플레이어의 게임 상태를 컷씬으로 변경
-                        GameManager.CurrentMap.SpawnPlayer(Runner, player);  // 플레이어를 트랙에 스폰
+                        // GameManager.CurrentMap.SpawnPlayer(Runner, player);  // 플레이어를 트랙에 스폰
                     }
                 }
             }
