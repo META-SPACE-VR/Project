@@ -6,8 +6,6 @@ public class MoveEvent : UnityEvent<MoveType> {}
 
 public class RobotArm : MonoBehaviour
 {
-    const float EPSILON = 0.001f;
-
     [SerializeField]
     Vector2 initPosInPuzzle; // 로봇 팔의 초기 위치 (퍼즐판 기준)
 
@@ -58,18 +56,8 @@ public class RobotArm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if(Input.GetKeyDown(KeyCode.W)) { MoveUp(); }
-        if(Input.GetKeyDown(KeyCode.S)) { MoveDown(); }
-        if(Input.GetKeyDown(KeyCode.A)) { MoveLeft(); }
-        if(Input.GetKeyDown(KeyCode.D)) { MoveRight(); }
-        if(Input.GetKeyDown(KeyCode.Space)) { MoveAttach(); }
-
         // isMoving이 true면 로봇팔 이동 시도
         if(isMoving) {
-            if(selectedContainer && selectedContainer.GetComponent<Container>().IsKinematic() && !isMoveReset) {
-                selectedContainer.GetComponent<Container>().changeNonKinematic(false);
-            }
-
             Vector3 curPos = new Vector3(unitLength * (curPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (curPosInPuzzle.y - 2.5f)) + offset1;
             Vector3 newPos = new Vector3(unitLength * (targetPosInPuzzle.x - 2.5f), transform.localPosition.y, unitLength * (targetPosInPuzzle.y - 2.5f)) + offset2;
             UpdatePosition(curPos, newPos, isMoveReset); // 로봇팔의 위치 설정
@@ -140,7 +128,7 @@ public class RobotArm : MonoBehaviour
                             offset2 = hit.collider.transform.localPosition - transform.localPosition;
                             offset2.y = 0;
 
-                            if((offset2-Vector3.zero).magnitude <= EPSILON) {
+                            if(offset2 == Vector3.zero) {
                                 AttachContainer(selectedContainer);
                             }
                         }
@@ -170,7 +158,7 @@ public class RobotArm : MonoBehaviour
         isAttaching = true;
         container.transform.SetParent(attachPoint);
         container.transform.localPosition = Vector3.zero;
-        container.GetComponent<Container>().changeKinematic();
+        container.GetComponent<Rigidbody>().useGravity = false;
     }
 
     // 로봇 팔에서 컨테이너 제거 
@@ -181,7 +169,7 @@ public class RobotArm : MonoBehaviour
         
         attachPoint.DetachChildren();
         container.transform.parent = containerPuzzle;
-        container.GetComponent<Container>().changeNonKinematic(true);
+        container.GetComponent<Rigidbody>().useGravity = true;
 
         selectedContainer = null;
         isAttaching = false;
@@ -189,10 +177,6 @@ public class RobotArm : MonoBehaviour
 
     // 이동 초기화
     public void ResetMove() {
-        if(selectedContainer) {
-            selectedContainer.GetComponent<Container>().changeKinematic();
-        }
-
         isMoveReset = true;
     }
 
