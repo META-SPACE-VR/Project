@@ -278,11 +278,11 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(collider);
         }
-        CollectableObject collectable = zoomedItem.GetComponent<CollectableObject>();
+        // CollectableObject collectable = zoomedItem.GetComponent<CollectableObject>();
 
         zoomedItem.SetActive(true);
         zoomedItemPosition.SetActive(true);
-        collectable.Type = ObjectType.Zoomed;
+        // collectable.Type = ObjectType.Zoomed;
     }
 
     public void UnzoomItem()
