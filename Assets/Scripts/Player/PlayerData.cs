@@ -22,6 +22,7 @@ public class PlayerData : MonoBehaviour
     // 플레이어의 이름을 설정하고 UI에 표시 
     public void SetNickname(string nickname)
     {
+        Debug.Log("SetNickname 들어왔어!!");
         if (nicknameUI == null)
         {
             // 닉네임 UI를 생성하고 위치를 설정
