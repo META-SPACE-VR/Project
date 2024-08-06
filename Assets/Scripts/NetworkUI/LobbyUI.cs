@@ -47,9 +47,10 @@ public class LobbyUI : MonoBehaviour, IDisabledUI
         // 플레이어가 방에 참여하거나 나갈 때 호출될 메소드를 설정합니다.
         RoomPlayer.PlayerJoined += AddPlayer;
         RoomPlayer.PlayerLeft += RemovePlayer;
-
+        
         // 플레이어의 상태가 변경될 때 호출될 메소드를 설정합니다.
         RoomPlayer.PlayerChanged += EnsureAllPlayersReady;
+        
 
         // 준비 완료 버튼에 클릭 리스너를 추가합니다.
         readyUp.onClick.AddListener(ReadyUpListener);
@@ -129,6 +130,7 @@ public class LobbyUI : MonoBehaviour, IDisabledUI
 
         if (IsAllReady()) // 모든 플레이어가 준비 완료 상태인지 확인합니다.
         {
+            ResourceManager.Instance.Start();
             // 선택된 트랙의 씬을 로드합니다.
             // int scene = ResourceManager.Instance.tracks[GameManager.Instance.TrackId].buildIndex;
             int scene = 1; // 임시
