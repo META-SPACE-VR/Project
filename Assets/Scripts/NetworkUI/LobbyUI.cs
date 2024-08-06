@@ -7,6 +7,8 @@ using TMPro;
 
 public class LobbyUI : MonoBehaviour, IDisabledUI
 {
+    public GameObject mainCanvasEventSystem; 
+
     // UI 요소들을 연결할 변수들
     public GameObject textPrefab; // 플레이어 정보를 표시할 UI 프리팹
     public Transform parent; // UI 프리팹이 생성될 부모 오브젝트
@@ -130,7 +132,9 @@ public class LobbyUI : MonoBehaviour, IDisabledUI
 
         if (IsAllReady()) // 모든 플레이어가 준비 완료 상태인지 확인합니다.
         {
-            ResourceManager.Instance.Start();
+            ResourceManager.Instance.Start(); //직업 할당
+            mainCanvasEventSystem.SetActive(false); //이벤트 리스너 중복 제거 
+
             // 선택된 트랙의 씬을 로드합니다.
             // int scene = ResourceManager.Instance.tracks[GameManager.Instance.TrackId].buildIndex;
             int scene = 1; // 임시

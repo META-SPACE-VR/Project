@@ -17068,6 +17068,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40bacdfb256d0c24796cc081b2b4ff55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCanvasEventSystem: {fileID: 1080296710}
   textPrefab: {fileID: 3517794001279820860, guid: 47b7220572ce35c4b9dde525633d3e3b, type: 3}
   parent: {fileID: 93879118}
   readyUp: {fileID: 2091046141}
