@@ -21,7 +21,7 @@ public class OVRPlayerControllerWithAnimation : MonoBehaviour
                          Input.GetKey(KeyCode.RightShift);
 
         // 점프 버튼이 눌렸는지 확인
-        bool isJumping = OVRInput.GetDown(OVRInput.Button.Three) ||
+        bool isJumping = OVRInput.GetDown(OVRInput.RawButton.X) ||
                         Input.GetKey(KeyCode.Space); 
 
         // 애니메이터의 "Walk", "Run", 및 "Jump" 파라미터를 설정
@@ -39,7 +39,7 @@ public class OVRPlayerControllerWithAnimation : MonoBehaviour
         avatarTransform.rotation = playerRotation;
 
         // 아이템 버리기 (X)
-        if (inventoryManager.pickedItemIndex != -1 && OVRInput.GetDown(OVRInput.RawButton.X))
+        if (inventoryManager.pickedItemIndex != -1 && OVRInput.GetDown(OVRInput.RawButton.Y))
         {
             Vector3 dropPosition = avatarTransform.position + avatarTransform.forward * 2f + Vector3.up * 2.5f;
             inventoryManager.DropItem(inventoryManager.pickedItemIndex, dropPosition);
