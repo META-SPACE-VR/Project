@@ -10,6 +10,7 @@ public class LabScreenController : MonoBehaviour
     public GameObject keyboard;
     public Renderer screen;
     public Material labPasswordSuccessMaterial;
+    public bool isSucceeded = false;
 
     private string code = "";
 
@@ -36,6 +37,7 @@ public class LabScreenController : MonoBehaviour
         if (code == answer)
         {
             screen.material = labPasswordSuccessMaterial;
+            isSucceeded = true;
             password.gameObject.SetActive(false);
             keyboard.SetActive(false);
         }

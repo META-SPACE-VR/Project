@@ -1,3 +1,4 @@
+using Oculus.Interaction.Surfaces;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,35 +10,7 @@ public class MixerCoverController : MonoBehaviour
     public Transform rightCover;
     public Vector3 distance = new Vector3(0, 0, -0.5f);
 
-    private readonly float range = 5.0f;
-    private Camera mainCamera;
-
-    private void Start()
-    {
-        mainCamera = Camera.main;
-    }
-
-    private void Update()
-    {
-        if (OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger) && Camera.main != null)
-        {
-            Vector3 controllerPosition = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
-            Vector3 controllerForward = OVRInput.GetLocalControllerRotation(OVRInput.Controller.RTouch) * Vector3.forward;
-
-            Ray ray = new Ray(controllerPosition, controllerForward);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit, range))
-            {
-                if (hit.transform == leftCover || hit.transform == rightCover)
-                {
-                    ToggleDoor();
-                }
-            }
-        }
-    }
-
-    private void ToggleDoor()
+    public void ToggleDoor()
     {
         isClosed = !isClosed;
         if (isClosed)

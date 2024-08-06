@@ -1,3 +1,4 @@
+using Meta.WitAi;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -34,10 +35,13 @@ public class Putable : MonoBehaviour
     {
         if (inventoryManager.pickedItemIndex != -1)
         {
-            Collectable obj = inventoryManager.GetItemByIndex(inventoryManager.pickedItemIndex);
-            putItem = obj;
-            inventoryManager.PutItem(putItemPosition);
+            putItem = inventoryManager.PutItem(putItemPosition);
             guideText.gameObject.SetActive(false);
         }
+    }
+
+    public void RemovePutItem()
+    {
+        putItem = null;
     }
 }
