@@ -11,7 +11,7 @@ public class PlayerData : MonoBehaviour
     public Transform uiPoint; // UI에서 플레이어의 이름을 표시할 위치
     WorldCanvasNickname nicknameUI; // 플레이어의 이름을 UI에 표시하는 컴포넌트
 
-    [SerializeField] private string job;
+    [SerializeField] private string currentJob;
 
     private void Awake()
     {
@@ -38,6 +38,11 @@ public class PlayerData : MonoBehaviour
 
     public void SetColour(Color col)
     {
-        job = ColorUtility.ToHtmlStringRGB(col);
+        // col = ColorUtility.ToHtmlStringRGB(col);
+    }
+
+    public void SetJob(string job)
+    {
+        currentJob = job;
     }
 }

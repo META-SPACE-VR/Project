@@ -130,6 +130,7 @@ public class LobbyUI : MonoBehaviour, IDisabledUI
 
         if (IsAllReady()) // 모든 플레이어가 준비 완료 상태인지 확인합니다.
         {
+            ResourceManager.Instance.Start();
             // 선택된 트랙의 씬을 로드합니다.
             // int scene = ResourceManager.Instance.tracks[GameManager.Instance.TrackId].buildIndex;
             int scene = 1; // 임시

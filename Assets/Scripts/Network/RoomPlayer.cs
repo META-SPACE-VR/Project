@@ -30,13 +30,15 @@ public class RoomPlayer : NetworkBehaviour
     
     public static RoomPlayer Local;
 
-    
-    [Networked, OnChangedRender(nameof(NicknameChanged))]
-    public NetworkString<_16> Nickname { get; set; }
     [Networked] public byte ColorIndex { get; set; } // Job Index
+    // [Networked, OnChangedRender(nameof(NicknameChanged))]
+    // public NetworkString<_16> Nickname { get; set; }
     // [Networked, OnChangedRender(nameof(ColorChanged))]
-	// public byte ColorIndex { get; set; } //Job Index
-	public Color GetColor => GameManager.rm.playerColours[ColorIndex];
+	// public byte ColorIndex { get; set; } 
+	// public Color GetColor => GameManager.rm.playerColours[ColorIndex];
+
+    [Networked, OnChangedRender(nameof(JobChanged))]
+    public NetworkString<_16> Job { get; set; }
 
     public bool IsLeader => Object!=null && Object.IsValid && Object.HasStateAuthority;
 
@@ -66,11 +68,9 @@ public class RoomPlayer : NetworkBehaviour
             Local = this;
             PlayerChanged?.Invoke(this);
             RPC_SetPlayerStats(ClientInfo.Username);
-            Rpc_SetNickname(PlayerPrefs.GetString("nickname"));
+            // Rpc_SetNickname(PlayerPrefs.GetString("nickname"));
         }
-
-        NicknameChanged();
-        // ColorChanged();
+        // NicknameChanged();
 
         if (!Players.Contains(this))
         {
@@ -91,6 +91,9 @@ public class RoomPlayer : NetworkBehaviour
                 case nameof(Username):
                     OnStateChanged(this);
                     break;
+                // case nameof(Job):
+                //     JobChanged();
+                //     break;
             }
         }
     }
@@ -102,27 +105,15 @@ public class RoomPlayer : NetworkBehaviour
     }
 
 	[Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-	void Rpc_SetNickname(string nick)
+	public void Rpc_SetJob(string job)
 	{
-		Nickname = nick;
+		Job = job;
 	}
-
-	// [Rpc(RpcSources.InputAuthority, RpcTargets.StateAuthority)]
-	// public void Rpc_SetColor(byte c)
-	// {
-	// 	if (PlayerRegistry.IsColorAvailable(c))
-	// 		ColorIndex = c;
-	// }
-
-	void NicknameChanged()
+    
+	void JobChanged()
 	{
-		GetComponent<PlayerData>().SetNickname(Nickname.Value);
+		GetComponent<PlayerData>().SetJob(Job.Value);
 	}
-	// void ColorChanged()
-	// {
-	// 	GetComponent<PlayerData>().SetColour(GetColor);
-	// }
-
 
     [Rpc(sources: RpcSources.InputAuthority, targets: RpcTargets.StateAuthority)]
     public void RPC_ChangeReadyState(NetworkBool state)
