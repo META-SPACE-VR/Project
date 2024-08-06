@@ -141,7 +141,7 @@ public class InventoryManager : MonoBehaviour
 
     public void PickItem(int index)
     {
-        if (index < 0 || index >= slots.Length)
+        if (index < 0 || index >= collectables.Count)
         {
             Debug.LogError("Index Error: Inventory Manager Pick Item Index Error.");
             return;
@@ -184,7 +184,7 @@ public class InventoryManager : MonoBehaviour
         pickedItemPosition.SetActive(true);
     }
 
-    public void PutItem(Transform putItemPosition)
+    public Collectable PutItem(Transform putItemPosition)
     {
         
         Collectable obj = collectables[pickedItemIndex];
@@ -200,6 +200,8 @@ public class InventoryManager : MonoBehaviour
 
         DestroyItem(pickedItemIndex);
         DeselectItem();
+
+        return putItem.GetComponent<Collectable>();
     }
 
     public void DropItem(int index, Vector3 dropPosition)
@@ -217,7 +219,7 @@ public class InventoryManager : MonoBehaviour
                 rb.isKinematic = false;
 
                 RemoveItem(index);
-                pickedItemIndex = -1;
+                DeselectItem();
             }
         }
     }
@@ -275,11 +277,11 @@ public class InventoryManager : MonoBehaviour
         {
             Destroy(collider);
         }
-        CollectableObject collectable = zoomedItem.GetComponent<CollectableObject>();
+        // CollectableObject collectable = zoomedItem.GetComponent<CollectableObject>();
 
         zoomedItem.SetActive(true);
         zoomedItemPosition.SetActive(true);
-        collectable.Type = ObjectType.Zoomed;
+        // collectable.Type = ObjectType.Zoomed;
     }
 
     public void UnzoomItem()
