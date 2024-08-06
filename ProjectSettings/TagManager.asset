@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - Corridor
   - Medicine
+  - Floor
   layers:
   - Default
   - TransparentFX
