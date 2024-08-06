@@ -2662,7 +2662,11 @@ PrefabInstance:
     - target: {fileID: 1947678447175839936, guid: 2bf78d5a5660cac43a4dd20100e807f3, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: 0f8cd3dc87860f64eaf88d5fc5266de7, type: 3}
+      objectReference: {fileID: 0}
+    - target: {fileID: 3893653228375590647, guid: 2bf78d5a5660cac43a4dd20100e807f3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3893653228375590647, guid: 2bf78d5a5660cac43a4dd20100e807f3, type: 3}
       propertyPath: masterMixer
       value: 
