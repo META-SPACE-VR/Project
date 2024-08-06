@@ -25,11 +25,7 @@ public class TeleportPlayer : MonoBehaviour
 
     void Start()
     {
-        if (player == null) Debug.LogError("Player is not assigned.");
-        if (interactionPrompt == null) Debug.LogError("interactionPrompt is not assigned.");
-        if (boxColliderObject == null) Debug.LogError("Box Collider Object is not assigned.");
-
-        interactionPrompt.SetActive(false); // 시작 시 텍스트 비활성화
+        // interactionPrompt.SetActive(false); // 시작 시 텍스트 비활성화
         originalBoxColliderPosition = boxColliderObject.transform.position;
     }
 
