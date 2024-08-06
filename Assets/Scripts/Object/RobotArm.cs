@@ -58,11 +58,6 @@ public class RobotArm : MonoBehaviour
     // Update is called once per frame
     void Update()
     {   
-        if(Input.GetKeyDown(KeyCode.W)) { MoveUp(); }
-        if(Input.GetKeyDown(KeyCode.S)) { MoveDown(); }
-        if(Input.GetKeyDown(KeyCode.A)) { MoveLeft(); }
-        if(Input.GetKeyDown(KeyCode.D)) { MoveRight(); }
-        if(Input.GetKeyDown(KeyCode.Space)) { MoveAttach(); }
 
         // isMoving이 true면 로봇팔 이동 시도
         if(isMoving) {
