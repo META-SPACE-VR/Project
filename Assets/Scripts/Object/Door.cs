@@ -5,9 +5,10 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     public Animator anim;
+
+    /*
     public Transform player;
     public Transform door;
-
 
     // Update is called once per frame
     void Update()
@@ -19,6 +20,23 @@ public class Door : MonoBehaviour
             anim.SetBool("character_nearby", true);
         }
         else
+        {
+            anim.SetBool("character_nearby", false);
+        }
+    }
+    */
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            anim.SetBool("character_nearby", true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
             anim.SetBool("character_nearby", false);
         }
