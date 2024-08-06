@@ -2847,6 +2847,7 @@ GameObject:
   - component: {fileID: 4891516635402444828}
   - component: {fileID: 1310511169384431252}
   - component: {fileID: 5126228670792355432}
+  - component: {fileID: 2444939506013131184}
   m_Layer: 0
   m_Name: PickedItemPosition
   m_TagString: Untagged
@@ -2919,6 +2920,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2444939506013131184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5656203676269823419}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9d135824c4febf43b83296a6dbd2160, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 45
 --- !u!1 &5710628130981074437
 GameObject:
   m_ObjectHideFlags: 0
@@ -5294,6 +5308,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8455160380430631007, guid: 025c06920162d7f4f80712af243f7653, type: 3}
+      propertyPath: pickedItemPosition
+      value: 
+      objectReference: {fileID: 5656203676269823419}
     - target: {fileID: 9070644724968222412, guid: 025c06920162d7f4f80712af243f7653, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
