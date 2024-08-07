@@ -56,7 +56,7 @@ namespace Managers
                     foreach (var player in playersArray)
                     {
                         player.GameState = RoomPlayer.EGameState.GameCutscene;  // 플레이어의 게임 상태를 컷씬으로 변경
-                        // GameManager.CurrentMap.SpawnPlayer(Runner, player);  // 플레이어를 트랙에 스폰
+                        GameManager.CurrentMap.SpawnPlayer(Runner, player);  // 플레이어를 트랙에 스폰
                     }
                 }
             }

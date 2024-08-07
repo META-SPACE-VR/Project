@@ -4819,12 +4819,6 @@ PrefabInstance:
       addedObject: {fileID: 954448963539345376}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6763136897882420383}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: -6619713289061488572}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 7471953374926046819}
   m_SourcePrefab: {fileID: 100100000, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
 --- !u!1 &1186002686319197492 stripped
@@ -4994,48 +4988,6 @@ MonoBehaviour:
   avatarTransform: {fileID: 1963102713336473486}
   inventoryManager: {fileID: 7744234638062640345}
   rig: {fileID: 6026954920427375842}
---- !u!114 &6763136897882420383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186002686319197492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec56cf31650657e4598ed7986b23e0a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _Index: 0
-  _IsReady:
-    _value: 0
-  _Username:
-    _length: 0
-    _data:
-      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
-  _HasFinished:
-    _value: 0
-  _GameState: 0
-  _PlayerObject: {fileID: 0}
-  _ColorIndex: 0
-  _Job:
-    _length: 0
-    _data:
-      Data: 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
---- !u!114 &-6619713289061488572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1186002686319197492}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0132f07c28cfe7469982e221504768c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiPoint: {fileID: 2990486439273982253}
-  currentJob: 
 --- !u!114 &7471953374926046819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5052,8 +5004,7 @@ MonoBehaviour:
   ObjectInterest: 1
   Flags: 262145
   NestedObjects: []
-  NetworkedBehaviours:
-  - {fileID: 6763136897882420383}
+  NetworkedBehaviours: []
 --- !u!4 &1963102713336473486 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7ca436c9286124b2bbcc2346ef81c0b6, type: 3}
