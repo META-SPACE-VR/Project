@@ -56,7 +56,7 @@ public class MachineManager : MonoBehaviour
         }
     }
 
-    void OnDestroy()
+    void Destroy()
     {
         // 게임 오브젝트가 파괴되거나 씬이 전환될 때 도구를 원래 부모로 복원합니다.
         scalpel.transform.SetParent(scalpelOriginalParent);
