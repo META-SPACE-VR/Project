@@ -4987,6 +4987,7 @@ MonoBehaviour:
   animator: {fileID: 2302217946582495097}
   avatarTransform: {fileID: 1963102713336473486}
   inventoryManager: {fileID: 7744234638062640345}
+  rig: {fileID: 6026954920427375842}
 --- !u!114 &7471953374926046819
 MonoBehaviour:
   m_ObjectHideFlags: 0

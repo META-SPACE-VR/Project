@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.031356305, g: 0.009549969, b: 0.0132265445, a: 1}
+  m_IndirectSpecularColor: {r: 0.03150508, g: 0.009773986, b: 0.013272771, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23741,7 +23741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameManagerPrefab: {fileID: 8191488350400452051, guid: 711bef811d77f9441bc6114f520b3c37, type: 3}
-  _roomPlayerPrefab: {fileID: 6763136897882420383, guid: ac755594736736648aaf98e3d1a10f4b, type: 3}
+  _roomPlayerPrefab: {fileID: 3295496192561113520, guid: 7d0dfce0a06a2a54e82669c18295b1a2, type: 3}
   _disconnectUI: {fileID: 1111256009}
   Camera: {fileID: 688757940}
   OVR: {fileID: 488357151}

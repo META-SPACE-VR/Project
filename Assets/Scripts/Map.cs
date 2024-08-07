@@ -38,23 +38,24 @@ public class Map : NetworkBehaviour
 	}
 	public void SpawnPlayer(NetworkRunner runner, RoomPlayer player)
 	{
-		if (player.IsSpawned())
-		{
-			Debug.Log($"플레이어 {player.Username}가 이미 스폰되었습니다.");
-			return;
-		}
-		Debug.Log($"플레이어 {player.Username} 스폰 시도");
-		var index = RoomPlayer.Players.IndexOf(player);
-		if (index < 0 || index >= spawnpoints.Length)
-		{
-			Debug.LogError($"유효하지 않은 스폰 포인트 인덱스: {index}");
-			return;
-		}
+		// if (player.IsSpawned())
+		// {
+		// 	Debug.Log($"플레이어 {player.Username}가 이미 스폰되었습니다.");
+		// 	return;
+		// }
+		// Debug.Log($"플레이어 {player.Username} 스폰 시도");
+		// var index = RoomPlayer.Players.IndexOf(player);
+		// if (index < 0 || index >= spawnpoints.Length)
+		// {
+		// 	Debug.LogError($"유효하지 않은 스폰 포인트 인덱스: {index}");
+		// 	return;
+		// }
 
 		// var point = spawnpoints[index];
+        Vector3 pos = new(0,0,130);
 
         // var playerObject = runner.Spawn(prefab, Vector3.zero, Quaternion.identity, player.Object.InputAuthority);
-        var playerObject = runner.Spawn(playerPrefab, Vector3.zero, Quaternion.identity);
+        var playerObject = runner.Spawn(playerPrefab, pos, Quaternion.identity, player.Object.InputAuthority);
 
 
 		// var playerObject = runner.Spawn(
