@@ -41,7 +41,7 @@ public class ResourceManager : MonoBehaviour
         managedObjects.Clear();
     }
 
-    public void Start()
+    public void Assign()
     {
         Debug.Log("ResourceManager 에서 Try to assign jobs");
         //직업 리스트를 복사하여 초기화

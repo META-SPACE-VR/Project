@@ -4993,6 +4993,7 @@ MonoBehaviour:
   animator: {fileID: 2302217946582495097}
   avatarTransform: {fileID: 1963102713336473486}
   inventoryManager: {fileID: 7744234638062640345}
+  rig: {fileID: 6026954920427375842}
 --- !u!114 &6763136897882420383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5559,10 +5560,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1963102713336473486}
     m_Modifications:
+    - target: {fileID: 265166426176336791, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1303940882875996210, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: _ovrCameraRig
       value: 
       objectReference: {fileID: 1087156001915498593}
+    - target: {fileID: 6703735061944799530, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8424482620031334501, guid: 314f6e1da20902f4ba50509fa6eb8fa8, type: 3}
       propertyPath: _playerOrigin
       value: 
