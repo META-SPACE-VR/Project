@@ -275,3 +275,29 @@ META SPACE는 VR 플랫폼을 통해 현실감 넘치는 간접 우주 체험을
 - SDF D 포럼 인터뷰 자료 https://sdf.or.kr/m/newsletter/10000001283
 - 한겨래 신문 보도자료https://www.hani.co.kr/arti/society/environment/1134211.html
 - 과학기술정보통신부 우주개발진흥 기본계획 https://www.msit.go.kr/bbs/view.do?sCode=user&bbsSeqNo=65&nttSeqNo=3017397
+
+# 8. 팀원
+
+<table>
+ <tr>
+    <td align="center"><a href="https://github.com/KTaeGyu"><img src="https://avatars.githubusercontent.com/KTaeGyu" width="130px;" alt=""></a></td>
+    <td align="center"><a href="https://github.com/Starbow-Break"><img src="https://avatars.githubusercontent.com/Starbow-Break" width="130px;" alt=""></a></td>
+    <td align="center"><a href="https://github.com/1234jienf"><img src="https://avatars.githubusercontent.com/1234jienf" width="130px;" alt=""></a></td>
+    <td align="center"><a href="https://github.com/namoo1818"><img src="https://avatars.githubusercontent.com/namoo1818" width="130px;" alt=""></a></td>
+    <td align="center"><a href="https://github.com/aycho00"><img src="https://avatars.githubusercontent.com/aycho00" width="130px;" alt=""></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/KTaeGyu"><b>김태규</b></a></td>
+    <td align="center"><a href="https://github.com/Starbow-Break"><b>김범수</b></a></td>
+    <td align="center"><a href="https://github.com/1234jienf"><b>백지윤</b></a></td>
+    <td align="center"><a href="https://github.com/namoo1818"><b>이민지</b></a></td>
+    <td align="center"><a href="https://github.com/aycho00"><b>조아영</b></a></td>
+  </tr>
+  <tr>
+    <td align="center">팀장</td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+    <td align="center"></td>
+  </tr>
+</table>
