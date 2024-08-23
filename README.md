@@ -18,7 +18,7 @@ META SPACE는 우주 탐사 중 발생한 우주선 사고를 배경으로 합�
 # 2. 개발환경 및 개발언어
 
 - 개발 환경
-    - Unity 2022.2.20.f1
+    - Unity 2022.3.20.f1
     - Blender 4.2
     - Meta XR All-in-One SDK 66.0.0
     - Oculus XR Plugin
